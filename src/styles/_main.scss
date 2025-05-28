@@ -1,0 +1,12 @@
+// This is the main SASS file that imports all other partials.
+
+@import "variables";
+@import "mixins";
+@import "base";
+
+@import "components/UI-elements/applicationsSidebar";
+@import "components/UI-elements/avatar";
+@import "components/UI-elements/buttons";
+@import "components/UI-elements/cards";
+@import "components/UI-elements/datePicker";
+@import "components/UI-elements/sidebarItem";

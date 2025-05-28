@@ -1,0 +1,70 @@
+@import "variables";
+
+// Responsive breakpoints mixins
+@mixin sm {
+	@media (min-width: $breakpoint-sm) {
+		@content;
+	}
+}
+
+@mixin md {
+	@media (min-width: $breakpoint-md) {
+		@content;
+	}
+}
+
+@mixin lg {
+	@media (min-width: $breakpoint-lg) {
+		@content;
+	}
+}
+
+@mixin xl {
+	@media (min-width: $breakpoint-xl) {
+		@content;
+	}
+}
+
+@mixin xxl {
+	@media (min-width: $breakpoint-2xl) {
+		@content;
+	}
+}
+
+// Flexbox utilities
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin flex-col-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+// Button styling mixin
+@mixin button-styles($bg-color, $text-color: #fff) {
+	background-color: $bg-color;
+	color: $text-color;
+	padding: $space-sm $space-md;
+	border: none;
+	border-radius: $border-radius;
+	cursor: pointer;
+	font-size: $font-size-base;
+	transition: background-color 0.3s ease;
+
+	&:hover {
+		filter: brightness(0.9);
+	}
+}
+
+// Card styling mixin
+@mixin card-styles {
+	background-color: #fff;
+	border-radius: $border-radius-lg;
+	box-shadow: $shadow-md;
+	padding: $space-lg;
+}
