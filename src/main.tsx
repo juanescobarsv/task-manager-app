@@ -1,9 +1,8 @@
 import { StrictMode } from "react";
-import ReactDOM, { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { ApolloProvider } from "@apollo/client";
 import client from "./services/apolloClient";
 import App from "./App";
-import "./styles/_main.scss";
 
 const rootElement = document.getElementById("root");
 
