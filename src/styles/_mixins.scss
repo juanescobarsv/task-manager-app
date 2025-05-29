@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 // Responsive breakpoints mixins
 @mixin sm {
@@ -46,14 +46,14 @@
 }
 
 // Button styling mixin
-@mixin button-styles($bg-color, $text-color: #fff) {
+@mixin button-styles($bg-color: #2c2f33, $text-color: #fff) {
 	background-color: $bg-color;
 	color: $text-color;
 	padding: $space-sm $space-md;
 	border: none;
 	border-radius: $border-radius;
 	cursor: pointer;
-	font-size: $font-size-base;
+	font-size: variables.$font-size-base;
 	transition: background-color 0.3s ease;
 
 	&:hover {
