@@ -1,6 +1,6 @@
-@use "../../../styles/variables";
-@use "../../../styles/mixins";
-@use "../../../styles/base";
+@use "@/styles/variables";
+@use "@/styles/mixins";
+@use "@/styles/base";
 
 .sidebar-item {
 	@include mixins.flex-center;
@@ -51,10 +51,10 @@
 			rgba(variables.$color-primary-4, 0.2) 100%
 		);
 		.sidebar-item__icon svg {
-			fill: variables.$color-primary-4; // Icon color: primary-4 when selected
+			fill: variables.$color-primary-4;
 		}
 		.sidebar-item__label {
-			color: variables.$color-primary-4; // Text color: primary-4 when selected
+			color: variables.$color-primary-4;
 			font-weight: variables.$font-weight-bold;
 		}
 
@@ -67,7 +67,7 @@
 			transform: translateY(-50%);
 			width: 4px;
 			height: 80%;
-			background-color: variables.$color-primary-4; // Red bar color: primary-4
+			background-color: variables.$color-primary-4;
 			border-radius: variables.$border-radius;
 		}
 	}
