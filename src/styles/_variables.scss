@@ -21,7 +21,7 @@ $color-tertiary-3: #ebc77f;
 $color-tertiary-4: #e5b454;
 
 $text-color: #262338;
-$background-color: #2c2f33;
+$background-color: #222528;
 
 // Typography
 $font-family-sans-serif: "SF Compact Display", sans-serif;
@@ -40,7 +40,8 @@ $space-xl: $spacing-unit * 6; // 48px
 
 // Border Radius
 $border-radius: 6px;
-$border-radius-lg: 8px;
+$border-radius-md: 8px;
+$border-radius-lg: 24px;
 $border-radius-full: 9999px;
 
 // Box Shadows

@@ -1,34 +1,12 @@
 import { Link } from "react-router-dom";
-import SidebarItem from "./UI-elements/SidebarItem";
+import Sidebar from "./Sidebar";
 
 // BASIC RENDERS FOR THE APP
 
 export const HomePage = () => (
 	<div className='p-8 text-center'>
-		<SidebarItem
-			label='Project1'
-			iconName='new'
-			isSelected={true}
-			onClick={() => console.log("Projects clicked")}
-		/>
-		<SidebarItem
-			label='Project2'
-			iconName='tag'
-			isSelected={false}
-			onClick={() => console.log("Projects clicked")}
-		/>
-		<SidebarItem
-			label='Project3'
-			iconName='suitcase'
-			isSelected={true}
-			onClick={() => console.log("Projects clicked")}
-		/>
-		<SidebarItem
-			label='Project4'
-			iconName='bell2'
-			isSelected={false}
-			onClick={() => console.log("Projects clicked")}
-		/>
+		<Sidebar />
+		
 		<h1 className='text-4xl font-bold mb-4'>Welcome to Task Management App!</h1>
 		<p className='text-lg mb-8'>Navigate using the links below.</p>
 		<nav className='flex justify-center space-x-4'>

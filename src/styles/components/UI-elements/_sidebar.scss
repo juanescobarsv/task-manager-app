@@ -2,6 +2,42 @@
 @use "@/styles/mixins";
 @use "@/styles/base";
 
+.sidebar {
+	width: 232px;
+	background-color: variables.$color-neutral-4;
+	border-radius: variables.$border-radius-lg;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	box-shadow: variables.$shadow-lg; // not on Figma
+
+	&__logo {
+		text-align: center;
+		margin-top: 12px;
+		margin-bottom: 44px;
+
+		img {
+			width: 40px;
+			height: auto;
+		}
+	}
+
+	&__nav {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		gap: variables.$space-xs;
+	}
+
+	// Optional: Style for the bottom section if you add more items like user profile
+	&__bottom-section {
+		margin-top: auto; // Pushes this section to the bottom
+		padding-top: variables.$space-md;
+		border-top: 1px solid variables.$color-neutral-4; // Separator line
+	}
+}
+
+// SIDEBAR ITEM
 .sidebar-item {
 	@include mixins.flex-center;
 	justify-content: flex-start;
@@ -15,8 +51,8 @@
 	border-radius: variables.$border-radius;
 
 	&__icon {
-		width: 24px;
-		height: 24px;
+		width: 20px;
+		height: auto;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -45,11 +81,7 @@
 
 	&--selected {
 		// Background with gradient effect
-		background: linear-gradient(
-			to right,
-			variables.$color-neutral-5 20%,
-			rgba(variables.$color-primary-4, 0.2) 100%
-		);
+		background: linear-gradient(to right, #ba252500 0%, #d24d4d1a 100%);
 		.sidebar-item__icon svg {
 			fill: variables.$color-primary-4;
 		}
@@ -66,7 +98,7 @@
 			top: 50%;
 			transform: translateY(-50%);
 			width: 4px;
-			height: 80%;
+			height: 100%;
 			background-color: variables.$color-primary-4;
 			border-radius: variables.$border-radius;
 		}
