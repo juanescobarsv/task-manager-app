@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
+import SidebarItem from "./UI-elements/SidebarItem";
 
 // BASIC RENDERS FOR THE APP
 
 export const HomePage = () => (
 	<div className='p-8 text-center'>
+		<SidebarItem
+			label='Projects'
+			iconPath='/src/assets/icons/square.svg' // Adjust this path based on your actual file structure
+			isSelected={true}
+			onClick={() => console.log("Projects clicked")}
+		/>
 		<h1 className='text-4xl font-bold mb-4'>Welcome to Task Management App!</h1>
 		<p className='text-lg mb-8'>Navigate using the links below.</p>
 		<nav className='flex justify-center space-x-4'>

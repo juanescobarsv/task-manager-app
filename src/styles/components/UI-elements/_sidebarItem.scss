@@ -1,0 +1,74 @@
+@use "../../../styles/variables";
+@use "../../../styles/mixins";
+@use "../../../styles/base";
+
+.sidebar-item {
+	@include mixins.flex-center;
+	justify-content: flex-start;
+	padding: variables.$space-sm variables.$space-md;
+	gap: variables.$space-sm;
+	cursor: pointer;
+	position: relative;
+	transition:
+		background-color 0.2s ease-in-out,
+		color 0.2s ease-in-out;
+	border-radius: variables.$border-radius;
+
+	&__icon {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		svg {
+			fill: variables.$color-neutral-2;
+			transition: fill 0.2s ease-in-out;
+		}
+	}
+
+	&__label {
+		@extend .text-body-m;
+		color: variables.$color-neutral-2;
+		transition: color 0.2s ease-in-out;
+		font-weight: variables.$font-weight-normal;
+	}
+
+	&:hover {
+		.sidebar-item__icon svg {
+			fill: variables.$color-primary-4;
+		}
+		.sidebar-item__label {
+			color: variables.$color-primary-4;
+		}
+	}
+
+	&--selected {
+		// Background with gradient effect
+		background: linear-gradient(
+			to right,
+			variables.$color-neutral-5 20%,
+			rgba(variables.$color-primary-4, 0.2) 100%
+		);
+		.sidebar-item__icon svg {
+			fill: variables.$color-primary-4; // Icon color: primary-4 when selected
+		}
+		.sidebar-item__label {
+			color: variables.$color-primary-4; // Text color: primary-4 when selected
+			font-weight: variables.$font-weight-bold;
+		}
+
+		// Red bar for selected state
+		&::after {
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 4px;
+			height: 80%;
+			background-color: variables.$color-primary-4; // Red bar color: primary-4
+			border-radius: variables.$border-radius;
+		}
+	}
+}

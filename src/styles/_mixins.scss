@@ -2,31 +2,31 @@
 
 // Responsive breakpoints mixins
 @mixin sm {
-	@media (min-width: $breakpoint-sm) {
+	@media (min-width: variables.$breakpoint-sm) {
 		@content;
 	}
 }
 
 @mixin md {
-	@media (min-width: $breakpoint-md) {
+	@media (min-width: variables.$breakpoint-md) {
 		@content;
 	}
 }
 
 @mixin lg {
-	@media (min-width: $breakpoint-lg) {
+	@media (min-width: variables.$breakpoint-lg) {
 		@content;
 	}
 }
 
 @mixin xl {
-	@media (min-width: $breakpoint-xl) {
+	@media (min-width: variables.$breakpoint-xl) {
 		@content;
 	}
 }
 
 @mixin xxl {
-	@media (min-width: $breakpoint-2xl) {
+	@media (min-width: variables.$breakpoint-2xl) {
 		@content;
 	}
 }
@@ -46,12 +46,15 @@
 }
 
 // Button styling mixin
-@mixin button-styles($bg-color: #2c2f33, $text-color: #fff) {
+@mixin button-styles(
+	$bg-color: variables.$color-neutral-4,
+	$text-color: variables.$color-neutral-1
+) {
 	background-color: $bg-color;
 	color: $text-color;
-	padding: $space-sm $space-md;
+	padding: variables.$space-sm variables.$space-md;
 	border: none;
-	border-radius: $border-radius;
+	border-radius: variables.$border-radius;
 	cursor: pointer;
 	font-size: variables.$font-size-base;
 	transition: background-color 0.3s ease;
@@ -64,7 +67,7 @@
 // Card styling mixin
 @mixin card-styles {
 	background-color: #fff;
-	border-radius: $border-radius-lg;
-	box-shadow: $shadow-md;
-	padding: $space-lg;
+	border-radius: variables.$border-radius-lg;
+	box-shadow: variables.$shadow-md;
+	padding: variables.$space-lg;
 }

@@ -3,7 +3,6 @@ import ErrorBoundary from "./components/appErrorBoundary";
 import { HomePage, NotFoundPage, ErrorPage } from "./components/appPages";
 import DashboardView from "./components/mainDashboardView";
 import TasksView from "./components/mainTasksView";
-import "./styles/main.scss";
 
 const App: React.FC = () => {
 	return (

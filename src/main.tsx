@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ApolloProvider } from "@apollo/client";
 import client from "./services/apolloClient";
 import App from "./App";
+import "@/styles/main.scss";
 
 const rootElement = document.getElementById("root");
 
