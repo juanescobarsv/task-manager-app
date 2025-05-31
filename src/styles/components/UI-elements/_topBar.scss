@@ -1,0 +1,97 @@
+@use "@/styles/variables";
+@use "@/styles/mixins";
+
+.top-navigation-bar {
+	@include mixins.flex-center;
+	justify-content: space-between;
+	padding: variables.$space-sm variables.$space-md;
+	border-radius: variables.$border-radius-lg;
+	box-shadow: variables.$shadow-md;
+	height: 72px;
+	gap: variables.$space-md;
+
+	&__search-container {
+		@include mixins.flex-center;
+		flex-grow: 1;
+		background-color: variables.$color-neutral-4;
+		border-radius: variables.$border-radius;
+		padding: variables.$space-xs variables.$space-sm;
+		gap: variables.$space-xs;
+
+		.search-icon-wrapper,
+		.clear-search-icon-wrapper {
+			// Apply common styles to both icon wrappers
+			@include mixins.flex-center;
+			width: 24px;
+			height: 24px;
+			color: variables.$color-neutral-2; // Set color for SVG to inherit
+
+			svg {
+				width: 100%; // Make SVG fill the wrapper
+				height: 100%;
+				fill: currentColor; // Ensure SVG uses the parent's color
+				transition: fill 0.2s ease; // Smooth transition for fill color
+			}
+		}
+
+		.clear-search-icon-wrapper {
+			cursor: pointer; // Indicate clickable
+			&:hover svg {
+				fill: variables.$color-primary-4; // Hover effect for close icon
+			}
+		}
+
+		input {
+			flex-grow: 1;
+			background: none;
+			border: none;
+			outline: none;
+			color: variables.$color-neutral-1;
+			// Manually applying properties from base.text-body-m to avoid @extend issues
+			font-size: 15px; // From text-body-m
+			line-height: 24px; // From text-body-m
+			letter-spacing: 0.75px; // From text-body-m
+			padding: 0;
+
+			&::placeholder {
+				color: variables.$color-neutral-2;
+			}
+		}
+	}
+
+	&__right-section {
+		@include mixins.flex-center;
+		gap: variables.$space-md;
+
+		.notification-icon {
+			width: 24px;
+			height: 24px;
+			color: variables.$color-neutral-2;
+			cursor: pointer;
+			transition: color 0.2s ease;
+
+			&:hover {
+				color: variables.$color-primary-4;
+			}
+			svg {
+				width: 100%;
+				height: 100%;
+				fill: currentColor;
+			}
+		}
+
+		.avatar {
+			width: 40px;
+			height: 40px;
+			border-radius: variables.$border-radius-full;
+			object-fit: cover;
+			cursor: pointer;
+			border: 2px solid transparent;
+			transition: border-color 0.2s ease;
+
+			&:hover {
+				border-color: variables.$color-primary-4;
+			}
+		}
+	}
+}

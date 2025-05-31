@@ -1,28 +1,32 @@
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import TopBar from "./UI-elements/TopBar";
 
 // BASIC RENDERS FOR THE APP
 
 export const HomePage = () => (
 	<div className='p-8 text-center'>
+		<TopBar />
 		<Sidebar />
-		
-		<h1 className='text-4xl font-bold mb-4'>Welcome to Task Management App!</h1>
-		<p className='text-lg mb-8'>Navigate using the links below.</p>
-		<nav className='flex justify-center space-x-4'>
-			<Link
-				to='/dashboard'
-				className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
-			>
-				Dashboard
-			</Link>
-			<Link
-				to='/tasks'
-				className='px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors'
-			>
-				Tasks
-			</Link>
-		</nav>
+
+		<div>
+			<h1 className='text-4xl font-bold mb-4'>Welcome to Task Management App!</h1>
+			<p className='text-lg mb-8'>Navigate using the links below.</p>
+			<nav className='flex justify-center space-x-4'>
+				<Link
+					to='/dashboard'
+					className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
+				>
+					Dashboard
+				</Link>
+				<Link
+					to='/tasks'
+					className='px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors'
+				>
+					Tasks
+				</Link>
+			</nav>
+		</div>
 	</div>
 );
 
