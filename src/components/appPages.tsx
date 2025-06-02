@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
 import { Button, SwitchButton, AddButton } from "./UI-elements/Buttons";
 import Tags from "./UI-elements/Tags";
+import Avatar from "./UI-elements/Avatar";
 
 // BASIC RENDERS FOR THE APP
 
@@ -54,6 +55,10 @@ export const HomePage = () => (
 			textColor='var(--color-tertiary-4)'
 			backgroundColor='transparent'
 		/>
+		<Avatar filename='alex-suprun.jpg' size='l' text='Jerome Bell' />
+		<Avatar filename='victor-hladynets.jpg' size='m' text='Jerome Bell 2' />
+		<Avatar filename='michelle-dam.jpg' size='s' />
+
 		<div>
 			<nav className='flex justify-center space-x-4'>
 				<Link

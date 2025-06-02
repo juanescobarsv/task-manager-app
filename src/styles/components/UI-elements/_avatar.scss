@@ -1,0 +1,38 @@
+@use "@/styles/variables";
+@use "@/styles/mixins";
+@use "@/styles/base";
+
+.avatar-wrapper {
+	@include mixins.flex-center;
+	justify-content: flex-start;
+	gap: variables.$space-xs;
+}
+
+.avatar {
+	border-radius: variables.$border-radius-full;
+	object-fit: cover;
+	flex-shrink: 0;
+
+	&--size-s {
+		width: 32px;
+		height: 32px;
+	}
+
+	&--size-m {
+		width: 40px;
+		height: 40px;
+	}
+
+	&--size-l {
+		width: 48px;
+		height: 48px;
+	}
+}
+
+.avatar__text {
+	font-size: 15px;
+	line-height: 24px;
+	letter-spacing: 0.75px;
+	color: var(--color-neutral-1);
+	white-space: nowrap;
+}
