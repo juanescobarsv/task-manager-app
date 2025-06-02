@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
 import { Button, SwitchButton, AddButton } from "./UI-elements/Buttons";
+import Tags from "./UI-elements/Tags";
 
 // BASIC RENDERS FOR THE APP
 
@@ -28,6 +29,31 @@ export const HomePage = () => (
 			initialSelected='function'
 		/>
 		<AddButton onClick={() => alert("Add something!")} />
+		<Tags
+			text='LABEL'
+			backgroundColor='var(--color-neutral-4)'
+			textColor='var(--color-neutral-1)'
+			outlineColor='var(--color-neutral-1)'
+		/>
+		<Tags
+			text='LABEL'
+			iconName='calendar'
+			backgroundColor='var(--color-secondary-4)'
+			textColor='var(--color-neutral-1)'
+		/>
+		<Tags
+			text='LABEL'
+			outlineColor='var(--color-neutral-2)'
+			textColor='var(--color-primary-1)'
+			backgroundColor='var(--color-primary-4)'
+		/>
+		<Tags
+			text='LABEL'
+			iconName='setting'
+			outlineColor='var(--color-tertiary-4)'
+			textColor='var(--color-tertiary-4)'
+			backgroundColor='transparent'
+		/>
 		<div>
 			<nav className='flex justify-center space-x-4'>
 				<Link
@@ -58,7 +84,7 @@ export const DashboardPage = () => (
 	</div>
 );
 
-export const TasksPage: React.FC = () => (
+export const TasksPage = () => (
 	<div className='p-8'>
 		<h1 className='text-3xl font-bold mb-4'>Tasks View</h1>
 		<p>Manage your tasks here.</p>

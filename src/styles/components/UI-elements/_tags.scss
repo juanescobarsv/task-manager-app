@@ -1,0 +1,35 @@
+@use "@/styles/variables";
+@use "@/styles/mixins";
+@use "@/styles/base";
+
+.tag {
+	@include mixins.flex-center;
+	padding: variables.$space-xs variables.$space-sm;
+	border-radius: variables.$border-radius;
+	font-weight: variables.$font-weight-normal;
+	gap: variables.$spacing-unit / 2;
+	white-space: nowrap;
+
+	background-color: var(--color-neutral-4);
+	color: var(--color-neutral-1);
+	border: 1px solid transparent;
+
+	&__icon {
+		@include mixins.flex-center;
+		width: 16px;
+		height: 16px;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			fill: currentColor;
+		}
+	}
+
+	&__text {
+		font-size: 13px;
+		line-height: 22px;
+		letter-spacing: 0.25px;
+		color: inherit;
+	}
+}

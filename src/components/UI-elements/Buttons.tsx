@@ -91,7 +91,7 @@ export const SwitchButton = ({ onSelect, initialSelected = "menu" }: SwitchButto
 	);
 };
 
-// ADD/MORE BUTTON
+// ADD BUTTON
 interface AddButtonProps {
 	onClick?: () => void;
 	className?: string; // For additional custom classes
