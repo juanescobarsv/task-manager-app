@@ -7,7 +7,7 @@
 	padding: variables.$space-xs variables.$space-sm;
 	border-radius: variables.$border-radius;
 	font-weight: variables.$font-weight-bold;
-	gap: variables.$spacing-unit / 2;
+	gap: variables.$space-xs;
 	white-space: nowrap;
 
 	background-color: var(--color-neutral-4);

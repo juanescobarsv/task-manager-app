@@ -12,7 +12,7 @@
 	gap: variables.$space-sm;
 	width: 350px;
 
-	// Section 1: Title 
+	// Section 1: Title
 	&__section-1 {
 		@include mixins.flex-center;
 		justify-content: space-between;
@@ -61,7 +61,7 @@
 		flex-wrap: nowrap;
 		gap: variables.$space-xs;
 		overflow-x: auto;
-		padding-bottom: variables.$space-xs / 2;
+		padding-bottom: variables.$space-xs;
 		-webkit-overflow-scrolling: touch;
 
 		// Hide scrollbar but keep functionality
