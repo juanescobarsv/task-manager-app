@@ -67,7 +67,7 @@ interface SwitchButtonProps {
 	initialSelected?: "menu" | "function";
 }
 
-export const SwitchButton = ({ onSelect, initialSelected = "menu" }: SwitchButtonProps) => {
+export const SwitchButton = ({ onSelect, initialSelected = "function" }: SwitchButtonProps) => {
 	const [selectedIcon, setSelectedIcon] = useState<"menu" | "function">(initialSelected);
 
 	const handleSelect = (icon: "menu" | "function") => {

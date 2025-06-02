@@ -1,105 +1,10 @@
 import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import TopBar from "./UI-elements/TopBar";
-// import { Button, SwitchButton, AddButton } from "./UI-elements/Buttons";
-// import Tags from "./UI-elements/Tags";
-// import Avatar from "./UI-elements/Avatar";
-import Cards from "./UI-elements/Cards";
+import AppLayout from "./appLayout";
 
 // BASIC RENDERS FOR THE APP
-
 export const HomePage = () => (
-	<div className='p-8 text-center'>
-		<TopBar />
-		<Sidebar />
-		{/* <Button
-			onClick={() => alert("Clicked!")}
-			backgroundColor='var(--color-primary-4)'
-			textColor='var(--color-neutral-1)'
-		>
-			My Button
-		</Button>
-		<Button
-			onClick={() => alert("Clicked!")}
-			backgroundColor='var(--color-neutral-5)'
-			textColor='var(--color-neutral-2)'
-		>
-			Light Button
-		</Button>
-		<SwitchButton
-			onSelect={(selected) => console.log("Selected:", selected)}
-			initialSelected='function'
-		/>
-		<AddButton onClick={() => alert("Add something!")} />
-		<Tags
-			text='LABEL'
-			backgroundColor='var(--color-neutral-4)'
-			textColor='var(--color-neutral-1)'
-			outlineColor='var(--color-neutral-1)'
-		/>
-		<Tags
-			text='LABEL'
-			iconName='calendar'
-			backgroundColor='var(--color-secondary-4)'
-			textColor='var(--color-neutral-1)'
-		/>
-		<Tags
-			text='LABEL'
-			outlineColor='var(--color-neutral-2)'
-			textColor='var(--color-primary-1)'
-			backgroundColor='var(--color-primary-4)'
-		/>
-		<Tags
-			text='LABEL'
-			iconName='setting'
-			outlineColor='var(--color-tertiary-4)'
-			textColor='var(--color-tertiary-4)'
-			backgroundColor='transparent'
-		/>
-		<Avatar filename='alex-suprun.jpg' size='l' text='Jerome Bell' />
-		<Avatar filename='victor-hladynets.jpg' size='m' text='Jerome Bell 2' />
-		<Avatar filename='michelle-dam.jpg' size='s' /> */}
-
-		<div>
-			<nav className='flex justify-center space-x-4'>
-				<Link
-					to='/dashboard'
-					className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
-				>
-					Dashboard
-				</Link>
-				<br></br>
-				<Link
-					to='/tasks'
-					className='px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors'
-				>
-					Tasks
-				</Link>
-
-				<Cards
-					title='Twitter'
-					points='3 Pts'
-					timeTagText='TODAY'
-					tags={[
-						{
-							text: "IOS APP",
-							backgroundColor: "var(--color-secondary-4-1)",
-							textColor: "var(--color-secondary-4)",
-						},
-						{
-							text: "LABEL",
-							backgroundColor: "var(--color-tertiary-4-1)",
-							textColor: "var(--color-tertiary-4)",
-						},
-					]}
-					avatarFilename='liam.jpg'
-					avatarText=''
-					attachmentCount={3}
-					estimateCount={3}
-					chatCount={30}
-				/>
-			</nav>
-		</div>
+	<div>
+		<AppLayout />
 	</div>
 );
 

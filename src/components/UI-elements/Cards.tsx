@@ -2,7 +2,7 @@ import MenuIcon from "./sidebarMenuIcon";
 import Tags from "./Tags";
 import Avatar from "./Avatar";
 
-interface CardProps {
+export interface CardProps {
 	title: string;
 	points: string;
 	timeTagText: string;

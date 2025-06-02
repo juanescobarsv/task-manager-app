@@ -63,12 +63,12 @@
 	display: flex;
 	border-radius: variables.$border-radius;
 	overflow: hidden;
-	background-color: variables.$color-neutral-4;
+	background-color: variables.$color-neutral-5;
 	gap: 1px;
 
 	.icon-button {
 		flex: 1;
-		background-color: variables.$color-neutral-4;
+		background-color: variables.$color-neutral-5;
 		border-radius: 0;
 		border: none;
 		position: relative;

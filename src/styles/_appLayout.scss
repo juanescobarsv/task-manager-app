@@ -1,0 +1,42 @@
+@use "./variables";
+@use "./mixins";
+
+.app-layout {
+	display: flex;
+	height: 100vh;
+	background-color: variables.$background-color;
+
+	.sidebar-container {
+		flex-shrink: 0;
+		margin: variables.$space-md;
+		margin-top: variables.$space-lg;
+	}
+
+	.main-content {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		margin-right: variables.$space-lg;
+		margin-top: variables.$space-lg;
+		overflow: hidden;
+	}
+
+	.main-content__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: variables.$space-lg;
+	}
+
+	.main-content__controls {
+		@include mixins.flex-center;
+		justify-content: space-between;
+		margin-bottom: variables.$space-md;
+	}
+
+	.main-content__task-board-wrapper {
+		flex-grow: 1;
+		overflow-y: auto;
+		padding-bottom: variables.$space-md;
+	}
+}
