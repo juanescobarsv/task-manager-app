@@ -47,17 +47,18 @@ const TopBar = () => {
 					onFocus={handleSearchFocus}
 					onBlur={handleSearchBlur}
 				/>
-				{isSearchActive && searchTerm.length > 0 && (
-					<div
-						className='clear-search-icon-wrapper'
-						onClick={handleClearSearch}
-						role='button'
-						tabIndex={0}
-					>
-						<MenuIcon iconName='close' />
-					</div>
-				)}
+
 				<div className='top-navigation-bar__right-section'>
+					{isSearchActive && searchTerm.length > 0 && (
+						<div
+							className='clear-search-icon-wrapper'
+							onClick={handleClearSearch}
+							role='button'
+							tabIndex={0}
+						>
+							<MenuIcon iconName='close' />
+						</div>
+					)}
 					<div
 						onClick={handleNotificationClick}
 						className='notification-icon'

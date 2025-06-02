@@ -1,0 +1,117 @@
+@use "@/styles/variables";
+@use "@/styles/mixins";
+
+.button {
+	@include mixins.flex-center;
+	padding: variables.$space-sm variables.$space-md;
+	border-radius: variables.$border-radius;
+	cursor: pointer;
+	font-size: variables.$font-size-base;
+	font-weight: variables.$font-weight-bold;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
+	border: 1px solid transparent;
+
+	// Default button style (e.g., neutral background)
+	background-color: variables.$color-primary-4;
+	color: variables.$color-neutral-1;
+
+	&:hover {
+		filter: brightness(1.1); // Slightly brighten on hover
+	}
+}
+
+// SWITCH BUTTONS
+
+.icon-button {
+	@include mixins.flex-center;
+	width: 40px;
+	height: 40px;
+	border-radius: variables.$border-radius;
+	cursor: pointer;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease,
+		border-color 0.2s ease;
+	border: 1px solid transparent;
+
+	svg {
+		width: 24px;
+		height: 24px;
+		fill: currentColor;
+		transition: fill 0.2s ease;
+	}
+
+	// Default state for icon buttons (e.g., within switch)
+	background-color: variables.$color-neutral-4;
+	color: variables.$color-neutral-2;
+
+	&:hover {
+		background-color: variables.$color-neutral-5;
+		color: variables.$color-primary-4;
+	}
+
+	&--selected {
+		background-color: variables.$color-neutral-5;
+		color: variables.$color-primary-4;
+		border-color: variables.$color-primary-4;
+	}
+}
+
+.switch-button-group {
+	display: flex;
+	border-radius: variables.$border-radius;
+	overflow: hidden;
+	background-color: variables.$color-neutral-4;
+	gap: 1px;
+
+	.icon-button {
+		flex: 1;
+		background-color: variables.$color-neutral-4;
+		border-radius: 0;
+		border: none;
+		position: relative;
+
+		&:hover {
+			background-color: variables.$color-neutral-5;
+		}
+
+		&--selected {
+			background-color: variables.$color-neutral-5;
+			color: variables.$color-primary-4;
+
+			&::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				border: 1px solid variables.$color-primary-4;
+				border-radius: variables.$border-radius;
+				z-index: 1;
+				pointer-events: none; // Allow clicks to pass through
+			}
+		}
+	}
+}
+
+// ADD
+.add-button {
+	@include mixins.flex-center;
+	width: 40px;
+	height: 40px;
+	border-radius: variables.$border-radius;
+	background-color: variables.$color-primary-4;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	box-shadow: variables.$shadow-md;
+
+	&:hover {
+		filter: brightness(1.1);
+	}
+
+	svg {
+		width: 24px;
+		height: 24px;
+		fill: variables.$color-neutral-1;
+	}
+}

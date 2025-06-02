@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
+import { Button, SwitchButton, AddButton } from "./UI-elements/Buttons";
 
 // BASIC RENDERS FOR THE APP
 
@@ -8,10 +9,26 @@ export const HomePage = () => (
 	<div className='p-8 text-center'>
 		<TopBar />
 		<Sidebar />
-
+		<Button
+			onClick={() => alert("Clicked!")}
+			backgroundColor='var(--color-primary-4)'
+			textColor='var(--color-neutral-1)'
+		>
+			My Button
+		</Button>
+		<Button
+			onClick={() => alert("Clicked!")}
+			backgroundColor='var(--color-neutral-5)'
+			textColor='var(--color-neutral-2)'
+		>
+			Light Button
+		</Button>
+		<SwitchButton
+			onSelect={(selected) => console.log("Selected:", selected)}
+			initialSelected='function'
+		/>
+		<AddButton onClick={() => alert("Add something!")} />
 		<div>
-			<h1 className='text-4xl font-bold mb-4'>Welcome to Task Management App!</h1>
-			<p className='text-lg mb-8'>Navigate using the links below.</p>
 			<nav className='flex justify-center space-x-4'>
 				<Link
 					to='/dashboard'
@@ -19,6 +36,7 @@ export const HomePage = () => (
 				>
 					Dashboard
 				</Link>
+				<br></br>
 				<Link
 					to='/tasks'
 					className='px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors'
