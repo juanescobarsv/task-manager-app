@@ -1,5 +1,90 @@
-const Cards = () => {
-	return <div>Cards</div>;
+import MenuIcon from "./sidebarMenuIcon";
+import Tags from "./Tags";
+import Avatar from "./Avatar";
+
+interface CardProps {
+	title: string;
+	points: string;
+	timeTagText: string;
+	tags: { text: string; backgroundColor: string; textColor: string }[];
+	avatarFilename: string;
+	avatarText: string;
+	attachmentCount: number;
+	estimateCount: number;
+	chatCount: number;
+	className?: string;
+}
+
+const Cards: React.FC<CardProps> = ({
+	title,
+	points,
+	timeTagText,
+	tags,
+	avatarFilename,
+	avatarText,
+	attachmentCount,
+	estimateCount,
+	chatCount,
+	className,
+}) => {
+	const cardClasses = ["card"];
+	if (className) {
+		cardClasses.push(className);
+	}
+
+	const InfoItem: React.FC<{ count: number; iconName: string }> = ({ count, iconName }) => (
+		<div className='info-item'>
+			<span className='info-item__number'>{count}</span>
+			<span className='info-item__icon'>
+				<MenuIcon iconName={iconName} />
+			</span>
+		</div>
+	);
+
+	return (
+		<div className={cardClasses.join(" ")}>
+			{/* Section 1: Title */}
+			<div className='card__section-1'>
+				<h3 className='card__title'>{title}</h3>
+				<div className='more-icon' role='button' tabIndex={0}>
+					<MenuIcon iconName='more_X' />
+				</div>
+			</div>
+
+			{/* Section 2: Points and Date Tag */}
+			<div className='card__section-2'>
+				<span className='card__points'>{points}</span>
+				<Tags
+					text={timeTagText}
+					iconName='alarm'
+					backgroundColor='var(--color-neutral-3)'
+					textColor='var(--color-neutral-1)'
+				/>
+			</div>
+
+			{/* Section 3: Tags */}
+			<div className='card__section-3'>
+				{tags.map((tag, index) => (
+					<Tags
+						key={index}
+						text={tag.text}
+						backgroundColor={tag.backgroundColor}
+						textColor={tag.textColor}
+					/>
+				))}
+			</div>
+
+			{/* Section 4: Avatar and Info Icons */}
+			<div className='card__section-4'>
+				<Avatar filename={avatarFilename} size='s' text={avatarText} />{" "}
+				<div className='card__info-items'>
+					<InfoItem count={attachmentCount} iconName='attachment' />
+					<InfoItem count={estimateCount} iconName='node' />
+					<InfoItem count={chatCount} iconName='chat' />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Cards;

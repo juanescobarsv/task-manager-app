@@ -1,0 +1,121 @@
+@use "../../../styles/variables";
+@use "../../../styles/mixins";
+@use "../../../styles/base"; // For text styles
+
+.card {
+	background-color: variables.$color-neutral-4;
+	border-radius: variables.$border-radius-lg;
+	box-shadow: variables.$shadow-md;
+	padding: variables.$space-md;
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-sm;
+	width: 350px;
+
+	// Section 1: Title 
+	&__section-1 {
+		@include mixins.flex-center;
+		justify-content: space-between;
+		width: 100%;
+
+		.card__title {
+			font-size: 18px;
+			font-weight: variables.$font-weight-bold;
+			color: variables.$color-neutral-1;
+		}
+
+		.more-icon {
+			width: 24px;
+			height: 24px;
+			color: variables.$color-neutral-2;
+			cursor: pointer;
+			transition: color 0.2s ease;
+
+			&:hover {
+				color: variables.$color-primary-4;
+			}
+			svg {
+				width: 100%;
+				height: 100%;
+				fill: currentColor;
+			}
+		}
+	}
+
+	// Section 2: Points and Date Tag
+	&__section-2 {
+		@include mixins.flex-center;
+		justify-content: space-between;
+		width: 100%;
+
+		.card__points {
+			font-size: 15px;
+			font-weight: bold;
+			color: variables.$color-neutral-1;
+		}
+	}
+
+	// Section 3: Tags
+	&__section-3 {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: variables.$space-xs;
+		overflow-x: auto;
+		padding-bottom: variables.$space-xs / 2;
+		-webkit-overflow-scrolling: touch;
+
+		// Hide scrollbar but keep functionality
+		&::-webkit-scrollbar {
+			height: 4px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: rgba(variables.$color-neutral-2, 0.5);
+			border-radius: 2px;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: transparent;
+		}
+		// For Firefox:
+		scrollbar-width: thin;
+		scrollbar-color: rgba(variables.$color-neutral-2, 0.5) transparent;
+	}
+
+	// Section 4: Avatar and Info Icons
+	&__section-4 {
+		@include mixins.flex-center;
+		justify-content: space-between;
+		width: 100%;
+
+		.card__info-items {
+			@include mixins.flex-center;
+			gap: variables.$space-sm; // 16px margin between each set of "number+icon"
+
+			.info-item {
+				@include mixins.flex-center;
+				gap: 4px;
+				color: variables.$color-neutral-1;
+				cursor: pointer;
+				transition: color 0.2s ease;
+
+				&:hover {
+					color: variables.$color-primary-4;
+				}
+
+				.info-item__number {
+					font-size: 15px;
+					color: inherit;
+				}
+
+				.info-item__icon {
+					width: 20px;
+					height: 20px;
+					svg {
+						width: 100%;
+						height: 100%;
+						fill: currentColor;
+					}
+				}
+			}
+		}
+	}
+}

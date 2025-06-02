@@ -6,13 +6,14 @@
 	@include mixins.flex-center;
 	padding: variables.$space-xs variables.$space-sm;
 	border-radius: variables.$border-radius;
-	font-weight: variables.$font-weight-normal;
+	font-weight: variables.$font-weight-bold;
 	gap: variables.$spacing-unit / 2;
 	white-space: nowrap;
 
 	background-color: var(--color-neutral-4);
 	color: var(--color-neutral-1);
 	border: 1px solid transparent;
+	height: 32px;
 
 	&__icon {
 		@include mixins.flex-center;

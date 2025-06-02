@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
-import { Button, SwitchButton, AddButton } from "./UI-elements/Buttons";
-import Tags from "./UI-elements/Tags";
-import Avatar from "./UI-elements/Avatar";
+// import { Button, SwitchButton, AddButton } from "./UI-elements/Buttons";
+// import Tags from "./UI-elements/Tags";
+// import Avatar from "./UI-elements/Avatar";
+import Cards from "./UI-elements/Cards";
 
 // BASIC RENDERS FOR THE APP
 
@@ -11,7 +12,7 @@ export const HomePage = () => (
 	<div className='p-8 text-center'>
 		<TopBar />
 		<Sidebar />
-		<Button
+		{/* <Button
 			onClick={() => alert("Clicked!")}
 			backgroundColor='var(--color-primary-4)'
 			textColor='var(--color-neutral-1)'
@@ -57,7 +58,7 @@ export const HomePage = () => (
 		/>
 		<Avatar filename='alex-suprun.jpg' size='l' text='Jerome Bell' />
 		<Avatar filename='victor-hladynets.jpg' size='m' text='Jerome Bell 2' />
-		<Avatar filename='michelle-dam.jpg' size='s' />
+		<Avatar filename='michelle-dam.jpg' size='s' /> */}
 
 		<div>
 			<nav className='flex justify-center space-x-4'>
@@ -74,28 +75,31 @@ export const HomePage = () => (
 				>
 					Tasks
 				</Link>
+
+				<Cards
+					title='Twitter'
+					points='3 Pts'
+					timeTagText='TODAY'
+					tags={[
+						{
+							text: "IOS APP",
+							backgroundColor: "var(--color-secondary-4-1)",
+							textColor: "var(--color-secondary-4)",
+						},
+						{
+							text: "LABEL",
+							backgroundColor: "var(--color-tertiary-4-1)",
+							textColor: "var(--color-tertiary-4)",
+						},
+					]}
+					avatarFilename='liam.jpg'
+					avatarText=''
+					attachmentCount={3}
+					estimateCount={3}
+					chatCount={30}
+				/>
 			</nav>
 		</div>
-	</div>
-);
-
-export const DashboardPage = () => (
-	<div className='p-8'>
-		<h1 className='text-3xl font-bold mb-4'>Dashboard View</h1>
-		<p>This is where your main dashboard content will go.</p>
-		<Link to='/' className='text-blue-500 hover:underline mt-4 block'>
-			Go back to Home
-		</Link>
-	</div>
-);
-
-export const TasksPage = () => (
-	<div className='p-8'>
-		<h1 className='text-3xl font-bold mb-4'>Tasks View</h1>
-		<p>Manage your tasks here.</p>
-		<Link to='/' className='text-blue-500 hover:underline mt-4 block'>
-			Go back to Home
-		</Link>
 	</div>
 );
 
