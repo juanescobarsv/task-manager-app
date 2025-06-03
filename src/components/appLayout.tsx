@@ -34,8 +34,6 @@ const AppLayout: React.FC = () => {
 				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
 					<CardsColumnData />
-				</div>
-				<div>
 					<DataViewer />
 				</div>
 			</div>
