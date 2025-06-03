@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import CardsColumnData from "./UI-elements/cardsColumnData";
+import DataViewer from "./DataViewer";
 
 const AppLayout: React.FC = () => {
 	const handleSwitchSelect = (selected: "menu" | "function") => {
@@ -33,6 +34,9 @@ const AppLayout: React.FC = () => {
 				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
 					<CardsColumnData />
+				</div>
+				<div>
+					<DataViewer />
 				</div>
 			</div>
 		</div>

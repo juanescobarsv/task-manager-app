@@ -4,12 +4,13 @@
 @use "mixins";
 @use "base";
 @use "appLayout";
+@use "dataViewer";
 
 @use "components/UI-elements/sidebar";
 @use "components/UI-elements/topBar";
+@use "components/UI-elements/cardsColumn";
 
 @use "components/UI-elements/buttons";
 @use "components/UI-elements/tags";
 @use "components/UI-elements/avatar";
 @use "components/UI-elements/cards";
-@use "components/UI-elements/cardsColumn";

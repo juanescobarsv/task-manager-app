@@ -1,0 +1,68 @@
+@use "@/styles/variables";
+@use "@/styles/mixins";
+
+.data-viewer {
+	background-color: variables.$color-neutral-3;
+	color: variables.$color-neutral-1;
+	padding: variables.$space-md;
+	border-radius: variables.$border-radius-lg;
+	margin-top: variables.$space-md;
+	box-shadow: variables.$shadow-md;
+
+	h2 {
+		color: variables.$color-primary-4;
+		margin-bottom: variables.$space-md;
+		text-align: center;
+	}
+
+	&__section {
+		margin-bottom: variables.$space-lg;
+		padding-bottom: variables.$space-sm;
+		border-bottom: 1px solid variables.$color-neutral-4;
+
+		&:last-child {
+			margin-bottom: 0;
+			border-bottom: none;
+		}
+
+		h3 {
+			color: variables.$color-secondary-4;
+			margin-bottom: variables.$space-sm;
+		}
+
+		p,
+		ul {
+			font-size: variables.$font-size-base;
+			line-height: variables.$line-height-base;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		li {
+			background-color: variables.$color-neutral-4;
+			padding: variables.$space-xs variables.$space-sm;
+			border-radius: variables.$border-radius;
+			margin-bottom: variables.$space-xs;
+			color: variables.$color-neutral-1;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		.sub-info {
+			font-size: variables.$font-size-base * 0.9;
+			color: variables.$color-neutral-2;
+			margin-top: 4px;
+		}
+	}
+
+	.error-message {
+		color: variables.$color-primary-4;
+		font-weight: variables.$font-weight-bold;
+	}
+}

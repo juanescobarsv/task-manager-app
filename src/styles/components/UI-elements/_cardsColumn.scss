@@ -15,7 +15,7 @@
 		letter-spacing: 0.75px;
 		color: variables.$color-neutral-1;
 		font-weight: variables.$font-weight-bold;
-		margin-bottom: 0;
+		margin-bottom: 16px;
 	}
 
 	&__list {
@@ -28,7 +28,6 @@
 .task-board {
 	display: flex;
 	gap: variables.$space-md;
-	padding: variables.$space-md;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
 
