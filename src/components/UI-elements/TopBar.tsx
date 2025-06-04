@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MenuIcon from "./sidebarMenuIcon";
+import JE from "../../assets/avatars/juan.jpg";
 
 const TopBar = () => {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -68,14 +69,14 @@ const TopBar = () => {
 						<MenuIcon iconName='notification' />
 					</div>
 					<img
-						src='https://placehold.co/40x40/cccccc/000000?text=JE'
+						src={JE}
 						alt='User Avatar'
 						className='avatar'
 						onClick={handleAvatarClick}
 						role='button'
 						tabIndex={0}
 						onError={(e) => {
-							e.currentTarget.src = "https://placehold.co/40x40/cccccc/000000?text=User";
+							e.currentTarget.src = { JE };
 						}}
 					/>
 				</div>
