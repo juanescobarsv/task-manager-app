@@ -1,0 +1,25 @@
+overwrite: true
+# Always overwrite the generated files
+schema: "https://syn-api-prod.herokuapp.com/graphql"
+# Your GraphQL API endpoint
+
+documents: "src/graphql/*.ts"
+
+generates:
+  src/graphql/generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      # Generates types for your specific queries/mutations
+      - typescript-react-apollo
+      # Generates type-safe React hooks (e.g., useQuery, useMutation)
+    config:
+      scalars:
+        DateTime: Date
+      skipTypename: false
+      withHooks: true
+      withHOC: false
+      # Do not generate Higher-Order Components (HOCs).
+      withComponent: false
+      # Do not generate Class Components.
+      enumsAsTypes: true

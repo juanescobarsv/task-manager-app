@@ -23,12 +23,14 @@ body,
 	--color-neutral-2: #{variables.$color-neutral-2};
 	--color-neutral-3: #{variables.$color-neutral-3};
 	--color-neutral-4: #{variables.$color-neutral-4};
+	--color-neutral-4-1: #{variables.$color-neutral-4-1};
 	--color-neutral-5: #{variables.$color-neutral-5};
 
 	--color-primary-1: #{variables.$color-primary-1};
 	--color-primary-2: #{variables.$color-primary-2};
 	--color-primary-3: #{variables.$color-primary-3};
 	--color-primary-4: #{variables.$color-primary-4};
+	--color-primary-4-1: #{variables.$color-primary-4-1};
 
 	--color-secondary-1: #{variables.$color-secondary-1};
 	--color-secondary-2: #{variables.$color-secondary-2};
@@ -41,6 +43,9 @@ body,
 	--color-tertiary-3: #{variables.$color-tertiary-3};
 	--color-tertiary-4: #{variables.$color-tertiary-4};
 	--color-tertiary-4-1: #{variables.$color-tertiary-4-1};
+
+	--color-blue-bright: #{variables.$color-blue-bright};
+	--color-blue-light: #{variables.$color-blue-light};
 
 	--text-color: #{variables.$text-color};
 	--background-color: #{variables.$background-color};

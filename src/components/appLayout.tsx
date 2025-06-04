@@ -2,8 +2,8 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
-import CardsColumnData from "./UI-elements/cardsColumnData";
-import DataViewer from "./DataViewer";
+import TaskBoard from "./UI-elements/cardsColumnData";
+import DataViewer from "./Testing/DataViewer";
 
 const AppLayout: React.FC = () => {
 	const handleSwitchSelect = (selected: "menu" | "function") => {
@@ -33,8 +33,9 @@ const AppLayout: React.FC = () => {
 
 				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
-					<CardsColumnData />
-					<DataViewer />
+					<TaskBoard />
+					{/* FOR API TESTING:
+                    <DataViewer /> */}
 				</div>
 			</div>
 		</div>

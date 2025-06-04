@@ -1,34 +1,26 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER_PROFILE, GET_TASKS_LIST, GET_ALL_USERS } from "../graphQL/queries";
+import { useProfileQuery, useTasksQuery, useUsersQuery } from "../../graphQL/generated/graphql";
 
 const DataViewer: React.FC = () => {
-	// --- Fetch User Profile ---
-	const {
-		loading: profileLoading,
-		error: profileError,
-		data: profileData,
-	} = useQuery(GET_USER_PROFILE);
+	// --- Fetch User Profile using generated hook ---
+	const { loading: profileLoading, error: profileError, data: profileData } = useProfileQuery();
 
-	// --- Fetch Tasks ---
-	// For demonstration, we'll provide an empty filter input.
-	// In a real application, you'd pass dynamic variables based on user interaction.
+	// --- Fetch Tasks using generated hook ---
 	const {
 		loading: tasksLoading,
 		error: tasksError,
 		data: tasksData,
-	} = useQuery(GET_TASKS_LIST, {
+	} = useTasksQuery({
 		variables: {
-			input: {}, // Empty input to fetch all tasks (or as many as the API allows without specific filters)
+			input: {}, // Still provide an empty input for now to fetch all tasks
 		},
 	});
 
-	// --- Fetch All Users ---
-	const { loading: usersLoading, error: usersError, data: usersData } = useQuery(GET_ALL_USERS);
+	// --- Fetch All Users using generated hook ---
+	const { loading: usersLoading, error: usersError, data: usersData } = useUsersQuery();
 
 	return (
 		<div className='data-viewer'>
-			<h2>API Data Viewer</h2>
+			<h2>API Data Viewer (Using Codegen Hooks)</h2>
 
 			{/* User Profile Section */}
 			<div className='data-viewer__section'>
@@ -72,19 +64,18 @@ const DataViewer: React.FC = () => {
 				{tasksError && <p className='error-message'>Error: {tasksError.message}</p>}
 				{tasksData && tasksData.tasks.length > 0 ? (
 					<ul>
-						{tasksData.tasks.slice(0, 5).map(
-							(
-								task: any, // Limiting to 5 for brevity
-							) => (
-								<li key={task.id}>
-									<strong>{task.name}</strong> (ID: {task.id}) - {task.status}
-									<br />
-									Points: {task.pointEstimate} | Due: {task.dueDate}
-									{task.assignee && <p className='sub-info'>Assignee: {task.assignee.fullName}</p>}
-									<p className='sub-info'>Tags: {task.tags.join(", ")}</p>
-								</li>
-							),
-						)}
+						{tasksData.tasks.slice(0, 5).map((task) => (
+							<li key={task.id}>
+								<strong>{task.name}</strong> (ID: {task.id}) - {task.status}
+								<br />
+								{/* Explicitly create a Date object from dueDate before calling toLocaleDateString() */}
+								Points: {task.pointEstimate} | Due:{" "}
+								{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "N/A"}
+								{/* Accessing assignee properties directly from the fetched data */}
+								{task.assignee && <p className='sub-info'>Assignee: {task.assignee.fullName}</p>}
+								<p className='sub-info'>Tags: {task.tags.join(", ")}</p>
+							</li>
+						))}
 					</ul>
 				) : (
 					!tasksLoading && <p>No tasks found.</p>
@@ -98,17 +89,14 @@ const DataViewer: React.FC = () => {
 				{usersError && <p className='error-message'>Error: {usersError.message}</p>}
 				{usersData && usersData.users.length > 0 ? (
 					<ul>
-						{usersData.users.slice(0, 5).map(
-							(
-								user: any, // Limiting to 5 for brevity
-							) => (
-								<li key={user.id}>
-									<strong>{user.fullName}</strong> ({user.email})
-									<br />
-									ID: {user.id} | Type: {user.type}
-								</li>
-							),
-						)}
+						{/* Type 'user' directly from the data structure provided by usersData.users */}
+						{usersData.users.slice(0, 5).map((user) => (
+							<li key={user.id}>
+								<strong>{user.fullName}</strong> ({user.email})
+								<br />
+								ID: {user.id} | Type: {user.type}
+							</li>
+						))}
 					</ul>
 				) : (
 					!usersLoading && <p>No users found.</p>
