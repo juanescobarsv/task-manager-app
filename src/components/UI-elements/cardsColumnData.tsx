@@ -20,7 +20,6 @@ const AVATAR_FILENAMES = [
 // Here are ALL the current avatars filenames
 
 const getRandomAvatarFilename = (): string => {
-	debugger;
 	const randomIndex = Math.floor(Math.random() * AVATAR_FILENAMES.length);
 	return AVATAR_FILENAMES[randomIndex];
 };

@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import TaskBoard from "./UI-elements/cardsColumnData";
-import DataViewer from "./Testing/DataViewer";
+// import DataViewer from "./Testing/DataViewer";
 
 const AppLayout: React.FC = () => {
 	const handleSwitchSelect = (selected: "menu" | "function") => {
