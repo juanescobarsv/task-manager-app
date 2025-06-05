@@ -8,7 +8,7 @@ interface TaskModalProps {
 	onSubmit: (taskName: string) => void;
 }
 
-const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
+const NewTask = ({ isOpen, onClose, onSubmit }: TaskModalProps) => {
 	const [taskName, setTaskName] = useState("");
 
 	const handleCreateTask = () => {

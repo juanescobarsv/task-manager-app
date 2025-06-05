@@ -6,7 +6,7 @@ export interface CardProps {
 	title: string;
 	points: string;
 	timeTagText: string;
-	tags: { text: string; backgroundColor: string; textColor: string }[];
+	tags: Array<{ text: string; backgroundColor: string; textColor: string }>;
 	avatarFilename: string;
 	avatarText: string;
 	attachmentCount: number;
@@ -15,7 +15,7 @@ export interface CardProps {
 	className?: string;
 }
 
-const Cards: React.FC<CardProps> = ({
+const Cards = ({
 	title,
 	points,
 	timeTagText,
@@ -26,13 +26,13 @@ const Cards: React.FC<CardProps> = ({
 	subtaskCount,
 	commentCount,
 	className,
-}) => {
+}: CardProps) => {
 	const cardClasses = ["card"];
 	if (className) {
 		cardClasses.push(className);
 	}
 
-	const InfoItem: React.FC<{ count: number; iconName: string }> = ({ count, iconName }) => (
+	const InfoItem = ({ count, iconName }: { count: number; iconName: string }) => (
 		<div className='info-item'>
 			<span className='info-item__number'>{count}</span>
 			<span className='info-item__icon'>

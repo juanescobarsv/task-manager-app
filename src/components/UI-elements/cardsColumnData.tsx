@@ -33,15 +33,13 @@ const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | st
 			return 1;
 		case "TWO":
 			return 2;
-		case "THREE":
-			return 3;
 		case "FOUR":
 			return 4;
 		case "EIGHT":
 			return 8;
 		default:
-			console.warn(`Unknown PointEstimate: ${pointEstimate}. Returning original string.`);
-			return "unknown"; // Fallback to original string if unknown
+			console.warn(`Unknown PointEstimate: ${pointEstimate}`);
+			return "N/A"; // Fallback
 	}
 };
 
@@ -92,7 +90,7 @@ const TaskBoard = () => {
 			case "IOS":
 				return {
 					backgroundColor: "var(--color-neutral-4-1)",
-					textColor: "var(--color-neutral-4)",
+					textColor: "var(--color-neutral-1)",
 				};
 			case "ANDROID":
 				return {
@@ -126,7 +124,7 @@ const TaskBoard = () => {
 		const assignedAvatarFilename = getRandomAvatarFilename();
 		// FUTUREPROOFING: Assignee's avatars are currently blank, if available change:
 		// 		const assignedAvatarFilename = ask.assignee?.avatar;
-		const assignedAvatarText = task.assignee?.fullName || "Unassigned";
+		const assignedAvatarText = task.assignee?.fullName ?? "Unassigned";
 
 		return {
 			title: task.name,
@@ -162,7 +160,7 @@ const TaskBoard = () => {
 	const doneCards: CardProps[] = [];
 	const cancelledCards: CardProps[] = [];
 
-	if (data && data.tasks) {
+	if (data?.tasks) {
 		data.tasks.forEach((task) => {
 			const transformedCard = transformTaskToCardProps(task);
 			switch (task.status) {
@@ -182,7 +180,7 @@ const TaskBoard = () => {
 					cancelledCards.push(transformedCard);
 					break;
 				default:
-					console.warn(`Unknown task status: ${task.status}`);
+					console.warn(`Unknown task status: ${String(task.status)}`);
 					break;
 			}
 		});

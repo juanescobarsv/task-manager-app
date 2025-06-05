@@ -1,6 +1,6 @@
 import { useProfileQuery, useTasksQuery, useUsersQuery } from "../../graphQL/generated/graphql";
 
-const DataViewer: React.FC = () => {
+const DataViewer = () => {
 	// --- Fetch User Profile using generated hook ---
 	const { loading: profileLoading, error: profileError, data: profileData } = useProfileQuery();
 
@@ -27,7 +27,7 @@ const DataViewer: React.FC = () => {
 				<h3>Current User Profile:</h3>
 				{profileLoading && <p>Loading profile...</p>}
 				{profileError && <p className='error-message'>Error: {profileError.message}</p>}
-				{profileData && profileData.profile ? (
+				{profileData?.profile ? (
 					<div>
 						<p>
 							<strong>Name:</strong> {profileData.profile.fullName}

@@ -7,7 +7,7 @@ interface CardsColumnProps {
 	className?: string;
 }
 
-const CardsColumn: React.FC<CardsColumnProps> = ({ title, cards, className }) => {
+const CardsColumn = ({ title, cards, className }: CardsColumnProps) => {
 	const columnClasses = ["cards-column"];
 	if (className) {
 		columnClasses.push(className);

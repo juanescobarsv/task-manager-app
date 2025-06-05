@@ -24,8 +24,8 @@ const Sidebar = () => {
 
 	const handleItemClick = (id: string) => {
 		setSelectedItem(id);
-		console.log(`Sidebar item clicked: ${id}`);
-		// In a real application, you would navigate here, e.g., using react-router-dom
+		console.warn(`Sidebar item clicked: ${id}`);
+		// Change using react-router-dom
 		// navigate(`/${id}`);
 	};
 

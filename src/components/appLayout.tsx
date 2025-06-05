@@ -7,11 +7,11 @@ import NewTask from "./UI-elements/NewTask";
 
 // import DataViewer from "./Testing/DataViewer";
 
-const AppLayout: React.FC = () => {
+const AppLayout = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleSwitchSelect = (selected: "menu" | "function") => {
-		console.log("Switch button selected:", selected);
+		console.warn("Switch button selected:", selected);
 	};
 
 	const handleAddButtonClick = () => {
@@ -23,7 +23,7 @@ const AppLayout: React.FC = () => {
 	};
 
 	const handleCreateTaskSubmit = (taskName: string) => {
-		console.log("New task created:", taskName);
+		console.warn("New task created:", taskName);
 		// PENDING
 	};
 

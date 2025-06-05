@@ -152,7 +152,7 @@ const Icons = ({ name }: IconsProps) => {
 
 	if (!IconComponent) {
 		console.warn(`Icon '${name}' not found in SvgIconMap. Using fallback 'square' icon.`);
-		const FallbackIcon = SvgIconMap["square"];
+		const FallbackIcon = SvgIconMap.square;
 		return FallbackIcon();
 	}
 
