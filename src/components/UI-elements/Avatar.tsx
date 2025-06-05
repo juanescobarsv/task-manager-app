@@ -18,7 +18,7 @@ const Avatar = ({ filename, size, text, className }: AvatarProps) => {
 	}
 
 	// Hardcoded prefix for easier input, if avatar's images path change, must change it here too:
-	const imagePath = `./src/assets/avatars/${filename}`;
+	const imagePath = `/assets/avatars/${filename}`;
 
 	// Fallback image in case the provided src fails to load
 	const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>): void => {

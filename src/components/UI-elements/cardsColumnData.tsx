@@ -3,6 +3,7 @@ import type { CardProps } from "./Cards";
 import { useTasksQuery } from "../../graphQL/generated/graphql";
 import type { TasksQuery, TaskTag, PointEstimate } from "../../graphQL/generated/graphql";
 
+// Here are ALL the current avatars filenames:
 const AVATAR_FILENAMES = [
 	"alex.jpg",
 	"anna.jpg",
@@ -17,7 +18,6 @@ const AVATAR_FILENAMES = [
 	"stephanie.jpg",
 	"victor.jpg",
 ];
-// Here are ALL the current avatars filenames
 
 const getRandomAvatarFilename = (): string => {
 	const randomIndex = Math.floor(Math.random() * AVATAR_FILENAMES.length);
@@ -137,7 +137,7 @@ const TaskBoard = () => {
 			avatarFilename: assignedAvatarFilename,
 			avatarText: assignedAvatarText,
 
-			// These counts are not in the current API schema, using placeholders as before
+			// These counts are not in the current API schema, using placeholders:
 			attachmentCount: 0, // Placeholder
 			subtaskCount: 5, // Placeholder
 			commentCount: 3, // Placeholder

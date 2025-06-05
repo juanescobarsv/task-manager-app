@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import MenuIcon from "./sidebarMenuIcon";
-import JE from "../../assets/avatars/juan.jpg";
+import JE from "../../../public/assets/avatars/juan.jpg";
 
 const TopBar = () => {
 	const [searchTerm, setSearchTerm] = useState("");
