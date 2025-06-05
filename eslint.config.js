@@ -24,7 +24,9 @@ export default [
 				ecmaFeatures: { jsx: true },
 				ecmaVersion: "latest",
 				sourceType: "module",
-				project: ["./tsconfig.json"],
+				// FIX: Use a more robust glob for project to ensure tsconfig.json is found
+				// This will look for tsconfig.json in the current directory and any subdirectories.
+				project: ["./tsconfig.json", "./*/tsconfig.json", "./**/*/tsconfig.json"],
 				tsconfigRootDir: import.meta.dirname,
 			},
 			globals: {
@@ -33,9 +35,9 @@ export default [
 			},
 		},
 		plugins: {
-			"@typescript-eslint": tsPlugin, // Use the plugin object directly
-			react: reactPlugin, // Use the plugin object directly
-			"react-hooks": reactHooksPlugin, // Use the plugin object directly
+			"@typescript-eslint": tsPlugin,
+			react: reactPlugin,
+			"react-hooks": reactHooksPlugin,
 			"react-refresh": reactRefreshPlugin,
 		},
 		rules: {
