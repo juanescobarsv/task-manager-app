@@ -26,7 +26,7 @@ export default [
 				sourceType: "module",
 				// FIX: Use a more robust glob for project to ensure tsconfig.json is found
 				// This will look for tsconfig.json in the current directory and any subdirectories.
-				project: ["./tsconfig.json", "./*/tsconfig.json", "./**/*/tsconfig.json"],
+				project: ["./tsconfig.json", "./tsconfig.app.json", "./tsconfig.node.json"],
 				tsconfigRootDir: import.meta.dirname,
 			},
 			globals: {
