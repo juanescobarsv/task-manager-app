@@ -231,8 +231,8 @@ export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
 export type ProfileSuspenseQueryHookResult = ReturnType<typeof useProfileSuspenseQuery>;
 export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const TasksDocument = gql`
-	query Tasks($input: FilterTaskInput!) {
-		tasks(input: $input) {
+	query Tasks {
+		tasks(input: {}) {
 			id
 			name
 			status

@@ -10,8 +10,8 @@ export interface CardProps {
 	avatarFilename: string;
 	avatarText: string;
 	attachmentCount: number;
-	estimateCount: number;
-	chatCount: number;
+	subtaskCount: number;
+	commentCount: number;
 	className?: string;
 }
 
@@ -23,8 +23,8 @@ const Cards: React.FC<CardProps> = ({
 	avatarFilename,
 	avatarText,
 	attachmentCount,
-	estimateCount,
-	chatCount,
+	subtaskCount,
+	commentCount,
 	className,
 }) => {
 	const cardClasses = ["card"];
@@ -79,8 +79,8 @@ const Cards: React.FC<CardProps> = ({
 				<Avatar filename={avatarFilename} size='s' text={avatarText} />{" "}
 				<div className='card__info-items'>
 					<InfoItem count={attachmentCount} iconName='attachment' />
-					<InfoItem count={estimateCount} iconName='node' />
-					<InfoItem count={chatCount} iconName='chat' />
+					<InfoItem count={subtaskCount} iconName='node' />
+					<InfoItem count={commentCount} iconName='chat' />
 				</div>
 			</div>
 		</div>
@@ -88,3 +88,14 @@ const Cards: React.FC<CardProps> = ({
 };
 
 export default Cards;
+
+export const EmptyCard = () => {
+	return (
+		<div className='card empty'>
+			{/* Section 1: Title */}
+			<div className='card__section-1'>
+				<h3 className='card__title'>No tasks in this column yet.</h3>
+			</div>
+		</div>
+	);
+};

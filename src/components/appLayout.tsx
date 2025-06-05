@@ -1,17 +1,30 @@
-import React from "react";
+import { useState } from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./UI-elements/TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import TaskBoard from "./UI-elements/cardsColumnData";
+import NewTask from "./UI-elements/NewTask";
+
 // import DataViewer from "./Testing/DataViewer";
 
 const AppLayout: React.FC = () => {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
 	const handleSwitchSelect = (selected: "menu" | "function") => {
 		console.log("Switch button selected:", selected);
 	};
 
 	const handleAddButtonClick = () => {
-		console.log("Add button clicked!");
+		setIsModalOpen(true); // Open the modal when AddButton is clicked
+	};
+
+	const handleModalClose = () => {
+		setIsModalOpen(false); // Close the modal
+	};
+
+	const handleCreateTaskSubmit = (taskName: string) => {
+		console.log("New task created:", taskName);
+		// PENDING
 	};
 
 	return (
@@ -34,8 +47,13 @@ const AppLayout: React.FC = () => {
 				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
 					<TaskBoard />
+					<NewTask
+						isOpen={isModalOpen}
+						onClose={handleModalClose}
+						onSubmit={handleCreateTaskSubmit}
+					/>
 					{/* FOR API TESTING:
-                    <DataViewer /> */}
+					<DataViewer /> */}
 				</div>
 			</div>
 		</div>
