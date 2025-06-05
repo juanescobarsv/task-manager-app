@@ -4,7 +4,7 @@ import { HomePage, NotFoundPage, ErrorPage } from "./components/appPages";
 import DashboardView from "./components/mainDashboardView";
 import TasksView from "./components/mainTasksView";
 
-const App: React.FC = () => {
+const App = () => {
 	return (
 		<Router>
 			<ErrorBoundary>

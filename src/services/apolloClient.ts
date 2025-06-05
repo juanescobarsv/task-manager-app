@@ -1,8 +1,15 @@
 import { ApolloClient, InMemoryCache, ApolloLink, HttpLink } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
-const GRAPHQL_API_URI = import.meta.env.VITE_GRAPHQL_API_URI || "http://localhost:4000/graphql"; // Fallback for development
-const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN;
+interface ImportMetaEnv {
+	readonly VITE_GRAPHQL_API_URI?: string;
+	readonly VITE_AUTH_TOKEN?: string;
+}
+
+const env = import.meta.env as ImportMetaEnv;
+
+const GRAPHQL_API_URI: string = env.VITE_GRAPHQL_API_URI ?? "http://localhost:4000/graphql";
+const AUTH_TOKEN: string | undefined = env.VITE_AUTH_TOKEN;
 
 const httpLink = new HttpLink({
 	uri: GRAPHQL_API_URI,
@@ -12,12 +19,32 @@ const httpLink = new HttpLink({
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-	if (graphQLErrors)
-		graphQLErrors.forEach(({ message, locations, path }) =>
-			console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
-		);
+	if (graphQLErrors) {
+		graphQLErrors.forEach(({ message, locations, path }) => {
+			const formattedLocations = locations ? JSON.stringify(locations) : "N/A";
+			const formattedPath = path ? path.join(".") : "N/A";
 
-	if (networkError) console.error(`[Network error]: ${networkError}`);
+			console.error(
+				`[GraphQL error]: Message: ${message}, Location: ${formattedLocations}, Path: ${formattedPath}`,
+			);
+		});
+	}
+
+	if (networkError) {
+		let errorMessage = networkError.message;
+
+		// Check if networkError has a 'result' property (common for ServerParseError/ServerError)
+		// Ensure 'result' is an object before stringifying it to prevent errors on non-object types
+		if (
+			"result" in networkError &&
+			networkError.result &&
+			typeof networkError.result === "object"
+		) {
+			errorMessage = JSON.stringify(networkError.result);
+		}
+
+		console.error(`[Network error]: ${errorMessage}`);
+	}
 });
 
 const link = ApolloLink.from([errorLink, httpLink]);

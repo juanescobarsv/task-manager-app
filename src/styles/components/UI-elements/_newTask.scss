@@ -1,0 +1,145 @@
+@use "@/styles/variables";
+@use "@/styles/mixins";
+@use "@/styles/base";
+
+.task-modal-overlay {
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	inset: 0;
+	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	z-index: 99;
+}
+
+.task-modal-content {
+	background-color: variables.$color-neutral-4;
+	border-radius: variables.$border-radius-lg;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90vw;
+	max-width: 578px;
+	max-height: 184px;
+	padding: variables.$space-sm;
+	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-md;
+
+	// Input field for task name
+	.task-modal-input {
+		width: 100%;
+		background-color: variables.$color-neutral-4;
+		border: 1px solid variables.$color-neutral-4;
+		border-radius: variables.$border-radius;
+		color: variables.$color-neutral-1;
+		font-size: 16px;
+		line-height: 1.5;
+		outline: none;
+		transition: border-color 0.2s ease;
+
+		&::placeholder {
+			color: variables.$color-neutral-2;
+		}
+	}
+
+	// Buttons for Options labels
+	.task-modal-options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: variables.$space-sm;
+
+		.option-button {
+			@include mixins.flex-center;
+			flex: 1;
+			height: 32px;
+			gap: variables.$spacing-unit;
+			background-color: variables.$color-neutral-3;
+			color: variables.$color-neutral-1;
+			padding: variables.$space-xs variables.$space-sm;
+			border-radius: variables.$border-radius;
+			font-size: 15px;
+			cursor: pointer;
+			transition:
+				background-color 0.2s ease,
+				color 0.2s ease;
+			border: none;
+			white-space: nowrap;
+			overflow: hidden;
+
+			&:hover {
+				background-color: variables.$color-neutral-5;
+				color: variables.$color-primary-4;
+			}
+
+			svg {
+				width: 24px;
+				height: 24px;
+				fill: currentColor;
+			}
+		}
+	}
+
+	// Action buttons (Cancel, Create)
+	.task-modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		color: var(--color-neutral-1);
+
+		.action-button {
+			height: 40px;
+			width: 62px;
+			@include mixins.flex-center;
+			gap: variables.$space-md;
+			background-color: variables.$color-neutral-4;
+			color: variables.$color-neutral-1;
+			padding: variables.$space-xs variables.$space-sm;
+			border-radius: variables.$border-radius;
+			font-size: 14px;
+			cursor: pointer;
+			transition:
+				background-color 0.2s ease,
+				color 0.2s ease;
+			border: none;
+
+			&--cancel {
+				background-color: transparent;
+
+				&:hover {
+					color: variables.$color-primary-4;
+				}
+			}
+
+			&--create {
+				background-color: variables.$color-primary-4;
+				color: variables.$color-neutral-1;
+
+				&:hover {
+					filter: brightness(1.2);
+				}
+			}
+		}
+	}
+}
+
+// Animations for modal
+@keyframes overlayShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes contentShow {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -48%) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+}

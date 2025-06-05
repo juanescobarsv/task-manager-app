@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import MenuIcon from "./sidebarMenuIcon";
 import JE from "../../assets/avatars/juan.jpg";
@@ -27,11 +28,11 @@ const TopBar = () => {
 	};
 
 	const handleNotificationClick = () => {
-		console.log("Notification icon clicked!");
+		console.warn("Notification icon clicked!");
 	};
 
 	const handleAvatarClick = () => {
-		console.log("Avatar clicked!");
+		console.warn("Avatar clicked!");
 	};
 
 	return (
@@ -76,7 +77,7 @@ const TopBar = () => {
 						role='button'
 						tabIndex={0}
 						onError={(e) => {
-							e.currentTarget.src = { JE };
+							e.currentTarget.src = "https://placehold.co/40x40/cccccc/000000?text=User";
 						}}
 					/>
 				</div>

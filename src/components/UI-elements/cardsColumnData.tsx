@@ -1,7 +1,7 @@
 import CardsColumn from "./CardsColumn";
 import type { CardProps } from "./Cards";
 import { useTasksQuery } from "../../graphQL/generated/graphql";
-import type { TaskTag, TasksQuery, PointEstimate } from "../../graphQL/generated/graphql";
+import type { TasksQuery, TaskTag, PointEstimate } from "../../graphQL/generated/graphql";
 
 const AVATAR_FILENAMES = [
 	"alex.jpg",
@@ -33,15 +33,13 @@ const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | st
 			return 1;
 		case "TWO":
 			return 2;
-		case "THREE":
-			return 3;
 		case "FOUR":
 			return 4;
 		case "EIGHT":
 			return 8;
 		default:
-			console.warn(`Unknown PointEstimate: ${pointEstimate}. Returning original string.`);
-			return "unknown"; // Fallback to original string if unknown
+			console.warn(`Unknown PointEstimate: ${pointEstimate}`);
+			return "N/A"; // Fallback
 	}
 };
 
@@ -92,7 +90,7 @@ const TaskBoard = () => {
 			case "IOS":
 				return {
 					backgroundColor: "var(--color-neutral-4-1)",
-					textColor: "var(--color-neutral-4)",
+					textColor: "var(--color-neutral-1)",
 				};
 			case "ANDROID":
 				return {
@@ -126,7 +124,7 @@ const TaskBoard = () => {
 		const assignedAvatarFilename = getRandomAvatarFilename();
 		// FUTUREPROOFING: Assignee's avatars are currently blank, if available change:
 		// 		const assignedAvatarFilename = ask.assignee?.avatar;
-		const assignedAvatarText = task.assignee?.fullName || "Unassigned";
+		const assignedAvatarText = task.assignee?.fullName ?? "Unassigned";
 
 		return {
 			title: task.name,
@@ -141,8 +139,8 @@ const TaskBoard = () => {
 
 			// These counts are not in the current API schema, using placeholders as before
 			attachmentCount: 0, // Placeholder
-			estimateCount: 0, // Placeholder
-			chatCount: 0, // Placeholder
+			subtaskCount: 5, // Placeholder
+			commentCount: 3, // Placeholder
 		};
 	};
 
@@ -155,27 +153,34 @@ const TaskBoard = () => {
 	}
 
 	// Group tasks by status
-	const workingCards: CardProps[] = [];
+	// Group tasks by exact status
+	const backlogCards: CardProps[] = [];
+	const todoCards: CardProps[] = [];
 	const inProgressCards: CardProps[] = [];
-	const completedCards: CardProps[] = [];
+	const doneCards: CardProps[] = [];
+	const cancelledCards: CardProps[] = [];
 
-	if (data && data.tasks) {
+	if (data?.tasks) {
 		data.tasks.forEach((task) => {
 			const transformedCard = transformTaskToCardProps(task);
 			switch (task.status) {
-				case "TODO":
 				case "BACKLOG":
-					workingCards.push(transformedCard);
+					backlogCards.push(transformedCard);
+					break;
+				case "TODO":
+					todoCards.push(transformedCard);
 					break;
 				case "IN_PROGRESS":
 					inProgressCards.push(transformedCard);
 					break;
 				case "DONE":
+					doneCards.push(transformedCard);
+					break;
 				case "CANCELLED":
-					completedCards.push(transformedCard);
+					cancelledCards.push(transformedCard);
 					break;
 				default:
-					console.warn(`Unknown task status: ${task.status}`);
+					console.warn(`Unknown task status: ${String(task.status)}`);
 					break;
 			}
 		});
@@ -183,9 +188,11 @@ const TaskBoard = () => {
 
 	return (
 		<div className='task-board'>
-			<CardsColumn title='Working' cards={workingCards} />
-			<CardsColumn title='In Progress' cards={inProgressCards} />
-			<CardsColumn title='Completed' cards={completedCards} />
+			<CardsColumn title='BACKLOG' cards={backlogCards} />
+			<CardsColumn title='TODO' cards={todoCards} />
+			<CardsColumn title='IN PROGRESS' cards={inProgressCards} />
+			<CardsColumn title='DONE' cards={doneCards} />
+			<CardsColumn title='CANCELLED' cards={cancelledCards} />
 		</div>
 	);
 };

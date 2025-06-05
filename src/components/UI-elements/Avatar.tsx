@@ -9,7 +9,7 @@ interface AvatarProps {
 	className?: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ filename, size, text, className }) => {
+const Avatar = ({ filename, size, text, className }: AvatarProps) => {
 	const avatarClasses = ["avatar"];
 	avatarClasses.push(`avatar--size-${size}`);
 
@@ -21,7 +21,7 @@ const Avatar: React.FC<AvatarProps> = ({ filename, size, text, className }) => {
 	const imagePath = `./src/assets/avatars/${filename}`;
 
 	// Fallback image in case the provided src fails to load
-	const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+	const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>): void => {
 		e.currentTarget.src = `https://placehold.co/${40}x${40}/cccccc/000000?text=User`;
 		e.currentTarget.alt = "Fallback User Avatar";
 	};

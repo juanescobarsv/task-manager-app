@@ -1,4 +1,4 @@
-import Cards from "./Cards";
+import Cards, { EmptyCard } from "./Cards";
 import type { CardProps } from "./Cards";
 
 interface CardsColumnProps {
@@ -7,7 +7,7 @@ interface CardsColumnProps {
 	className?: string;
 }
 
-const CardsColumn: React.FC<CardsColumnProps> = ({ title, cards, className }) => {
+const CardsColumn = ({ title, cards, className }: CardsColumnProps) => {
 	const columnClasses = ["cards-column"];
 	if (className) {
 		columnClasses.push(className);
@@ -21,9 +21,15 @@ const CardsColumn: React.FC<CardsColumnProps> = ({ title, cards, className }) =>
 				{title} ({cardCount === 0 ? "0" : cardCount.toString().padStart(2, "0")})
 			</h2>
 			<div className='cards-column__list'>
-				{cards.map((cardData, index) => (
-					<Cards key={index} {...cardData} />
-				))}
+				{cards.length > 0 ? (
+					cards.map((card) => (
+						<Cards key={card.title} {...card} /> // Using title as key for simplicity, ideally use unique ID
+					))
+				) : (
+					<div className='cards-column__empty-state'>
+						<EmptyCard />
+					</div>
+				)}
 			</div>
 		</div>
 	);

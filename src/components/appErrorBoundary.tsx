@@ -32,7 +32,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
 					<h1 className='text-6xl font-bold text-red-800 mb-4'>Oops!</h1>
 					<p className='text-2xl text-red-600 mb-8'>Something went wrong.</p>
 					<p className='text-lg text-red-500 mb-4'>
-						{this.state.error?.message || "An unknown error occurred."}
+						{this.state.error?.message ?? "An unknown error occurred."}
 					</p>
 					<button
 						onClick={() => this.setState({ hasError: false, error: null })}

@@ -28,7 +28,7 @@ export type CreateTaskInput = {
 	name: Scalars["String"]["input"];
 	pointEstimate: PointEstimate;
 	status: Status;
-	tags: Array<TaskTag>;
+	tags: TaskTag[];
 };
 
 export type DeleteTaskInput = {
@@ -42,7 +42,7 @@ export type FilterTaskInput = {
 	ownerId?: InputMaybe<Scalars["String"]["input"]>;
 	pointEstimate?: InputMaybe<PointEstimate>;
 	status?: InputMaybe<Status>;
-	tags?: InputMaybe<Array<TaskTag>>;
+	tags?: InputMaybe<TaskTag[]>;
 };
 
 export type Mutation = {
@@ -70,8 +70,8 @@ export type PointEstimate = "EIGHT" | "FOUR" | "THREE" | "TWO" | "ONE" | "ZERO";
 export type Query = {
 	__typename?: "Query";
 	profile: User;
-	tasks: Array<Task>;
-	users: Array<User>;
+	tasks: Task[];
+	users: User[];
 };
 
 export type QueryTasksArgs = {
@@ -92,7 +92,7 @@ export type Task = {
 	pointEstimate: PointEstimate;
 	position: Scalars["Float"]["output"];
 	status: Status;
-	tags: Array<TaskTag>;
+	tags: TaskTag[];
 };
 
 /** Enum for tags for tasks */
@@ -106,7 +106,7 @@ export type UpdateTaskInput = {
 	pointEstimate?: InputMaybe<PointEstimate>;
 	position?: InputMaybe<Scalars["Float"]["input"]>;
 	status?: InputMaybe<Status>;
-	tags?: InputMaybe<Array<TaskTag>>;
+	tags?: InputMaybe<TaskTag[]>;
 };
 
 export type User = {
@@ -152,7 +152,7 @@ export type TasksQuery = {
 		status: Status;
 		pointEstimate: PointEstimate;
 		dueDate: Date;
-		tags: Array<TaskTag>;
+		tags: TaskTag[];
 		position: number;
 		createdAt: Date;
 		assignee?: { __typename?: "User"; id: string; fullName: string; avatar?: string | null } | null;
@@ -231,8 +231,8 @@ export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
 export type ProfileSuspenseQueryHookResult = ReturnType<typeof useProfileSuspenseQuery>;
 export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const TasksDocument = gql`
-	query Tasks($input: FilterTaskInput!) {
-		tasks(input: $input) {
+	query Tasks {
+		tasks(input: {}) {
 			id
 			name
 			status

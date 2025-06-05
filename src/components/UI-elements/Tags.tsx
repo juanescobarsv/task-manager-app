@@ -1,3 +1,4 @@
+import React from "react";
 import Icons from "./sidebarIcons";
 
 interface LabelProps {

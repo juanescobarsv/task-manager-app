@@ -6,16 +6,16 @@ export interface CardProps {
 	title: string;
 	points: string;
 	timeTagText: string;
-	tags: { text: string; backgroundColor: string; textColor: string }[];
+	tags: Array<{ text: string; backgroundColor: string; textColor: string }>;
 	avatarFilename: string;
 	avatarText: string;
 	attachmentCount: number;
-	estimateCount: number;
-	chatCount: number;
+	subtaskCount: number;
+	commentCount: number;
 	className?: string;
 }
 
-const Cards: React.FC<CardProps> = ({
+const Cards = ({
 	title,
 	points,
 	timeTagText,
@@ -23,16 +23,16 @@ const Cards: React.FC<CardProps> = ({
 	avatarFilename,
 	avatarText,
 	attachmentCount,
-	estimateCount,
-	chatCount,
+	subtaskCount,
+	commentCount,
 	className,
-}) => {
+}: CardProps) => {
 	const cardClasses = ["card"];
 	if (className) {
 		cardClasses.push(className);
 	}
 
-	const InfoItem: React.FC<{ count: number; iconName: string }> = ({ count, iconName }) => (
+	const InfoItem = ({ count, iconName }: { count: number; iconName: string }) => (
 		<div className='info-item'>
 			<span className='info-item__number'>{count}</span>
 			<span className='info-item__icon'>
@@ -79,8 +79,8 @@ const Cards: React.FC<CardProps> = ({
 				<Avatar filename={avatarFilename} size='s' text={avatarText} />{" "}
 				<div className='card__info-items'>
 					<InfoItem count={attachmentCount} iconName='attachment' />
-					<InfoItem count={estimateCount} iconName='node' />
-					<InfoItem count={chatCount} iconName='chat' />
+					<InfoItem count={subtaskCount} iconName='node' />
+					<InfoItem count={commentCount} iconName='chat' />
 				</div>
 			</div>
 		</div>
@@ -88,3 +88,14 @@ const Cards: React.FC<CardProps> = ({
 };
 
 export default Cards;
+
+export const EmptyCard = () => {
+	return (
+		<div className='card empty'>
+			{/* Section 1: Title */}
+			<div className='card__section-1'>
+				<h3 className='card__title'>No tasks in this column yet.</h3>
+			</div>
+		</div>
+	);
+};

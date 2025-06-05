@@ -14,12 +14,14 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.13.8",
+		"@radix-ui/react-dialog": "^1.1.14",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-router-dom": "^7.6.1",
 		"sass-migrator": "^2.3.2"
 	},
 	"devDependencies": {
+		"@eslint/compat": "^1.2.9",
 		"@eslint/js": "^9.25.0",
 		"@graphql-codegen/cli": "^5.0.6",
 		"@graphql-codegen/typescript": "^4.1.6",
