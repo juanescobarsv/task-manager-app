@@ -4,27 +4,36 @@ import TopBar from "./UI-elements/TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import TaskBoard from "./UI-elements/cardsColumnData";
 import NewTask from "./UI-elements/NewTask";
+import type { User } from "./UI-elements/NewTask";
 
 // import DataViewer from "./Testing/DataViewer";
 
 const AppLayout = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
 	const handleSwitchSelect = (selected: "menu" | "function") => {
 		console.warn("Switch button selected:", selected);
 	};
 
 	const handleAddButtonClick = () => {
-		setIsModalOpen(true); // Open the modal when AddButton is clicked
+		setIsTaskModalOpen(true);
 	};
 
-	const handleModalClose = () => {
-		setIsModalOpen(false); // Close the modal
+	const handleTaskModalClose = () => {
+		setIsTaskModalOpen(false);
 	};
 
-	const handleCreateTaskSubmit = (taskName: string) => {
-		console.warn("New task created:", taskName);
-		// PENDING
+	// Updated onSubmit signature to accept assignee of type User
+	const handleCreateTaskSubmit = (
+		taskName: string,
+		estimate: number | null,
+		assignee: User | null, // NEW: User type
+	) => {
+		console.warn(
+			`New task created: "${taskName}" with estimate: ${estimate} Points, assigned to: ${assignee ? assignee.fullName : "No one"}`,
+		);
+		// Here, you would typically integrate with your GraphQL mutation
+		// to create the task on the backend, using taskName, estimate, and assignee.
 	};
 
 	return (
@@ -48,8 +57,8 @@ const AppLayout = () => {
 				<div className='main-content__task-board-wrapper'>
 					<TaskBoard />
 					<NewTask
-						isOpen={isModalOpen}
-						onClose={handleModalClose}
+						isOpen={isTaskModalOpen}
+						onClose={handleTaskModalClose}
 						onSubmit={handleCreateTaskSubmit}
 					/>
 					{/* FOR API TESTING:

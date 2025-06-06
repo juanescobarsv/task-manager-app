@@ -32,7 +32,7 @@ const Sidebar = () => {
 	return (
 		<aside className='sidebar'>
 			<div className='sidebar__logo'>
-				<img src='../../public/assets/logo.svg' alt='Raven Logo' />
+				<img src='/logo.svg' alt='Raven Logo' />
 			</div>
 			<nav className='sidebar__nav'>
 				{navItems.map((item) => (

@@ -1,11 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import MenuIcon from "./sidebarMenuIcon";
-import JE from "../../../public/assets/avatars/juan.jpg";
+import Avatar from "./Avatar";
 
 const TopBar = () => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [isSearchActive, setIsSearchActive] = useState(false); // New state to track search bar activity
+	const [isSearchActive, setIsSearchActive] = useState(false);
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value);
@@ -69,16 +68,11 @@ const TopBar = () => {
 					>
 						<MenuIcon iconName='notification' />
 					</div>
-					<img
-						src={JE}
-						alt='User Avatar'
+					<Avatar
+						nameForRoboHash='currentuser'
+						size='m'
 						className='avatar'
 						onClick={handleAvatarClick}
-						role='button'
-						tabIndex={0}
-						onError={(e) => {
-							e.currentTarget.src = "https://placehold.co/40x40/cccccc/000000?text=User";
-						}}
 					/>
 				</div>
 			</div>

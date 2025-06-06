@@ -3,27 +3,6 @@ import type { CardProps } from "./Cards";
 import { useTasksQuery } from "../../graphQL/generated/graphql";
 import type { TasksQuery, TaskTag, PointEstimate } from "../../graphQL/generated/graphql";
 
-// Here are ALL the current avatars filenames:
-const AVATAR_FILENAMES = [
-	"alex.jpg",
-	"anna.jpg",
-	"christina.jpg",
-	"default-avatar.jpg",
-	"diego.jpg",
-	"jacqueline.jpg",
-	"joseph.jpg",
-	"jude.jpg",
-	"liam.jpg",
-	"michelle.jpg",
-	"stephanie.jpg",
-	"victor.jpg",
-];
-
-const getRandomAvatarFilename = (): string => {
-	const randomIndex = Math.floor(Math.random() * AVATAR_FILENAMES.length);
-	return AVATAR_FILENAMES[randomIndex];
-};
-
 // Helper function to convert PointEstimate enum (string) to a number
 const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | string => {
 	switch (pointEstimate) {
@@ -121,9 +100,6 @@ const TaskBoard = () => {
 	};
 
 	const transformTaskToCardProps = (task: TasksQuery["tasks"][number]): CardProps => {
-		const assignedAvatarFilename = getRandomAvatarFilename();
-		// FUTUREPROOFING: Assignee's avatars are currently blank, if available change:
-		// 		const assignedAvatarFilename = ask.assignee?.avatar;
 		const assignedAvatarText = task.assignee?.fullName ?? "Unassigned";
 
 		return {
@@ -134,7 +110,7 @@ const TaskBoard = () => {
 				text: tag.toString().replace("_", " ").toUpperCase(),
 				...getTagColors(tag),
 			})),
-			avatarFilename: assignedAvatarFilename,
+			avatarName: assignedAvatarText,
 			avatarText: assignedAvatarText,
 
 			// These counts are not in the current API schema, using placeholders:
