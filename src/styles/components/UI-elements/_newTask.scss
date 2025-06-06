@@ -34,7 +34,7 @@
 		border: 1px solid variables.$color-neutral-4;
 		border-radius: variables.$border-radius;
 		color: variables.$color-neutral-1;
-		font-size: 16px;
+		@extend .text-body-xl;
 		line-height: 1.5;
 		outline: none;
 		transition: border-color 0.2s ease;

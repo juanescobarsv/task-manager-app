@@ -20,10 +20,10 @@ interface TaskModalProps {
 
 const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const [taskName, setTaskName] = useState("");
-	const [isEstimateModalOpen, setIsEstimateModalOpen] = useState(false);
+	const [isEstimatePopoverOpen, setIsEstimatePopoverOpen] = useState(false);
 	const [selectedEstimate, setSelectedEstimate] = useState<number | null>(null);
 	const [isAssigneePopoverOpen, setIsAssigneePopoverOpen] = useState(false);
-	const [selectedAssignee, setSelectedAssignee] = useState<User | null>(null); // Type is User now
+	const [selectedAssignee, setSelectedAssignee] = useState<User | null>(null);
 
 	const handleCreateTask = () => {
 		if (taskName.trim()) {
@@ -36,10 +36,17 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	};
 
 	// Estimate Modal Handlers (remain unchanged)
-	const handleOpenEstimateModal = () => setIsEstimateModalOpen(true);
-	const handleCloseEstimateModal = () => setIsEstimateModalOpen(false);
-	const handleSelectEstimate = (estimate: number) => setSelectedEstimate(estimate);
+	const handleOpenEstimatePopover = () => {
+		setIsEstimatePopoverOpen(true);
+	};
 
+	const handleCloseEstimatePopover = (open: boolean) => {
+		setIsEstimatePopoverOpen(open);
+	};
+
+	const handleSelectEstimate = (estimate: number | null) => {
+		setSelectedEstimate(estimate);
+	};
 	// Assignee Popover Handlers
 	const handleOpenAssigneePopover = () => setIsAssigneePopoverOpen(true);
 	const handleCloseAssigneePopover = (open: boolean) => setIsAssigneePopoverOpen(open);
@@ -60,7 +67,7 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 							className='task-modal-input'
 							value={taskName}
 							onChange={(e) => setTaskName(e.target.value)}
-							onKeyPress={(e) => {
+							onKeyDown={(e) => {
 								if (e.key === "Enter") {
 									handleCreateTask();
 								}
@@ -68,10 +75,17 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 						/>
 
 						<div className='task-modal-options'>
-							<button className='option-button' onClick={handleOpenEstimateModal}>
-								<Icons name='increase_decrease' />
-								{selectedEstimate !== null ? `${selectedEstimate} Points` : "Estimate"}
-							</button>
+							<EstimateModal
+								isOpen={isEstimatePopoverOpen}
+								onClose={handleCloseEstimatePopover} // Changed from onClose to onOpenChange
+								onSelectEstimate={handleSelectEstimate}
+								selectedEstimate={selectedEstimate} // Pass selectedEstimate to highlight
+							>
+								<button className='option-button' onClick={handleOpenEstimatePopover}>
+									<Icons name='increase_decrease' />
+									{selectedEstimate !== null ? `${selectedEstimate} Points` : "Estimate"}
+								</button>
+							</EstimateModal>
 
 							<AssigneePopover
 								isOpen={isAssigneePopoverOpen}
@@ -110,12 +124,6 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 					</Dialog.Content>
 				</Dialog.Portal>
 			</Dialog.Root>
-
-			<EstimateModal
-				isOpen={isEstimateModalOpen}
-				onClose={handleCloseEstimateModal}
-				onSelectEstimate={handleSelectEstimate}
-			/>
 		</>
 	);
 };

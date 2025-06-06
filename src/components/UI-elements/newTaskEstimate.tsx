@@ -1,33 +1,44 @@
-import * as Dialog from "@radix-ui/react-dialog";
+import * as Popover from "@radix-ui/react-popover";
 import React from "react";
 import Icons from "./sidebarIcons";
 
 interface EstimateModalProps {
+	children: React.ReactNode;
 	isOpen: boolean;
-	onClose: () => void;
-	onSelectEstimate: (estimate: number) => void;
+	onClose: (open: boolean) => void;
+	onSelectEstimate: (estimate: number | null) => void;
+	selectedEstimate: number | null;
 }
 
 const pointEstimates = [0, 1, 2, 4, 8];
 
-const EstimateModal: React.FC<EstimateModalProps> = ({ isOpen, onClose, onSelectEstimate }) => {
-	const handleSelect = (estimate: number) => {
+const EstimateModal: React.FC<EstimateModalProps> = ({
+	children,
+	isOpen,
+	onClose,
+	onSelectEstimate,
+	selectedEstimate,
+}) => {
+	const handleSelect = (estimate: number | null) => {
 		onSelectEstimate(estimate);
-		onClose();
+		onClose(false);
 	};
 
 	return (
-		<Dialog.Root open={isOpen} onOpenChange={onClose}>
-			<Dialog.Portal>
-				<Dialog.Overlay className='estimate-modal-overlay' />
-				<Dialog.Content className='estimate-modal-content'>
-					<Dialog.Title className='estimate-modal-title'>Estimate</Dialog.Title>
+		<Popover.Root open={isOpen} onOpenChange={onClose}>
+			<Popover.Trigger asChild>{children}</Popover.Trigger>{" "}
+			{/* The button will be passed as children */}
+			<Popover.Portal>
+				<Popover.Content className='task-option-popover estimate' sideOffset={5} align='start'>
+					<div className='popover-header'>
+						<span className='popover-title'>Estimate</span>
+					</div>
 
-					<div className='estimate-options'>
+					<div className='popover-list'>
 						{pointEstimates.map((points) => (
 							<button
 								key={points}
-								className='estimate-option-button'
+								className={`estimate-option-button ${selectedEstimate === points ? "estimate-option-button--selected" : ""}`}
 								onClick={() => handleSelect(points)}
 							>
 								<Icons name='increase_decrease' />
@@ -36,14 +47,10 @@ const EstimateModal: React.FC<EstimateModalProps> = ({ isOpen, onClose, onSelect
 						))}
 					</div>
 
-					<Dialog.Close asChild>
-						<button className='estimate-modal-close-button' aria-label='Close'>
-							<Icons name='close' />
-						</button>
-					</Dialog.Close>
-				</Dialog.Content>
-			</Dialog.Portal>
-		</Dialog.Root>
+					<Popover.Arrow className='popover-arrow' />
+				</Popover.Content>
+			</Popover.Portal>
+		</Popover.Root>
 	);
 };
 

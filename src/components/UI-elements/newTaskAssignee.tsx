@@ -43,8 +43,12 @@ const AssigneePopover: React.FC<AssigneePopoverProps> = ({
 		<Popover.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Popover.Trigger asChild>{children}</Popover.Trigger>
 			<Popover.Portal>
-				<Popover.Content className='assignee-popover-content' sideOffset={5} align='start'>
-					<div className='assignee-popover-header'>
+				<Popover.Content
+					className='task-option-popover assignee'
+					sideOffset={5}
+					align='start'
+				>
+					<div className='popover-header'>
 						<input
 							type='text'
 							placeholder='Assign to...'
@@ -52,14 +56,9 @@ const AssigneePopover: React.FC<AssigneePopoverProps> = ({
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
 						/>
-						{selectedAssigneeId && (
-							<button className='assignee-clear-button' onClick={() => handleSelect(null)}>
-								Clear
-							</button>
-						)}
 					</div>
 
-					<div className='assignee-list'>
+					<div className='popover-list assignee-list'>
 						{loading && <div className='assignee-message'>Loading users...</div>}
 						{error && (
 							<div className='assignee-message assignee-message--error'>
@@ -83,7 +82,7 @@ const AssigneePopover: React.FC<AssigneePopoverProps> = ({
 							))}
 					</div>
 
-					<Popover.Arrow className='assignee-popover-arrow' />
+					<Popover.Arrow className='popover-arrow' />
 				</Popover.Content>
 			</Popover.Portal>
 		</Popover.Root>
