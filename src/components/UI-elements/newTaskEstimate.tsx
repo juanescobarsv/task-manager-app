@@ -8,7 +8,7 @@ interface EstimateModalProps {
 	onSelectEstimate: (estimate: number) => void;
 }
 
-const pointEstimates = [0, 1, 2, 4, 8]; 
+const pointEstimates = [0, 1, 2, 4, 8];
 
 const EstimateModal: React.FC<EstimateModalProps> = ({ isOpen, onClose, onSelectEstimate }) => {
 	const handleSelect = (estimate: number) => {
@@ -30,7 +30,7 @@ const EstimateModal: React.FC<EstimateModalProps> = ({ isOpen, onClose, onSelect
 								className='estimate-option-button'
 								onClick={() => handleSelect(points)}
 							>
-								<Icons name='increase_decrease' /> 
+								<Icons name='increase_decrease' />
 								{points} Points
 							</button>
 						))}
@@ -38,7 +38,7 @@ const EstimateModal: React.FC<EstimateModalProps> = ({ isOpen, onClose, onSelect
 
 					<Dialog.Close asChild>
 						<button className='estimate-modal-close-button' aria-label='Close'>
-							<Icons name='close' /> 
+							<Icons name='close' />
 						</button>
 					</Dialog.Close>
 				</Dialog.Content>
