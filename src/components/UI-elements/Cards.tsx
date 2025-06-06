@@ -7,7 +7,7 @@ export interface CardProps {
 	points: string;
 	timeTagText: string;
 	tags: Array<{ text: string; backgroundColor: string; textColor: string }>;
-	avatarFilename: string;
+	avatarName: string;
 	avatarText: string;
 	attachmentCount: number;
 	subtaskCount: number;
@@ -20,7 +20,7 @@ const Cards = ({
 	points,
 	timeTagText,
 	tags,
-	avatarFilename,
+	avatarName,
 	avatarText,
 	attachmentCount,
 	subtaskCount,
@@ -76,7 +76,7 @@ const Cards = ({
 
 			{/* Section 4: Avatar and Info Icons */}
 			<div className='card__section-4'>
-				<Avatar filename={avatarFilename} size='s' text={avatarText} />{" "}
+				<Avatar nameForRoboHash={avatarName} size='s' text={avatarText} />{" "}
 				<div className='card__info-items'>
 					<InfoItem count={attachmentCount} iconName='attachment' />
 					<InfoItem count={subtaskCount} iconName='node' />

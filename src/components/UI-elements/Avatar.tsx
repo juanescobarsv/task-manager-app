@@ -3,13 +3,14 @@ import React from "react";
 type AvatarSize = "s" | "m" | "l";
 
 interface AvatarProps {
-	filename: string;
-	size: AvatarSize;
+	nameForRoboHash?: string;
+	size?: AvatarSize;
 	text?: string;
 	className?: string;
+	onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Avatar = ({ filename, size, text, className }: AvatarProps) => {
+const Avatar = ({ nameForRoboHash, size = "m", text, className }: AvatarProps) => {
 	const avatarClasses = ["avatar"];
 	avatarClasses.push(`avatar--size-${size}`);
 
@@ -17,19 +18,36 @@ const Avatar = ({ filename, size, text, className }: AvatarProps) => {
 		avatarClasses.push(className);
 	}
 
-	// Hardcoded prefix for easier input, if avatar's images path change, must change it here too:
-	const imagePath = `./src/assets/avatars/${filename}`;
+	let pixelSize: string;
+	switch (size) {
+		case "s":
+			pixelSize = "32";
+			break;
+		case "m":
+			pixelSize = "40";
+			break;
+		case "l":
+			pixelSize = "48";
+			break;
+		default:
+			pixelSize = "40";
+	}
+
+	const finalImageUrl: string =
+		(nameForRoboHash
+			? `https://robohash.org/${encodeURIComponent(nameForRoboHash)}.png?set=set3`
+			: "") || `https://placehold.co/${pixelSize}x${pixelSize}/cccccc/000000?text=User`;
 
 	// Fallback image in case the provided src fails to load
 	const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>): void => {
-		e.currentTarget.src = `https://placehold.co/${40}x${40}/cccccc/000000?text=User`;
+		e.currentTarget.src = `https://placehold.co/${pixelSize}x${pixelSize}/cccccc/000000?text=User`;
 		e.currentTarget.alt = "Fallback User Avatar";
 	};
 
 	return (
 		<div className='avatar-wrapper'>
 			<img
-				src={imagePath}
+				src={finalImageUrl}
 				alt={text ? `${text}'s avatar` : "User Avatar"}
 				className={avatarClasses.join(" ")}
 				onError={handleError}
