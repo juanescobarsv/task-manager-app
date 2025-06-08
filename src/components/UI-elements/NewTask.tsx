@@ -5,6 +5,7 @@ import { useState } from "react";
 import EstimatePopover from "./newTaskEstimate";
 import AssigneePopover from "./newTaskAssignee";
 import TagPopover from "./newTaskTag";
+import DatePopover from "./newTaskDate";
 import type { TaskTag } from "../../graphQL/generated/graphql";
 import type { User } from "../../graphQL/generated/graphql";
 
@@ -16,6 +17,7 @@ interface TaskModalProps {
 		estimate: number | null,
 		assignee: User | null,
 		tags: TaskTag[],
+		dueDate: Date | null,
 	) => void;
 }
 
@@ -27,16 +29,23 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const [selectedAssignee, setSelectedAssignee] = useState<User | null>(null);
 	const [isTagPopoverOpen, setIsTagPopoverOpen] = useState(false);
 	const [selectedTags, setSelectedTags] = useState<TaskTag[]>([]);
+	const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
 	const handleCreateTask = () => {
 		if (taskName.trim()) {
-			onSubmit(taskName.trim(), selectedEstimate, selectedAssignee, selectedTags);
-			setTaskName("");
-			setSelectedEstimate(null);
-			setSelectedAssignee(null);
-			setSelectedTags([]);
-			onClose();
+			onSubmit(taskName.trim(), selectedEstimate, selectedAssignee, selectedTags, selectedDate);
+			handleClear();
 		}
+	};
+
+	const handleClear = () => {
+		setTaskName("");
+		setSelectedEstimate(null);
+		setSelectedAssignee(null);
+		setSelectedTags([]);
+		setSelectedDate(null);
+		onClose();
 	};
 
 	// Estimate Modal Handlers (remain unchanged)
@@ -62,6 +71,52 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const handleOpenTagPopover = () => setIsTagPopoverOpen(true);
 	const handleCloseTagPopover = (open: boolean) => setIsTagPopoverOpen(open);
 	const handleSelectTags = (tags: TaskTag[]) => setSelectedTags(tags);
+
+	// Date Picker Handlers
+	const handleOpenDatePicker = () => setIsDatePickerOpen(true);
+	const handleCloseDatePicker = (open: boolean) => setIsDatePickerOpen(open);
+	const handleSelectDate = (date: Date | null) => setSelectedDate(date);
+
+	// Helper function to get tag colors (copied from NewTaskTag to be available here for displaying labels)
+	const getTagColors = (tag: TaskTag): { backgroundColor: string; textColor: string } => {
+		switch (tag) {
+			case "IOS":
+				return {
+					backgroundColor: "var(--color-neutral-4-1)",
+					textColor: "var(--color-neutral-1)",
+				};
+			case "ANDROID":
+				return {
+					backgroundColor: "var(--color-secondary-4-1)",
+					textColor: "var(--color-secondary-4)",
+				};
+			case "REACT":
+				return {
+					backgroundColor: "var(--color-blue-light)",
+					textColor: "var(--color-blue-bright)",
+				};
+			case "NODE_JS":
+				return {
+					backgroundColor: "var(--color-tertiary-4-1)",
+					textColor: "var(--color-tertiary-4)",
+				};
+			case "RAILS":
+				return {
+					backgroundColor: "var(--color-primary-4-1)",
+					textColor: "var(--color-primary-4)",
+				};
+			default:
+				return {
+					backgroundColor: "var(--color-neutral-4)",
+					textColor: "var(--color-neutral-1)",
+				};
+		}
+	};
+
+	const handleRemoveTagFromLabels = (tagToRemove: TaskTag) => {
+		const updatedTags = selectedTags.filter((tag) => tag !== tagToRemove);
+		setSelectedTags(updatedTags);
+	};
 
 	return (
 		<>
@@ -123,14 +178,44 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 								</button>
 							</TagPopover>
 
-							<button className='option-button'>
-								<Icons name='calendar' />
-								Due date
-							</button>
+							<DatePopover
+								isOpen={isDatePickerOpen}
+								onOpenChange={handleCloseDatePicker}
+								onSelectDate={handleSelectDate}
+								selectedDate={selectedDate}
+							>
+								<button className='option-button' onClick={handleOpenDatePicker}>
+									<Icons name='calendar' />
+									{selectedDate ? selectedDate.toLocaleDateString() : "Due date"}
+								</button>
+							</DatePopover>
 						</div>
 
 						<div className='task-modal-actions'>
-							<button className='action-button action-button--cancel' onClick={onClose}>
+							{selectedTags.length > 0 && (
+								<div className='selected-tag-labels'>
+									{selectedTags.map((tag) => {
+										const { backgroundColor, textColor } = getTagColors(tag);
+										return (
+											<span
+												key={tag}
+												className='tag-label'
+												style={{ backgroundColor, color: textColor }}
+											>
+												<span className='tag-label__text'>{tag.toUpperCase()}</span>
+												<button
+													className='tag-label__close-button'
+													onClick={() => handleRemoveTagFromLabels(tag)}
+													aria-label={`Remove ${tag} tag`}
+												>
+													<Icons name='close' />
+												</button>
+											</span>
+										);
+									})}
+								</div>
+							)}
+							<button className='action-button action-button--cancel' onClick={handleClear}>
 								Cancel
 							</button>
 							<button className='action-button action-button--create' onClick={handleCreateTask}>

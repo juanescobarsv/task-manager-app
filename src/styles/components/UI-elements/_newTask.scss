@@ -143,3 +143,13 @@
 		transform: translate(-50%, -50%) scale(1);
 	}
 }
+
+// Tag wrappers for selected Labels for layout control
+.selected-tag-labels {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+
+	gap: variables.$space-xs;
+	margin-right: 15px;
+}

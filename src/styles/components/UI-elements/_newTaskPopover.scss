@@ -318,18 +318,202 @@
 	}
 }
 
-// These wrappers will now be directly in NewTask.tsx for layout control
-.tag-trigger-wrapper {
-	display: flex;
-	flex-direction: column;
-	gap: variables.$space-xs;
-	width: 100%;
-}
+// Date Picker Popover
+.date-picker-variant {
+	max-width: 280px;
+	// z-index: 105;
 
-.selected-tag-labels {
-	display: flex;
-	flex-wrap: wrap;
-	gap: variables.$space-xs;
-	padding-top: variables.$space-xs;
-	padding-bottom: variables.$space-xs;
+	.react-datepicker {
+		font-family: variables.$font-family-sans-serif;
+		background-color: variables.$color-neutral-5;
+		border: none;
+		border-radius: variables.$border-radius-md;
+		padding: variables.$space-xs;
+		color: variables.$color-neutral-5;
+		width: 100%;
+	}
+
+	.react-datepicker__header {
+		background-color: variables.$color-neutral-5;
+		border-bottom: none;
+		padding-bottom: variables.$space-xs;
+		text-align: center;
+		position: relative;
+	}
+
+	.react-datepicker__header--custom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 variables.$space-xs;
+
+		.react-datepicker__current-month {
+			color: variables.$color-neutral-2;
+			font-weight: variables.$font-weight-normal;
+			font-size: variables.$font-size-base;
+			flex-grow: 1;
+			text-align: center;
+		}
+
+		.react-datepicker__navigation {
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+			width: 16px;
+			height: 16px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			svg {
+				width: 18px; // Icon size inside button
+				height: 18px;
+				fill: variables.$color-neutral-2; // Arrow color
+				transition: fill 0.2s ease;
+			}
+
+			&:hover:not(:disabled) svg {
+				fill: variables.$color-primary-4; // Hover effect for arrows
+			}
+
+			&:disabled {
+				cursor: not-allowed;
+				opacity: 0.5;
+			}
+
+			// Positioning adjustments for React-datepicker's default navigation classes
+			// For custom header, these might not be strictly needed if buttons are flexible.
+			&--previous {
+				// Adjust if using default buttons, otherwise handled by flex
+			}
+			&--next {
+				// Adjust if using default buttons, otherwise handled by flex
+			}
+			// Add specific styles for year navigation if needed
+			&--year-previous,
+			&--year-next {
+				margin: 0 variables.$space-xs; // Add some space between year and month arrows
+			}
+		}
+	}
+
+	.react-datepicker__month-container {
+		padding: variables.$space-xs;
+	}
+
+	.react-datepicker__month {
+		margin: 0;
+		text-align: center;
+	}
+
+	.react-datepicker__week {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.react-datepicker__day-names {
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: variables.$space-xs;
+
+		.react-datepicker__day-name {
+			color: variables.$color-neutral-2; // Day names (Su, Mo, etc.)
+			font-weight: variables.$font-weight-normal;
+			width: 28px; // Fixed width for each day name
+			line-height: 28px;
+			font-size: variables.$font-size-base * 0.9;
+		}
+	}
+
+	.react-datepicker__day {
+		width: 28px; // Fixed width for each day cell
+		line-height: 28px;
+		height: 28px;
+		margin: 2px; // Small margin between days
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: variables.$border-radius; // Slight rounding for day cells
+		color: variables.$color-neutral-1; // Default day text color
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
+		border: 1px solid transparent; // Default transparent border
+
+		&:hover {
+			background-color: variables.$color-neutral-4; // Hover background
+			color: variables.$color-primary-4; // Hover text color
+		}
+
+		&--selected {
+			background-color: transparent; // Selected day background
+			color: variables.$color-neutral-1; // Selected day text color
+			font-weight: variables.$font-weight-bold;
+			border-color: variables.$color-primary-4;
+		}
+
+		&--today {
+			font-weight: variables.$font-weight-bold;
+			border-color: variables.$color-primary-4;
+			background-color: transparent;
+			color: variables.$color-neutral-1;
+		}
+
+		&--weekend {
+			color: variables.$color-neutral-2;
+		}
+
+		&--outside-month {
+			color: variables.$color-neutral-5;
+			opacity: 0.7;
+			pointer-events: none; // Make them unclickable
+		}
+
+		&--disabled {
+			color: variables.$color-neutral-5;
+			cursor: not-allowed;
+		}
+	}
+
+	// Footer with "Today" button
+	.date-picker-footer {
+		padding-top: variables.$space-xs;
+		border-top: 1px solid variables.$color-neutral-4;
+		margin-top: variables.$space-xs;
+		text-align: center;
+
+		.date-picker-today-button {
+			@include mixins.button-styles(transparent, variables.$color-primary-4);
+			padding: variables.$space-xs variables.$space-md;
+			font-size: 14px;
+			font-weight: variables.$font-weight-bold;
+			border: none;
+			&:hover {
+				background-color: variables.$color-neutral-4;
+				text-decoration: none;
+			}
+		}
+	}
+
+	// Styles for month/year dropdowns (if showMonthDropdown/showYearDropdown are true)
+	.react-datepicker__month-select,
+	.react-datepicker__year-select {
+		background-color: variables.$color-neutral-4;
+		color: variables.$color-neutral-1;
+		border: 1px solid variables.$color-neutral-2;
+		border-radius: variables.$border-radius;
+		padding: variables.$space-xs; // Corrected padding usage
+		margin: 0 variables.$space-xs;
+		cursor: pointer;
+		outline: none;
+		font-size: variables.$font-size-base * 0.9;
+
+		option {
+			background-color: variables.$color-neutral-4;
+			color: variables.$color-neutral-1;
+		}
+	}
 }

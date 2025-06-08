@@ -18,6 +18,7 @@
 		"@radix-ui/react-dialog": "^1.1.14",
 		"radix-ui": "^1.4.2",
 		"react": "^19.1.0",
+		"react-datepicker": "^8.4.0",
 		"react-dom": "^19.1.0",
 		"react-router-dom": "^7.6.1",
 		"sass-migrator": "^2.3.2"
