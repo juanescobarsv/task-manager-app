@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import React, { useState, useEffect } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import DatePicker from "react-datepicker";
@@ -45,25 +47,24 @@ const DatePopover: React.FC<DateProps> = ({
 				<Popover.Content
 					className='task-option-popover date-picker-variant'
 					sideOffset={5}
-					align='start'
+					align='center'
 				>
 					<DatePicker
 						selected={internalDate}
 						onChange={handleDateChange}
 						inline
-						showMonthDropdown
-						showYearDropdown
-						dropdownMode='select'
 						renderCustomHeader={({
 							date,
 							decreaseMonth,
 							increaseMonth,
 							prevMonthButtonDisabled,
 							nextMonthButtonDisabled,
+							decreaseYear,
+							increaseYear,
 						}) => (
 							<div className='react-datepicker__header--custom'>
 								<button
-									onClick={() => changeYear(date.getFullYear() - 1)}
+									onClick={decreaseYear}
 									className='react-datepicker__navigation react-datepicker__navigation--year-previous'
 									aria-label='Previous Year'
 								>
@@ -78,8 +79,8 @@ const DatePopover: React.FC<DateProps> = ({
 									<Icons name='arrow_left' />
 								</button>
 
-								{/* Current month and year display */}
 								<span className='react-datepicker__current-month'>
+									{/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */}
 									{new Date(date).toLocaleString("en-US", { month: "short", year: "numeric" })}
 								</span>
 
@@ -92,7 +93,7 @@ const DatePopover: React.FC<DateProps> = ({
 									<Icons name='arrow_right' />
 								</button>
 								<button
-									onClick={() => changeYear(date.getFullYear() + 1)} // Dummy changeYear for now
+									onClick={increaseYear}
 									className='react-datepicker__navigation react-datepicker__navigation--year-next'
 									aria-label='Next Year'
 								>
