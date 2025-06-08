@@ -139,11 +139,11 @@ export type ProfileQuery = {
 	};
 };
 
-export type TasksQueryVariables = Exact<{ [key: string]: any }>;
-// ! npmFALLBACK CHANGE:
-// export type TasksQueryVariables = Exact<{
-// 	input: FilterTaskInput;
-// }>;
+// ! FALLBACK CHANGE: export type TasksQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TasksQueryVariables = Exact<{
+	input: FilterTaskInput;
+}>;
 
 export type TasksQuery = {
 	__typename?: "Query";
