@@ -2,20 +2,21 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Icons from "./sidebarIcons";
 import { useState } from "react";
-import EstimateModal from "./newTaskEstimate";
+import EstimatePopover from "./newTaskEstimate";
 import AssigneePopover from "./newTaskAssignee";
-
-// Define the type for Assignee to be used in TaskModal's state (should match User from API)
-export interface User {
-	id: string;
-	fullName: string;
-	email: string;
-}
+import TagPopover from "./newTaskTag";
+import type { TaskTag } from "../../graphQL/generated/graphql";
+import type { User } from "../../graphQL/generated/graphql";
 
 interface TaskModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	onSubmit: (taskName: string, estimate: number | null, assignee: User | null) => void;
+	onSubmit: (
+		taskName: string,
+		estimate: number | null,
+		assignee: User | null,
+		tags: TaskTag[],
+	) => void;
 }
 
 const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
@@ -24,13 +25,16 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const [selectedEstimate, setSelectedEstimate] = useState<number | null>(null);
 	const [isAssigneePopoverOpen, setIsAssigneePopoverOpen] = useState(false);
 	const [selectedAssignee, setSelectedAssignee] = useState<User | null>(null);
+	const [isTagPopoverOpen, setIsTagPopoverOpen] = useState(false);
+	const [selectedTags, setSelectedTags] = useState<TaskTag[]>([]);
 
 	const handleCreateTask = () => {
 		if (taskName.trim()) {
-			onSubmit(taskName.trim(), selectedEstimate, selectedAssignee);
+			onSubmit(taskName.trim(), selectedEstimate, selectedAssignee, selectedTags);
 			setTaskName("");
 			setSelectedEstimate(null);
-			setSelectedAssignee(null); // Reset assignee
+			setSelectedAssignee(null);
+			setSelectedTags([]);
 			onClose();
 		}
 	};
@@ -51,9 +55,13 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const handleOpenAssigneePopover = () => setIsAssigneePopoverOpen(true);
 	const handleCloseAssigneePopover = (open: boolean) => setIsAssigneePopoverOpen(open);
 	const handleSelectAssignee = (assignee: User | null) => {
-		// Type is User now
 		setSelectedAssignee(assignee);
 	};
+
+	// Tag Popover Handlers
+	const handleOpenTagPopover = () => setIsTagPopoverOpen(true);
+	const handleCloseTagPopover = (open: boolean) => setIsTagPopoverOpen(open);
+	const handleSelectTags = (tags: TaskTag[]) => setSelectedTags(tags);
 
 	return (
 		<>
@@ -75,7 +83,7 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 						/>
 
 						<div className='task-modal-options'>
-							<EstimateModal
+							<EstimatePopover
 								isOpen={isEstimatePopoverOpen}
 								onClose={handleCloseEstimatePopover} // Changed from onClose to onOpenChange
 								onSelectEstimate={handleSelectEstimate}
@@ -85,7 +93,7 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 									<Icons name='increase_decrease' />
 									{selectedEstimate !== null ? `${selectedEstimate} Points` : "Estimate"}
 								</button>
-							</EstimateModal>
+							</EstimatePopover>
 
 							<AssigneePopover
 								isOpen={isAssigneePopoverOpen}
@@ -103,10 +111,18 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 								</button>
 							</AssigneePopover>
 
-							<button className='option-button'>
-								<Icons name='tag' />
-								Label
-							</button>
+							<TagPopover
+								isOpen={isTagPopoverOpen}
+								onOpenChange={handleCloseTagPopover}
+								onSelectTags={handleSelectTags}
+								selectedTags={selectedTags}
+							>
+								<button className='option-button' onClick={handleOpenTagPopover}>
+									<Icons name='tag' />
+									{selectedTags.length > 0 ? `${selectedTags.length} Tags` : "Label"}
+								</button>
+							</TagPopover>
+
 							<button className='option-button'>
 								<Icons name='calendar' />
 								Due date

@@ -4,7 +4,8 @@ import TopBar from "./UI-elements/TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import TaskBoard from "./UI-elements/cardsColumnData";
 import NewTask from "./UI-elements/NewTask";
-import type { User } from "./UI-elements/NewTask";
+import type { TaskTag } from "../graphQL/generated/graphql";
+import type { User } from "../graphQL/generated/graphql";
 
 // import DataViewer from "./Testing/DataViewer";
 
@@ -27,13 +28,12 @@ const AppLayout = () => {
 	const handleCreateTaskSubmit = (
 		taskName: string,
 		estimate: number | null,
-		assignee: User | null, // NEW: User type
+		assignee: User | null,
+		tags: TaskTag[],
 	) => {
 		console.warn(
-			`New task created: "${taskName}" with estimate: ${estimate} Points, assigned to: ${assignee ? assignee.fullName : "No one"}`,
+			`New task created: "${taskName}" with estimate: ${estimate} Points, assigned to: ${assignee ? assignee.fullName : "No one"}, tags: ${tags.join(", ")}`,
 		);
-		// Here, you would typically integrate with your GraphQL mutation
-		// to create the task on the backend, using taskName, estimate, and assignee.
 	};
 
 	return (

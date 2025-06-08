@@ -27,6 +27,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin-bottom: variables.$space-xs; // Added bottom margin
 
 		.popover-title {
 			@extend .text-body-xl;
@@ -40,6 +41,7 @@
 	.popover-list {
 		display: flex;
 		flex-direction: column;
+		gap: variables.$space-xs; // Ensure consistent gap for list items
 	}
 
 	.popover-arrow {
@@ -48,7 +50,7 @@
 }
 
 // Estimate Popover
-.estimate {
+.estimate-variant {
 	max-width: 200px;
 
 	.estimate-option-button {
@@ -77,21 +79,24 @@
 		}
 
 		svg {
-			width: 24px;
-			height: 24px;
+			width: 18px;
+			height: 18px;
 			fill: currentColor;
+			flex-shrink: 0;
+			margin-right: variables.$space-xs;
 		}
 	}
 }
 
 // Assignee Popover
-.assignee {
+.assignee-variant {
 	max-width: 239px;
-	z-index: 103;
+	// min-width: 250px;
+	// z-index: 103;
 
 	.assignee-search-input {
 		width: 100%;
-		padding: variables.$spacing-unit variables.$space-xs;
+		padding: variables.$space-xs;
 		background-color: transparent;
 		border: none;
 		color: variables.$color-neutral-2;
@@ -110,7 +115,7 @@
 		color: variables.$color-neutral-1;
 		padding: variables.$space-xs;
 		border-radius: variables.$border-radius;
-		font-size: 15px;
+		@extend .text-body-m;
 		cursor: pointer;
 		transition:
 			background-color 0.15s ease,
@@ -150,6 +155,7 @@
 
 	.assignee-list {
 		overflow-y: auto;
+		max-height: 250px;
 		padding-right: 5px;
 
 		&::-webkit-scrollbar {
@@ -167,4 +173,163 @@
 			background: variables.$color-primary-4;
 		}
 	}
+}
+
+// Tag Popover
+.tag-variant {
+	max-width: 250px;
+	// min-width: 200px;
+	// z-index: 104;
+
+	.tag-search-input {
+		width: 100%;
+		padding: variables.$space-xs;
+		background-color: transparent;
+		border: none;
+		color: variables.$color-neutral-2;
+		font-size: 20px;
+		outline: none;
+
+		&::placeholder {
+			color: variables.$color-neutral-2;
+		}
+	}
+
+	.tag-list {
+		overflow-y: auto;
+		max-height: 180px;
+		padding-right: 5px;
+
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+		&::-webkit-scrollbar-track {
+			background: variables.$color-neutral-4;
+			border-radius: 4px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background: variables.$color-neutral-2;
+			border-radius: 4px;
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background: variables.$color-primary-4;
+		}
+	}
+
+	// Styling for individual tag items (buttons/labels)
+	.tag-item {
+		@include mixins.flex-center;
+		justify-content: flex-start;
+		background-color: transparent;
+		color: variables.$color-neutral-1;
+		padding: 0;
+		border-radius: variables.$border-radius;
+		@extend .text-body-m;
+		cursor: pointer;
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease;
+		border: none;
+		width: 100%;
+
+		&:hover {
+			background-color: variables.$color-neutral-4;
+		}
+
+		&--selected {
+			background-color: variables.$color-neutral-5;
+			color: variables.$color-primary-4;
+		}
+
+		// Styles for the Icons component within .tag-item
+		svg {
+			width: 18px;
+			height: 18px;
+			fill: currentColor;
+			flex-shrink: 0;
+			margin-right: variables.$space-xs;
+		}
+
+		.tag-name {
+			flex-grow: 1;
+			text-align: left;
+		}
+	}
+
+	.tag-message {
+		color: variables.$color-neutral-2;
+		padding: variables.$spacing-unit;
+		text-align: center;
+		font-size: 14px;
+
+		&--error {
+			color: variables.$color-primary-4;
+		}
+	}
+
+	.tag-actions {
+		display: flex;
+		justify-content: flex-end;
+		padding-top: variables.$space-xs;
+		border-top: 1px solid variables.$color-neutral-4;
+		margin-top: variables.$space-xs;
+
+		.create-tag-button {
+			@include mixins.button-styles(variables.$color-primary-4, variables.$color-neutral-1);
+			padding: variables.$space-xs variables.$space-md;
+			font-size: 14px;
+		}
+	}
+}
+
+// Styles for the individual TagLabel when rendered in the main modal
+.tag-label {
+	@include mixins.flex-center;
+	padding: variables.$space-xs;
+	border-radius: variables.$border-radius;
+	gap: variables.$space-xs;
+	white-space: nowrap;
+	border: none;
+	@extend .text-body-s;
+
+	&__text {
+		color: inherit;
+		text-transform: capitalize;
+	}
+
+	&__close-button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		width: 16px;
+		height: 16px;
+		color: inherit;
+
+		svg {
+			width: 14px;
+			height: 14px;
+			fill: currentColor;
+		}
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+}
+
+// These wrappers will now be directly in NewTask.tsx for layout control
+.tag-trigger-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-xs;
+	width: 100%;
+}
+
+.selected-tag-labels {
+	display: flex;
+	flex-wrap: wrap;
+	gap: variables.$space-xs;
+	padding-top: variables.$space-xs;
+	padding-bottom: variables.$space-xs;
 }

@@ -3,7 +3,7 @@ import React, { useState, useMemo } from "react";
 import Avatar from "../UI-elements/Avatar";
 import { useUsersQuery, type User } from "../../graphQL/generated/graphql";
 
-interface AssigneePopoverProps {
+interface AssigneeProps {
 	children: React.ReactNode;
 	isOpen: boolean;
 	onOpenChange: (open: boolean) => void;
@@ -11,7 +11,7 @@ interface AssigneePopoverProps {
 	selectedAssigneeId: string | null;
 }
 
-const AssigneePopover: React.FC<AssigneePopoverProps> = ({
+const AssigneePopover: React.FC<AssigneeProps> = ({
 	children,
 	isOpen,
 	onOpenChange,
@@ -44,7 +44,7 @@ const AssigneePopover: React.FC<AssigneePopoverProps> = ({
 			<Popover.Trigger asChild>{children}</Popover.Trigger>
 			<Popover.Portal>
 				<Popover.Content
-					className='task-option-popover assignee'
+					className='task-option-popover assignee-variant'
 					sideOffset={5}
 					align='start'
 				>

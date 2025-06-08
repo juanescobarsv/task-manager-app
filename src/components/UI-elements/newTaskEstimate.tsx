@@ -2,7 +2,7 @@ import * as Popover from "@radix-ui/react-popover";
 import React from "react";
 import Icons from "./sidebarIcons";
 
-interface EstimateModalProps {
+interface EstimateProps {
 	children: React.ReactNode;
 	isOpen: boolean;
 	onClose: (open: boolean) => void;
@@ -12,7 +12,7 @@ interface EstimateModalProps {
 
 const pointEstimates = [0, 1, 2, 4, 8];
 
-const EstimateModal: React.FC<EstimateModalProps> = ({
+const EstimatePopover: React.FC<EstimateProps> = ({
 	children,
 	isOpen,
 	onClose,
@@ -27,9 +27,12 @@ const EstimateModal: React.FC<EstimateModalProps> = ({
 	return (
 		<Popover.Root open={isOpen} onOpenChange={onClose}>
 			<Popover.Trigger asChild>{children}</Popover.Trigger>{" "}
-			{/* The button will be passed as children */}
 			<Popover.Portal>
-				<Popover.Content className='task-option-popover estimate' sideOffset={5} align='start'>
+				<Popover.Content
+					className='task-option-popover estimate-variant'
+					sideOffset={5}
+					align='start'
+				>
 					<div className='popover-header'>
 						<span className='popover-title'>Estimate</span>
 					</div>
@@ -54,4 +57,4 @@ const EstimateModal: React.FC<EstimateModalProps> = ({
 	);
 };
 
-export default EstimateModal;
+export default EstimatePopover;

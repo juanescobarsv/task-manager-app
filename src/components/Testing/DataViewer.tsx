@@ -11,7 +11,7 @@ const DataViewer = () => {
 		data: tasksData,
 	} = useTasksQuery({
 		variables: {
-			input: {}, // Still provide an empty input for now to fetch all tasks
+			input: {}, // Empty input for now to fetch all tasks
 		},
 	});
 
