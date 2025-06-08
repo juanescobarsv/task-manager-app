@@ -1,5 +1,5 @@
 import * as Popover from "@radix-ui/react-popover";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Icons from "./sidebarIcons";
 import type { TaskTag } from "../../graphQL/generated/graphql";
 
@@ -21,11 +21,6 @@ const TagPopover: React.FC<TagProps> = ({
 	selectedTags,
 }) => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [internalSelectedTags, setInternalSelectedTags] = useState<TaskTag[]>(selectedTags);
-
-	useEffect(() => {
-		setInternalSelectedTags(selectedTags);
-	}, [selectedTags]);
 
 	const filteredTags = useMemo(() => {
 		const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -37,20 +32,16 @@ const TagPopover: React.FC<TagProps> = ({
 		);
 	}, [searchTerm]);
 
-	const handleToggleTag = (tag: TaskTag, checked: boolean) => {
-		setInternalSelectedTags((prevTags) => {
-			if (checked) {
-				return [...prevTags, tag];
-			} else {
-				return prevTags.filter((t) => t !== tag);
-			}
-		});
-	};
+	const handleToggleTag = (tag: TaskTag) => {
+		const isCurrentlySelected = selectedTags.includes(tag);
 
-	const handleCreateTags = () => {
-		onSelectTags(internalSelectedTags);
-		onOpenChange(false);
-		setSearchTerm("");
+		let newSelectedTags: TaskTag[];
+		if (isCurrentlySelected) {
+			newSelectedTags = selectedTags.filter((t) => t !== tag);
+		} else {
+			newSelectedTags = [...selectedTags, tag];
+		}
+		onSelectTags(newSelectedTags);
 	};
 
 	return (
@@ -61,7 +52,7 @@ const TagPopover: React.FC<TagProps> = ({
 					<div className='popover-header'>
 						<input
 							type='text'
-							placeholder='Tag Title'
+							placeholder='Search tags'
 							className='tag-search-input'
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
@@ -73,12 +64,12 @@ const TagPopover: React.FC<TagProps> = ({
 							<div className='tag-message'>No matching tags found.</div>
 						) : (
 							filteredTags.map((tag) => {
-								const isSelected = internalSelectedTags.includes(tag);
+								const isSelected = selectedTags.includes(tag);
 								return (
 									<button
 										key={tag}
 										className={`tag-item ${isSelected ? "tag-item--selected" : ""}`}
-										onClick={() => handleToggleTag(tag, !isSelected)}
+										onClick={() => handleToggleTag(tag)}
 									>
 										<Icons name={isSelected ? "checkbox_tick" : "checkbox_blank"} />
 										<span className='tag-name'>{tag}</span>
@@ -86,12 +77,6 @@ const TagPopover: React.FC<TagProps> = ({
 								);
 							})
 						)}
-					</div>
-
-					<div className='tag-actions'>
-						<button className='create-tag-button' onClick={handleCreateTags}>
-							Create
-						</button>
 					</div>
 
 					<Popover.Arrow className='popover-arrow' />

@@ -322,6 +322,7 @@
 .date-picker-variant {
 	max-width: 280px;
 	padding: 0;
+	background-color: transparent;
 	// z-index: 105;
 
 	.react-datepicker {
@@ -341,7 +342,6 @@
 	.react-datepicker__header--custom {
 		width: 100%;
 		align-items: center;
-		
 
 		.react-datepicker__current-month {
 			color: variables.$color-neutral-1;

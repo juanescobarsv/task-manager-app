@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import React, { useState, useEffect } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import DatePicker from "react-datepicker";
@@ -80,7 +78,6 @@ const DatePopover: React.FC<DateProps> = ({
 								</button>
 
 								<span className='react-datepicker__current-month'>
-									{/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */}
 									{new Date(date).toLocaleString("en-US", { month: "short", year: "numeric" })}
 								</span>
 
