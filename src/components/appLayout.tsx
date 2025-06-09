@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import TopBar from "./UI-elements/TopBar";
+import TopBar from "./TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
-import TaskBoard from "./UI-elements/cardsColumnData";
-import NewTask from "./UI-elements/NewTask";
+import Dashboard from "./Dashboard";
+import NewTask from "./NewTask";
 import type { TaskTag } from "../graphQL/generated/graphql";
 import type { User } from "../graphQL/generated/graphql";
 
@@ -55,7 +55,7 @@ const AppLayout = () => {
 
 				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
-					<TaskBoard />
+					<Dashboard />
 					<NewTask
 						isOpen={isTaskModalOpen}
 						onClose={handleTaskModalClose}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MenuIcon from "./sidebarMenuIcon";
-import Avatar from "./Avatar";
+import MenuIcon from "./UI-elements/sidebarMenuIcon";
+import Avatar from "./UI-elements/Avatar";
 
 const TopBar = () => {
 	const [searchTerm, setSearchTerm] = useState("");

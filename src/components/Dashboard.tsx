@@ -1,7 +1,7 @@
-import CardsColumn from "./CardsColumn";
-import type { CardProps } from "./Cards";
-import { useTasksQuery } from "../../graphQL/generated/graphql";
-import type { TasksQuery, TaskTag, PointEstimate } from "../../graphQL/generated/graphql";
+import CardsColumn from "./UI-elements/CardsColumn";
+import type { CardProps } from "./UI-elements/Cards";
+import { useTasksQuery } from "../graphQL/generated/graphql";
+import type { TasksQuery, TaskTag, PointEstimate } from "../graphQL/generated/graphql";
 
 // Helper function to convert PointEstimate enum (string) to a number
 const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | string => {
@@ -22,8 +22,7 @@ const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | st
 	}
 };
 
-const TaskBoard = () => {
-	// Fetch all tasks using the generated Apollo hook
+const Dashboard = () => {
 	const { loading, error, data } = useTasksQuery({
 		variables: {
 			input: {},
@@ -128,8 +127,6 @@ const TaskBoard = () => {
 		return <div className='task-board error-message'>Error loading tasks: {error.message}</div>;
 	}
 
-	// Group tasks by status
-	// Group tasks by exact status
 	const backlogCards: CardProps[] = [];
 	const todoCards: CardProps[] = [];
 	const inProgressCards: CardProps[] = [];
@@ -173,4 +170,4 @@ const TaskBoard = () => {
 	);
 };
 
-export default TaskBoard;
+export default Dashboard;

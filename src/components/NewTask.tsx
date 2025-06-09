@@ -1,13 +1,13 @@
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import Icons from "./sidebarIcons";
+import Icons from "./UI-elements/sidebarIcons";
 import { useState } from "react";
-import EstimatePopover from "./newTaskEstimate";
-import AssigneePopover from "./newTaskAssignee";
-import TagPopover from "./newTaskTag";
-import DatePopover from "./newTaskDate";
-import type { TaskTag } from "../../graphQL/generated/graphql";
-import type { User } from "../../graphQL/generated/graphql";
+import EstimatePopover from "./UI-elements/newTaskEstimate";
+import AssigneePopover from "./UI-elements/newTaskAssignee";
+import TagPopover from "./UI-elements/newTaskTag";
+import DatePopover from "./UI-elements/newTaskDate";
+import type { TaskTag } from "../graphQL/generated/graphql";
+import type { User } from "../graphQL/generated/graphql";
 
 interface TaskModalProps {
 	isOpen: boolean;
