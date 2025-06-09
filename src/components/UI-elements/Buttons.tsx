@@ -1,5 +1,5 @@
 import React from "react";
-import Icons from "./sidebarIcons";
+import Icons from "./Icons";
 import { useState } from "react";
 
 // GENERAL BUTTON

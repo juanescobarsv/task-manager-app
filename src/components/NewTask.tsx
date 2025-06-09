@@ -1,6 +1,6 @@
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import Icons from "./UI-elements/sidebarIcons";
+import Icons from "./UI-elements/Icons";
 import { useState } from "react";
 import EstimatePopover from "./UI-elements/newTaskEstimate";
 import AssigneePopover from "./UI-elements/newTaskAssignee";

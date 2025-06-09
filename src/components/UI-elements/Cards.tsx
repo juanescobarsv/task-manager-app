@@ -1,8 +1,10 @@
 import MenuIcon from "./sidebarMenuIcon";
 import Tags from "./Tags";
 import Avatar from "./Avatar";
+import CardsMore from "./cardsMore";
 
 export interface CardProps {
+	id: string;
 	title: string;
 	points: string;
 	timeTagText: string;
@@ -16,6 +18,7 @@ export interface CardProps {
 }
 
 const Cards = ({
+	id,
 	title,
 	points,
 	timeTagText,
@@ -41,14 +44,24 @@ const Cards = ({
 		</div>
 	);
 
+	const handleEditTask = () => {
+		console.warn(`Edit task: ${title} (ID: ${id})`);
+	};
+
+	const handleDeleteTask = () => {
+		console.warn(`Attempting to delete task: ${title} (ID: ${id})`);
+	};
+
 	return (
 		<div className={cardClasses.join(" ")}>
 			{/* Section 1: Title */}
 			<div className='card__section-1'>
 				<h3 className='card__title'>{title}</h3>
-				<div className='more-icon' role='button' tabIndex={0}>
-					<MenuIcon iconName='more_X' />
-				</div>
+				<CardsMore taskId={id} onEditClick={handleEditTask} onDeleteClick={handleDeleteTask}>
+					<button className='more-icon-button' aria-label='More options for task'>
+						<MenuIcon iconName='more_X' />
+					</button>
+				</CardsMore>
 			</div>
 
 			{/* Section 2: Points and Date Tag */}

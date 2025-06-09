@@ -1,6 +1,7 @@
 @use "../../../styles/variables";
 @use "../../../styles/mixins";
-@use "../../../styles/base"; // For text styles
+@use "../../../styles/base";
+@use "./newTaskPopover";
 
 .card {
 	background-color: variables.$color-neutral-4;
@@ -117,5 +118,71 @@
 				}
 			}
 		}
+	}
+}
+
+// "More" Popover
+.cards-more-popover-content {
+	@extend .task-option-popover;
+	min-width: 150px;
+	padding: variables.$space-xs;
+
+	.popover-option {
+		@include mixins.flex-center;
+		justify-content: flex-start;
+		gap: variables.$space-xs;
+		width: 100%;
+		padding: variables.$space-xs variables.$space-sm;
+		border-radius: variables.$border-radius;
+		background-color: transparent;
+		color: variables.$color-neutral-1;
+		font-size: 15px;
+		cursor: pointer;
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease;
+		border: none;
+
+		&:hover {
+			background-color: variables.$color-neutral-4;
+			color: variables.$color-primary-4;
+		}
+
+		svg {
+			width: 20px;
+			height: 20px;
+			fill: currentColor;
+			flex-shrink: 0;
+		}
+
+		span {
+			flex-grow: 1;
+			text-align: left;
+		}
+	}
+}
+
+.popover-arrow {
+	fill: variables.$color-neutral-3;
+}
+
+.more-icon-button {
+	@include mixins.flex-center;
+	width: 24px; // Set explicit size for the button
+	height: 24px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: variables.$color-primary-4;
+	}
+
+	svg {
+		width: 100%;
+		height: 100%;
+		fill: variables.$color-neutral-2;
 	}
 }

@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-import Icons from "./sidebarIcons";
+import Icons from "./Icons";
 
 interface MenuIconProps extends SVGProps<SVGSVGElement> {
 	iconName: string; // Use like "calendar"

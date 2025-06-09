@@ -1,5 +1,5 @@
 import React from "react";
-import Icons from "./sidebarIcons";
+import Icons from "./Icons";
 
 interface LabelProps {
 	text: string;

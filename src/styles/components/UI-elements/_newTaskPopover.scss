@@ -500,3 +500,10 @@
 		}
 	}
 }
+
+.popover-error-message {
+	color: variables.$color-neutral-1;
+	font-weight: bold;
+	@include mixins.flex-center;
+	color: variables.$color-primary-4;
+}

@@ -102,6 +102,7 @@ const Dashboard = () => {
 		const assignedAvatarText = task.assignee?.fullName ?? "Unassigned";
 
 		return {
+			id: task.id,
 			title: task.name,
 			points: `${convertPointEstimateToNumber(task.pointEstimate)} Points`,
 			timeTagText: formatDueDateForCard(task.dueDate),
