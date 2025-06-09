@@ -77,7 +77,7 @@ const AssigneePopover: React.FC<AssigneeProps> = ({
 									className={`assignee-item ${selectedAssigneeId === user.id ? "assignee-item--selected" : ""}`}
 									onClick={() => handleSelect(user)}
 								>
-									<Avatar nameForRoboHash={user.fullName} size='s' text={user.fullName} />
+									<Avatar avatarName={user.fullName} size='s' text={user.fullName} />
 								</button>
 							))}
 					</div>

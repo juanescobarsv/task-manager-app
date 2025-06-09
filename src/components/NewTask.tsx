@@ -6,22 +6,31 @@ import EstimatePopover from "./UI-elements/newTaskEstimate";
 import AssigneePopover from "./UI-elements/newTaskAssignee";
 import TagPopover from "./UI-elements/newTaskTag";
 import DatePopover from "./UI-elements/newTaskDate";
-import type { TaskTag } from "../graphQL/generated/graphql";
-import type { User } from "../graphQL/generated/graphql";
+import { useMutation } from "@apollo/client";
+import { CREATE_TASK_MUTATION } from "../graphQL/mutations";
+import { GET_TASKS_LIST } from "../graphQL/queries";
+
+import type {
+	TaskTag,
+	User,
+	PointEstimate,
+	CreateTaskMutation,
+} from "../graphQL/generated/graphql";
+import { VisuallyHidden } from "radix-ui";
 
 interface TaskModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	onSubmit: (
-		taskName: string,
-		estimate: number | null,
-		assignee: User | null,
-		tags: TaskTag[],
-		dueDate: Date | null,
-	) => void;
+	// onSubmit: (
+	// 	taskName: string,
+	// 	estimate: number | null,
+	// 	assignee: User | null,
+	// 	tags: TaskTag[],
+	// 	dueDate: Date | null,
+	// ) => void;
 }
 
-const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
+const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose }) => {
 	const [taskName, setTaskName] = useState("");
 	const [isEstimatePopoverOpen, setIsEstimatePopoverOpen] = useState(false);
 	const [selectedEstimate, setSelectedEstimate] = useState<number | null>(null);
@@ -32,10 +41,65 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-	const handleCreateTask = () => {
+	const [createTask, { loading: creatingTask, error: createTaskError }] =
+		useMutation<CreateTaskMutation>(CREATE_TASK_MUTATION, {
+			refetchQueries: [{ query: GET_TASKS_LIST, variables: { input: {} } }],
+			onCompleted: (data) => {
+				handleClear();
+				onClose();
+				// eslint-disable-next-line no-console
+				console.log("Successfully created task:", data.createTask);
+			},
+			onError: (error) => {
+				console.error("Failed to create task:", error);
+			},
+		});
+
+	// Helper function to convert number estimate to PointEstimate enum
+	const getPointEstimateEnum = (estimate: number | null): PointEstimate | null => {
+		switch (estimate) {
+			case 0:
+				return "ZERO";
+			case 1:
+				return "ONE";
+			case 2:
+				return "TWO";
+			case 4:
+				return "FOUR";
+			case 8:
+				return "EIGHT";
+			default:
+				console.warn(
+					`Attempted to convert unknown estimate number: ${estimate}. Defaulting to ZERO.`,
+				);
+				return "ZERO";
+		}
+	};
+
+	const handleCreateTask = async () => {
 		if (taskName.trim()) {
-			onSubmit(taskName.trim(), selectedEstimate, selectedAssignee, selectedTags, selectedDate);
-			handleClear();
+			const pointEstimateEnum =
+				selectedEstimate !== null ? getPointEstimateEnum(selectedEstimate) : null;
+
+			try {
+				await createTask({
+					variables: {
+						input: {
+							name: taskName.trim(),
+							pointEstimate: pointEstimateEnum,
+							assigneeId: selectedAssignee?.id ?? null,
+							tags: selectedTags,
+							dueDate: selectedDate ? selectedDate.toISOString() : null, // Format date to ISO string
+							status: "TODO",
+							// position: 0,
+						},
+					},
+				});
+				// The onCompleted callback of useMutation will handle closing the modal and clearing state
+			} catch (error) {
+				// Error handled by onError in useMutation, but can add more specific logic here if needed.
+				console.error("Error initiating createTask mutation:", error);
+			}
 		}
 	};
 
@@ -45,10 +109,9 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 		setSelectedAssignee(null);
 		setSelectedTags([]);
 		setSelectedDate(null);
-		onClose();
 	};
 
-	// Estimate Modal Handlers (remain unchanged)
+	// Estimate Popover Handlers
 	const handleOpenEstimatePopover = () => {
 		setIsEstimatePopoverOpen(true);
 	};
@@ -77,7 +140,7 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 	const handleCloseDatePicker = (open: boolean) => setIsDatePickerOpen(open);
 	const handleSelectDate = (date: Date | null) => setSelectedDate(date);
 
-	// Helper function to get tag colors (copied from NewTaskTag to be available here for displaying labels)
+	// Helper function to get tag colors (copied from NewTaskTag)
 	const getTagColors = (tag: TaskTag): { backgroundColor: string; textColor: string } => {
 		switch (tag) {
 			case "IOS":
@@ -124,6 +187,14 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 				<Dialog.Portal>
 					<Dialog.Overlay className='task-modal-overlay' />
 					<Dialog.Content className='task-modal-content'>
+						<VisuallyHidden.Root>
+							<Dialog.Title>Create New Task</Dialog.Title>
+							<Dialog.Description>
+								Fill in the details to create a new task, including name, estimate, assignee, tags,
+								and due date.
+							</Dialog.Description>
+						</VisuallyHidden.Root>
+
 						<input
 							type='text'
 							placeholder='Task name'
@@ -132,17 +203,18 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 							onChange={(e) => setTaskName(e.target.value)}
 							onKeyDown={(e) => {
 								if (e.key === "Enter") {
-									handleCreateTask();
+									void handleCreateTask();
 								}
 							}}
+							disabled={creatingTask}
 						/>
 
 						<div className='task-modal-options'>
 							<EstimatePopover
 								isOpen={isEstimatePopoverOpen}
-								onClose={handleCloseEstimatePopover} // Changed from onClose to onOpenChange
+								onClose={handleCloseEstimatePopover}
 								onSelectEstimate={handleSelectEstimate}
-								selectedEstimate={selectedEstimate} // Pass selectedEstimate to highlight
+								selectedEstimate={selectedEstimate}
 							>
 								<button className='option-button' onClick={handleOpenEstimatePopover}>
 									<Icons name='increase_decrease' />
@@ -160,7 +232,6 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 									className={`option-button ${selectedAssignee ? "option-button--assigned" : ""}`}
 									onClick={handleOpenAssigneePopover}
 								>
-									{/* Conditional rendering of the icon */}
 									{!selectedAssignee && <Icons name='user' />}
 									{selectedAssignee ? selectedAssignee.fullName : "Assignee"}
 								</button>
@@ -215,10 +286,24 @@ const NewTask: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {
 									})}
 								</div>
 							)}
-							<button className='action-button action-button--cancel' onClick={handleClear}>
+
+							{creatingTask && <span className='loading-message'>Creating task...</span>}
+							{createTaskError && (
+								<span className='error-message'>Error: {createTaskError.message}</span>
+							)}
+							<button
+								className='action-button action-button--cancel'
+								onClick={handleClear}
+								disabled={creatingTask}
+							>
 								Cancel
 							</button>
-							<button className='action-button action-button--create' onClick={handleCreateTask}>
+							<button
+								className='action-button action-button--create'
+								onClick={() => {
+									void handleCreateTask();
+								}}
+							>
 								Create
 							</button>
 						</div>

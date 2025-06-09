@@ -1,13 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
-import Dashboard from "./Dashboard";
+const LazyDashboard = React.lazy(() => import("./Dashboard"));
 import NewTask from "./NewTask";
-import type { TaskTag } from "../graphQL/generated/graphql";
-import type { User } from "../graphQL/generated/graphql";
-
-// import DataViewer from "./Testing/DataViewer";
 
 const AppLayout = () => {
 	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -22,18 +18,6 @@ const AppLayout = () => {
 
 	const handleTaskModalClose = () => {
 		setIsTaskModalOpen(false);
-	};
-
-	// Updated onSubmit signature to accept assignee of type User
-	const handleCreateTaskSubmit = (
-		taskName: string,
-		estimate: number | null,
-		assignee: User | null,
-		tags: TaskTag[],
-	) => {
-		console.warn(
-			`New task created: "${taskName}" with estimate: ${estimate} Points, assigned to: ${assignee ? assignee.fullName : "No one"}, tags: ${tags.join(", ")}`,
-		);
 	};
 
 	return (
@@ -55,14 +39,8 @@ const AppLayout = () => {
 
 				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
-					<Dashboard />
-					<NewTask
-						isOpen={isTaskModalOpen}
-						onClose={handleTaskModalClose}
-						onSubmit={handleCreateTaskSubmit}
-					/>
-					{/* FOR API TESTING:
-					<DataViewer /> */}
+					<LazyDashboard />
+					<NewTask isOpen={isTaskModalOpen} onClose={handleTaskModalClose} />
 				</div>
 			</div>
 		</div>

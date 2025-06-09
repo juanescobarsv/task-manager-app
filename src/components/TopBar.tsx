@@ -69,7 +69,7 @@ const TopBar = () => {
 						<MenuIcon iconName='notification' />
 					</div>
 					<Avatar
-						nameForRoboHash='currentuser'
+						avatarName='currentuser'
 						size='m'
 						className='avatar'
 						onClick={handleAvatarClick}

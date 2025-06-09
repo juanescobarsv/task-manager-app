@@ -76,7 +76,7 @@ const Cards = ({
 
 			{/* Section 4: Avatar and Info Icons */}
 			<div className='card__section-4'>
-				<Avatar nameForRoboHash={avatarName} size='s' text={avatarText} />{" "}
+				<Avatar avatarName={avatarName} size='s' text={avatarText} />{" "}
 				<div className='card__info-items'>
 					<InfoItem count={attachmentCount} iconName='attachment' />
 					<InfoItem count={subtaskCount} iconName='node' />

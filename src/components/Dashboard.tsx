@@ -4,8 +4,8 @@ import { useTasksQuery } from "../graphQL/generated/graphql";
 import type { TasksQuery, TaskTag, PointEstimate } from "../graphQL/generated/graphql";
 
 // Helper function to convert PointEstimate enum (string) to a number
-const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | string => {
-	switch (pointEstimate) {
+const convertPointEstimateToNumber = (pointEstimate: string): number | string => {
+	switch (pointEstimate as PointEstimate) {
 		case "ZERO":
 			return 0;
 		case "ONE":
@@ -17,7 +17,7 @@ const convertPointEstimateToNumber = (pointEstimate: PointEstimate): number | st
 		case "EIGHT":
 			return 8;
 		default:
-			console.warn(`Unknown PointEstimate: ${pointEstimate}`);
+			console.warn(`Unknown or non-PointEstimate value: ${pointEstimate}. Returning "N/A".`);
 			return "N/A"; // Fallback
 	}
 };
