@@ -71,3 +71,26 @@
 	box-shadow: variables.$shadow-md;
 	padding: variables.$space-lg;
 }
+
+// Popover
+
+@mixin popover-base {
+	background-color: variables.$color-neutral-3;
+	border-radius: variables.$border-radius-lg;
+	padding: variables.$space-sm;
+	z-index: 102;
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-xs;
+
+	opacity: 0;
+	transform: translateY(-10px);
+	transition:
+		opacity 150ms ease-out,
+		transform 150ms ease-out;
+
+	&[data-state="open"] {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

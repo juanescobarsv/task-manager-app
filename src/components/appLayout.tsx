@@ -3,12 +3,17 @@ import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import TaskFormModal from "./TaskFormModal";
-import type { Task } from "../graphQL/generated/graphql";
+import type { Task, FilterTaskInput } from "../graphQL/generated/graphql";
 const LazyDashboard = React.lazy(() => import("./Dashboard"));
+import FilterPanel from "./UI-elements/FilterPanel";
+import Icons from "./UI-elements/Icons";
 
 const AppLayout = () => {
 	const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
 	const [taskBeingEdited, setTaskBeingEdited] = useState<Task | null>(null);
+
+	const [currentFilters, setCurrentFilters] = useState<FilterTaskInput>({});
+	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
 	const handleSwitchSelect = (selected: "menu" | "function") => {
 		console.warn("Switch button selected:", selected);
@@ -29,6 +34,19 @@ const AppLayout = () => {
 		setTaskBeingEdited(null);
 	};
 
+	const handleApplyFilters = (filters: FilterTaskInput) => {
+		setCurrentFilters(filters);
+		console.warn("Applied Filters:", filters);
+	};
+
+	const handleOpenFilterModal = () => {
+		setIsFilterModalOpen(true);
+	};
+
+	const handleCloseFilterModal = () => {
+		setIsFilterModalOpen(false);
+	};
+
 	return (
 		<div className='app-layout'>
 			<div className='sidebar-container'>
@@ -41,12 +59,21 @@ const AppLayout = () => {
 				</div>
 				<div className='main-content__controls'>
 					<SwitchButton onSelect={handleSwitchSelect} />
-					<AddButton onClick={handleAddButtonClick} />
+					<div>
+						<button
+							className='filter-button'
+							onClick={handleOpenFilterModal}
+							aria-label='Open filters'
+						>
+							<Icons name='filter' />
+						</button>
+						<AddButton onClick={handleAddButtonClick} />
+					</div>
 				</div>
 
 				<div className='main-content__task-board-wrapper'>
 					<Suspense fallback={<div>Loading tasks...</div>}>
-						<LazyDashboard onEditTask={handleEditTask} />
+						<LazyDashboard onEditTask={handleEditTask} filterInput={currentFilters} />
 					</Suspense>
 				</div>
 			</div>
@@ -55,6 +82,13 @@ const AppLayout = () => {
 				isOpen={isTaskFormModalOpen}
 				onClose={handleTaskFormModalClose}
 				taskToEdit={taskBeingEdited}
+			/>
+
+			<FilterPanel
+				isOpen={isFilterModalOpen}
+				onClose={handleCloseFilterModal}
+				onApplyFilters={handleApplyFilters}
+				currentFilters={currentFilters}
 			/>
 		</div>
 	);

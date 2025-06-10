@@ -1,7 +1,7 @@
 import CardsColumn from "./UI-elements/CardsColumn";
 import type { CardProps } from "./UI-elements/Cards";
 import { useTasksQuery } from "../graphQL/generated/graphql";
-import type { Task, TasksQuery } from "../graphQL/generated/graphql";
+import type { Task, TasksQuery, FilterTaskInput } from "../graphQL/generated/graphql";
 import { convertPointEstimateToNumber, getTagColors } from "../components/TaskFormModal";
 
 // Helper function to format dueDate for the card's timeTagText
@@ -39,12 +39,13 @@ const formatDueDateForCard = (dueDate: Date | null | undefined): string => {
 
 interface DashboardProps {
 	onEditTask: (task: Task) => void;
+	filterInput: FilterTaskInput;
 }
 
-const Dashboard = ({ onEditTask }: DashboardProps) => {
+const Dashboard = ({ onEditTask, filterInput }: DashboardProps) => {
 	const { loading, error, data } = useTasksQuery({
 		variables: {
-			input: {},
+			input: filterInput,
 		},
 	});
 
@@ -114,11 +115,20 @@ const Dashboard = ({ onEditTask }: DashboardProps) => {
 
 	return (
 		<div className='task-board'>
-			<CardsColumn title='BACKLOG' cards={backlogCards} onEditTask={onEditTask} />
-			<CardsColumn title='TODO' cards={todoCards} onEditTask={onEditTask} />
-			<CardsColumn title='IN PROGRESS' cards={inProgressCards} onEditTask={onEditTask} />
-			<CardsColumn title='DONE' cards={doneCards} onEditTask={onEditTask} />
-			<CardsColumn title='CANCELLED' cards={cancelledCards} onEditTask={onEditTask} />
+			{/* {allColumnsEmpty && Object.keys(filterInput).length > 0 ? (
+				<div className='task-board__empty-results'>
+					<EmptyCard />
+					<p>No tasks found matching your filters.</p>
+				</div>
+			) : ( */}
+			<>
+				<CardsColumn title='BACKLOG' cards={backlogCards} onEditTask={onEditTask} />
+				<CardsColumn title='TODO' cards={todoCards} onEditTask={onEditTask} />
+				<CardsColumn title='IN PROGRESS' cards={inProgressCards} onEditTask={onEditTask} />
+				<CardsColumn title='DONE' cards={doneCards} onEditTask={onEditTask} />
+				<CardsColumn title='CANCELLED' cards={cancelledCards} onEditTask={onEditTask} />
+			</>
+			{/* )} */}
 		</div>
 	);
 };

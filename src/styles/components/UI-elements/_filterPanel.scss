@@ -1,0 +1,291 @@
+@use "../../../styles/variables";
+@use "../../../styles/mixins";
+@use "../../../styles/base";
+
+.filter-modal-overlay {
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	inset: 0;
+	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	z-index: 99;
+}
+
+.filter-modal-content {
+	background-color: variables.$color-neutral-3;
+	border-radius: variables.$border-radius-lg;
+	padding: variables.$space-md;
+	box-shadow: variables.$shadow-lg;
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-md;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90vw;
+	max-width: 450px;
+	max-height: 90vh;
+	overflow-y: auto;
+	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+	z-index: 100;
+
+	.filter-panel__header {
+		@include mixins.flex-center;
+		justify-content: space-between;
+		margin-bottom: variables.$space-sm;
+		padding-bottom: variables.$space-xs;
+		border-bottom: 1px solid variables.$color-neutral-4;
+
+		h3 {
+			@extend .text-body-l;
+			color: variables.$color-neutral-1;
+			font-weight: variables.$font-weight-bold;
+		}
+
+		.close-button {
+			background-color: transparent;
+			border: none;
+			color: variables.$color-neutral-2;
+			cursor: pointer;
+			padding: variables.$space-xs;
+			border-radius: variables.$border-radius;
+			transition: color 0.2s ease;
+			width: 24px;
+			height: 24px;
+			@include mixins.flex-center;
+
+			&:hover {
+				color: variables.$color-primary-4;
+			}
+
+			svg {
+				width: 18px;
+				height: 18px;
+				fill: currentColor;
+			}
+		}
+	}
+
+	.filter-section {
+		display: flex;
+		flex-direction: column;
+		gap: variables.$space-xs;
+
+		label {
+			@extend .text-body-m;
+			color: variables.$color-neutral-2;
+			font-weight: variables.$font-weight-bold;
+		}
+
+		input[type="text"],
+		select {
+			@extend .text-body-m;
+			width: 100%;
+			padding: variables.$space-sm;
+			border: 1px solid variables.$color-neutral-4;
+			border-radius: variables.$border-radius;
+			background-color: variables.$color-neutral-4-1;
+			color: variables.$color-neutral-1;
+
+			&:focus {
+				outline: none;
+				border-color: variables.$color-primary-4;
+				box-shadow: 0 0 0 1px variables.$color-primary-4;
+			}
+		}
+
+		.date-filter-trigger {
+			@include mixins.flex-center;
+			justify-content: flex-start;
+			gap: variables.$space-xs;
+			@extend .text-body-m;
+			width: 100%;
+			padding: variables.$space-sm;
+			border: 1px solid variables.$color-neutral-4;
+			border-radius: variables.$border-radius;
+			background-color: variables.$color-neutral-4-1;
+			color: variables.$color-neutral-1;
+			cursor: pointer;
+			transition:
+				border-color 0.2s ease,
+				box-shadow 0.2s ease;
+
+			&:hover {
+				border-color: variables.$color-primary-4;
+			}
+			&:focus {
+				outline: none;
+				border-color: variables.$color-primary-4;
+				box-shadow: 0 0 0 1px variables.$color-primary-4;
+			}
+
+			svg {
+				width: 20px;
+				height: 20px;
+				fill: currentColor;
+			}
+		}
+
+		.tags-checkbox-group {
+			display: flex;
+			flex-wrap: wrap;
+			gap: variables.$space-xs;
+
+			.tag-checkbox-item {
+				display: flex;
+				align-items: center;
+				gap: variables.$space-xs;
+
+				input[type="checkbox"] {
+					appearance: none;
+					width: 18px;
+					height: 18px;
+					border: 1px solid variables.$color-neutral-2;
+					border-radius: variables.$border-radius;
+					background-color: variables.$color-neutral-4-1;
+					cursor: pointer;
+					position: relative;
+					@include mixins.flex-center;
+
+					&:checked {
+						background-color: variables.$color-primary-4;
+						border-color: variables.$color-primary-4;
+
+						&::after {
+							content: "✓";
+							color: variables.$color-neutral-1;
+							font-size: 12px;
+							font-weight: variables.$font-weight-bold;
+						}
+					}
+
+					&:focus {
+						outline: 2px solid variables.$color-primary-4;
+						outline-offset: 2px;
+					}
+				}
+
+				label {
+					@extend .text-body-m;
+					color: variables.$color-neutral-1;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.filter-modal-actions {
+		display: flex;
+		justify-content: space-between;
+		gap: variables.$space-sm;
+		padding-top: variables.$space-md;
+		border-top: 1px solid variables.$color-neutral-4;
+
+		.clear-filters-button {
+			@extend .text-body-s;
+			background-color: transparent;
+			border: none;
+			color: variables.$color-primary-4;
+			cursor: pointer;
+			padding: variables.$space-xs variables.$space-sm;
+			border-radius: variables.$border-radius;
+			transition:
+				background-color 0.2s ease,
+				color 0.2s ease;
+
+			&:hover {
+				background-color: variables.$color-neutral-4;
+				color: variables.$color-neutral-1;
+			}
+		}
+
+		.apply-filters-button {
+			@include mixins.button-styles;
+			@extend .text-body-l;
+			flex-grow: 1;
+			padding: variables.$space-sm variables.$space-md;
+		}
+	}
+}
+
+.date-popover-content {
+	background-color: variables.$color-neutral-5;
+	border-radius: variables.$border-radius-lg;
+	box-shadow: variables.$shadow-lg;
+	padding: 0;
+	z-index: 101;
+
+	.react-datepicker {
+		font-family: variables.$font-family-sans-serif;
+		border: none;
+		background-color: variables.$color-neutral-5;
+	}
+	.react-datepicker__header {
+		background-color: variables.$color-neutral-4;
+		border-bottom: 1px solid variables.$color-neutral-5;
+		color: variables.$color-neutral-1;
+	}
+	.react-datepicker__current-month,
+	.react-datepicker__day-name {
+		@extend .text-body-m;
+		color: variables.$color-neutral-1;
+	}
+	.react-datepicker__navigation--previous,
+	.react-datepicker__navigation--next {
+		border-color: variables.$color-neutral-1;
+	}
+	.react-datepicker__day {
+		@extend .text-body-m;
+		color: variables.$color-neutral-2;
+		&:hover {
+			background-color: variables.$color-neutral-4-1;
+		}
+	}
+	.react-datepicker__day--selected,
+	.react-datepicker__day--keyboard-selected {
+		background-color: variables.$color-primary-4;
+		color: variables.$color-neutral-1;
+	}
+	.react-datepicker__day--disabled {
+		color: variables.$color-neutral-5;
+		background-color: transparent;
+	}
+
+	.react-datepicker__month-select,
+	.react-datepicker__year-select {
+		@extend .text-body-s;
+		background-color: variables.$color-neutral-4;
+		color: variables.$color-neutral-1;
+		border: 1px solid variables.$color-neutral-2;
+		border-radius: variables.$border-radius;
+		padding: variables.$space-xs;
+		margin: 0 variables.$space-xs;
+		cursor: pointer;
+		outline: none;
+
+		option {
+			background-color: variables.$color-neutral-4;
+			color: variables.$color-neutral-1;
+		}
+	}
+}
+
+@keyframes overlayShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes contentShow {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -48%) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
