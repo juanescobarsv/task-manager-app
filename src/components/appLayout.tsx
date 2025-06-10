@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
+import TaskFormModal from "./TaskFormModal";
+import type { Task } from "../graphQL/generated/graphql";
 const LazyDashboard = React.lazy(() => import("./Dashboard"));
-import NewTask from "./NewTask";
 
 const AppLayout = () => {
-	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+	const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
+	const [taskBeingEdited, setTaskBeingEdited] = useState<Task | null>(null);
 
 	const handleSwitchSelect = (selected: "menu" | "function") => {
 		console.warn("Switch button selected:", selected);
 	};
 
 	const handleAddButtonClick = () => {
-		setIsTaskModalOpen(true);
+		setTaskBeingEdited(null); //
+		setIsTaskFormModalOpen(true);
 	};
 
-	const handleTaskModalClose = () => {
-		setIsTaskModalOpen(false);
+	const handleEditTask = (task: Task) => {
+		setTaskBeingEdited(task);
+		setIsTaskFormModalOpen(true);
+	};
+
+	const handleTaskFormModalClose = () => {
+		setIsTaskFormModalOpen(false);
+		setTaskBeingEdited(null);
 	};
 
 	return (
@@ -29,20 +38,24 @@ const AppLayout = () => {
 			<div className='main-content'>
 				<div className='main-content__header'>
 					<TopBar />
+					<div className='main-content__controls'>
+						<SwitchButton onSelect={handleSwitchSelect} />
+						<AddButton onClick={handleAddButtonClick} />
+					</div>
 				</div>
 
-				{/* Controls for SwitchButton and AddButton */}
-				<div className='main-content__controls'>
-					<SwitchButton onSelect={handleSwitchSelect} />
-					<AddButton onClick={handleAddButtonClick} />
-				</div>
-
-				{/* Dashboard */}
 				<div className='main-content__task-board-wrapper'>
-					<LazyDashboard />
-					<NewTask isOpen={isTaskModalOpen} onClose={handleTaskModalClose} />
+					<Suspense fallback={<div>Loading tasks...</div>}>
+						<LazyDashboard onEditTask={handleEditTask} />
+					</Suspense>
 				</div>
 			</div>
+
+			<TaskFormModal
+				isOpen={isTaskFormModalOpen}
+				onClose={handleTaskFormModalClose}
+				taskToEdit={taskBeingEdited}
+			/>
 		</div>
 	);
 };

@@ -15,8 +15,8 @@ export const GET_USER_PROFILE = gql`
 `;
 
 export const GET_TASKS_LIST = gql`
-	query Tasks {
-		tasks(input: {}) {
+	query Tasks($input: FilterTaskInput!) {
+		tasks(input: $input) {
 			id
 			name
 			status
@@ -27,11 +27,20 @@ export const GET_TASKS_LIST = gql`
 			assignee {
 				id
 				fullName
+				email
 				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			creator {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}

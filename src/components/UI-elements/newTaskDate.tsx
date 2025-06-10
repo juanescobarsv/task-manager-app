@@ -31,13 +31,6 @@ const DatePopover: React.FC<DateProps> = ({
 		onOpenChange(false);
 	};
 
-	const handleSetToday = () => {
-		const today = new Date();
-		setInternalDate(today);
-		onSelectDate(today);
-		onOpenChange(false);
-	};
-
 	return (
 		<Popover.Root open={isOpen} onOpenChange={onOpenChange}>
 			<Popover.Trigger asChild>{children}</Popover.Trigger>

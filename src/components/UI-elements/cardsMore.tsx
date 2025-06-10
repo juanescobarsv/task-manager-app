@@ -4,15 +4,17 @@ import Icons from "./Icons";
 import { useMutation } from "@apollo/client";
 import { DELETE_TASK_MUTATION } from "../../graphQL/mutations";
 import { GET_TASKS_LIST } from "../../graphQL/queries";
+import type { Task } from "../../graphQL/generated/graphql";
 
 interface CardsMoreProps {
 	children: React.ReactNode;
-	onEditClick: () => void;
+	onEditClick: (task: Task) => void;
 	onDeleteClick?: () => void;
 	taskId: string;
+	taskData: Task;
 }
 
-const CardsMore = ({ children, onEditClick, onDeleteClick, taskId }: CardsMoreProps) => {
+const CardsMore = ({ children, onEditClick, onDeleteClick, taskId, taskData }: CardsMoreProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const [deleteTask, { loading: deletingTask, error: deleteTaskError }] = useMutation(
@@ -30,7 +32,7 @@ const CardsMore = ({ children, onEditClick, onDeleteClick, taskId }: CardsMorePr
 	);
 
 	const handleEdit = () => {
-		onEditClick();
+		onEditClick(taskData);
 		setIsOpen(false);
 	};
 
@@ -53,10 +55,7 @@ const CardsMore = ({ children, onEditClick, onDeleteClick, taskId }: CardsMorePr
 
 	return (
 		<Popover.Root open={isOpen} onOpenChange={setIsOpen}>
-			<Popover.Trigger asChild>
-				{/* The trigger button will be passed as children */}
-				{children}
-			</Popover.Trigger>
+			<Popover.Trigger asChild>{children}</Popover.Trigger>
 			<Popover.Portal>
 				<Popover.Content className='cards-more-popover-content' sideOffset={5} align='end'>
 					<button className='popover-option' onClick={handleEdit} disabled={deletingTask}>

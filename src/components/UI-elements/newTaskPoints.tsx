@@ -12,7 +12,7 @@ interface EstimateProps {
 
 const pointEstimates = [0, 1, 2, 4, 8];
 
-const EstimatePopover: React.FC<EstimateProps> = ({
+const PointsPopover: React.FC<EstimateProps> = ({
 	children,
 	isOpen,
 	onClose,
@@ -57,4 +57,4 @@ const EstimatePopover: React.FC<EstimateProps> = ({
 	);
 };
 
-export default EstimatePopover;
+export default PointsPopover;

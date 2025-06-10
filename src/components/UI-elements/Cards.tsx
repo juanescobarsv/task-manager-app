@@ -2,6 +2,7 @@ import MenuIcon from "./sidebarMenuIcon";
 import Tags from "./Tags";
 import Avatar from "./Avatar";
 import CardsMore from "./cardsMore";
+import type { Task } from "../../graphQL/generated/graphql";
 
 export interface CardProps {
 	id: string;
@@ -15,6 +16,8 @@ export interface CardProps {
 	subtaskCount: number;
 	commentCount: number;
 	className?: string;
+	taskData: Task;
+	onEditTask: (task: Task) => void;
 }
 
 const Cards = ({
@@ -29,6 +32,8 @@ const Cards = ({
 	subtaskCount,
 	commentCount,
 	className,
+	taskData,
+	onEditTask,
 }: CardProps) => {
 	const cardClasses = ["card"];
 	if (className) {
@@ -46,6 +51,7 @@ const Cards = ({
 
 	const handleEditTask = () => {
 		console.warn(`Edit task: ${title} (ID: ${id})`);
+		onEditTask(taskData);
 	};
 
 	const handleDeleteTask = () => {
@@ -57,7 +63,12 @@ const Cards = ({
 			{/* Section 1: Title */}
 			<div className='card__section-1'>
 				<h3 className='card__title'>{title}</h3>
-				<CardsMore taskId={id} onEditClick={handleEditTask} onDeleteClick={handleDeleteTask}>
+				<CardsMore
+					taskId={id}
+					taskData={taskData}
+					onEditClick={handleEditTask}
+					onDeleteClick={handleDeleteTask}
+				>
 					<button className='more-icon-button' aria-label='More options for task'>
 						<MenuIcon iconName='more_X' />
 					</button>

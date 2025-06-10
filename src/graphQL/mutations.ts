@@ -9,9 +9,24 @@ export const CREATE_TASK_MUTATION = gql`
 			pointEstimate
 			dueDate
 			tags
+			position
 			assignee {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
+			}
+			creator {
+				id
+				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}
@@ -27,9 +42,24 @@ export const UPDATE_TASK_MUTATION = gql`
 			pointEstimate
 			dueDate
 			tags
+			position
 			assignee {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
+			}
+			creator {
+				id
+				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}
@@ -45,9 +75,24 @@ export const DELETE_TASK_MUTATION = gql`
 			pointEstimate
 			dueDate
 			tags
+			position
 			assignee {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
+			}
+			creator {
+				id
+				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}

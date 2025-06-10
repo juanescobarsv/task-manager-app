@@ -70,7 +70,7 @@ export type PointEstimate = "EIGHT" | "FOUR" | "ONE" | "TWO" | "ZERO";
 export type Query = {
 	__typename?: "Query";
 	profile: User;
-	tasks: TaskTag[];
+	tasks: Task[];
 	users: User[];
 };
 
@@ -137,8 +137,28 @@ export type CreateTaskMutation = {
 		pointEstimate: PointEstimate;
 		dueDate: Date;
 		tags: TaskTag[];
+		position: number;
 		createdAt: Date;
-		assignee?: { __typename?: "User"; id: string; fullName: string } | null;
+		assignee?: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		} | null;
+		creator: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		};
 	};
 };
 
@@ -156,8 +176,28 @@ export type UpdateTaskMutation = {
 		pointEstimate: PointEstimate;
 		dueDate: Date;
 		tags: TaskTag[];
+		position: number;
 		createdAt: Date;
-		assignee?: { __typename?: "User"; id: string; fullName: string } | null;
+		assignee?: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		} | null;
+		creator: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		};
 	};
 };
 
@@ -175,8 +215,28 @@ export type DeleteTaskMutation = {
 		pointEstimate: PointEstimate;
 		dueDate: Date;
 		tags: TaskTag[];
+		position: number;
 		createdAt: Date;
-		assignee?: { __typename?: "User"; id: string; fullName: string } | null;
+		assignee?: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		} | null;
+		creator: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		};
 	};
 };
 
@@ -196,8 +256,6 @@ export type ProfileQuery = {
 	};
 };
 
-// ! FALLBACK CHANGE: export type TasksQueryVariables = Exact<{ [key: string]: never }>;
-
 export type TasksQueryVariables = Exact<{
 	input: FilterTaskInput;
 }>;
@@ -214,8 +272,26 @@ export type TasksQuery = {
 		tags: TaskTag[];
 		position: number;
 		createdAt: Date;
-		assignee?: { __typename?: "User"; id: string; fullName: string; avatar?: string | null } | null;
-		creator: { __typename?: "User"; id: string; fullName: string };
+		assignee?: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		} | null;
+		creator: {
+			__typename?: "User";
+			id: string;
+			fullName: string;
+			email: string;
+			avatar?: string | null;
+			type: UserType;
+			createdAt: Date;
+			updatedAt: Date;
+		};
 	}>;
 };
 
@@ -244,9 +320,24 @@ export const CreateTaskDocument = gql`
 			pointEstimate
 			dueDate
 			tags
+			position
 			assignee {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
+			}
+			creator {
+				id
+				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}
@@ -298,9 +389,24 @@ export const UpdateTaskDocument = gql`
 			pointEstimate
 			dueDate
 			tags
+			position
 			assignee {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
+			}
+			creator {
+				id
+				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}
@@ -352,9 +458,24 @@ export const DeleteTaskDocument = gql`
 			pointEstimate
 			dueDate
 			tags
+			position
 			assignee {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
+			}
+			creator {
+				id
+				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}
@@ -452,8 +573,8 @@ export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
 export type ProfileSuspenseQueryHookResult = ReturnType<typeof useProfileSuspenseQuery>;
 export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const TasksDocument = gql`
-	query Tasks {
-		tasks(input: {}) {
+	query Tasks($input: FilterTaskInput!) {
+		tasks(input: $input) {
 			id
 			name
 			status
@@ -464,11 +585,20 @@ export const TasksDocument = gql`
 			assignee {
 				id
 				fullName
+				email
 				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			creator {
 				id
 				fullName
+				email
+				avatar
+				type
+				createdAt
+				updatedAt
 			}
 			createdAt
 		}
@@ -487,11 +617,13 @@ export const TasksDocument = gql`
  * @example
  * const { data, loading, error } = useTasksQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
 export function useTasksQuery(
-	baseOptions?: Apollo.QueryHookOptions<TasksQuery, TasksQueryVariables>,
+	baseOptions: Apollo.QueryHookOptions<TasksQuery, TasksQueryVariables> &
+		({ variables: TasksQueryVariables; skip?: boolean } | { skip: boolean }),
 ) {
 	const options = { ...defaultOptions, ...baseOptions };
 	return Apollo.useQuery<TasksQuery, TasksQueryVariables>(TasksDocument, options);

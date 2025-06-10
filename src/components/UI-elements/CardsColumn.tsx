@@ -1,13 +1,15 @@
 import Cards, { EmptyCard } from "./Cards";
 import type { CardProps } from "./Cards";
+import type { Task } from "../../graphQL/generated/graphql";
 
 interface CardsColumnProps {
 	title: string;
 	cards: CardProps[];
 	className?: string;
+	onEditTask: (task: Task) => void;
 }
 
-const CardsColumn = ({ title, cards, className }: CardsColumnProps) => {
+const CardsColumn = ({ title, cards, className, onEditTask }: CardsColumnProps) => {
 	const columnClasses = ["cards-column"];
 	if (className) {
 		columnClasses.push(className);
@@ -22,9 +24,7 @@ const CardsColumn = ({ title, cards, className }: CardsColumnProps) => {
 			</h2>
 			<div className='cards-column__list'>
 				{cards.length > 0 ? (
-					cards.map((card) => (
-						<Cards key={card.title} {...card} /> // Using title as key for simplicity, ideally use unique ID
-					))
+					cards.map((card) => <Cards key={card.title} {...card} onEditTask={onEditTask} />)
 				) : (
 					<div className='cards-column__empty-state'>
 						<EmptyCard />
