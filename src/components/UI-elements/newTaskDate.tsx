@@ -51,6 +51,8 @@ const DatePopover: React.FC<DateProps> = ({
 						selected={internalDate}
 						onChange={handleDateChange}
 						inline
+						minDate={new Date()}
+						todayButton='Today'
 						renderCustomHeader={({
 							date,
 							decreaseMonth,
@@ -60,7 +62,7 @@ const DatePopover: React.FC<DateProps> = ({
 							decreaseYear,
 							increaseYear,
 						}) => (
-							<div className='react-datepicker__header--custom'>
+							<div className='react-datepicker__header--custom2'>
 								<button
 									onClick={decreaseYear}
 									className='react-datepicker__navigation react-datepicker__navigation--year-previous'
@@ -99,12 +101,6 @@ const DatePopover: React.FC<DateProps> = ({
 							</div>
 						)}
 					/>
-
-					<div className='date-picker-footer'>
-						<button className='date-picker-today-button' onClick={handleSetToday}>
-							Today
-						</button>
-					</div>
 
 					<Popover.Arrow className='popover-arrow' />
 				</Popover.Content>
