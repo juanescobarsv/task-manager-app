@@ -11,19 +11,19 @@
 }
 
 .filter-modal-content {
-	background-color: variables.$color-neutral-3;
+	background-color: variables.$color-neutral-4;
 	border-radius: variables.$border-radius-lg;
 	padding: variables.$space-md;
 	box-shadow: variables.$shadow-lg;
 	display: flex;
 	flex-direction: column;
-	gap: variables.$space-md;
+	gap: variables.$space-sm;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 90vw;
-	max-width: 450px;
+	max-width: 400px;
 	max-height: 90vh;
 	overflow-y: auto;
 	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -32,26 +32,19 @@
 	.filter-panel__header {
 		@include mixins.flex-center;
 		justify-content: space-between;
-		margin-bottom: variables.$space-sm;
-		padding-bottom: variables.$space-xs;
-		border-bottom: 1px solid variables.$color-neutral-4;
 
 		h3 {
-			@extend .text-body-l;
+			@extend .text-body-xl;
 			color: variables.$color-neutral-1;
 			font-weight: variables.$font-weight-bold;
 		}
 
 		.close-button {
 			background-color: transparent;
-			border: none;
 			color: variables.$color-neutral-2;
 			cursor: pointer;
-			padding: variables.$space-xs;
-			border-radius: variables.$border-radius;
+			padding: 0;
 			transition: color 0.2s ease;
-			width: 24px;
-			height: 24px;
 			@include mixins.flex-center;
 
 			&:hover {
@@ -59,8 +52,8 @@
 			}
 
 			svg {
-				width: 18px;
-				height: 18px;
+				width: 20px;
+				height: 20px;
 				fill: currentColor;
 			}
 		}
@@ -73,7 +66,7 @@
 
 		label {
 			@extend .text-body-m;
-			color: variables.$color-neutral-2;
+			color: variables.$color-neutral-1;
 			font-weight: variables.$font-weight-bold;
 		}
 
@@ -91,6 +84,10 @@
 				outline: none;
 				border-color: variables.$color-primary-4;
 				box-shadow: 0 0 0 1px variables.$color-primary-4;
+			}
+
+			&::placeholder {
+				color: variables.$color-neutral-1;
 			}
 		}
 
@@ -175,20 +172,17 @@
 	}
 
 	.filter-modal-actions {
+		// @include mixins.flex-center;
 		display: flex;
 		justify-content: space-between;
-		gap: variables.$space-sm;
-		padding-top: variables.$space-md;
-		border-top: 1px solid variables.$color-neutral-4;
+		// gap: variables.$space-sm;
 
 		.clear-filters-button {
-			@extend .text-body-s;
+			@include mixins.button-styles;
+			@extend .text-body-l;
+			flex-grow: 1;
 			background-color: transparent;
-			border: none;
 			color: variables.$color-primary-4;
-			cursor: pointer;
-			padding: variables.$space-xs variables.$space-sm;
-			border-radius: variables.$border-radius;
 			transition:
 				background-color 0.2s ease,
 				color 0.2s ease;
@@ -203,7 +197,7 @@
 			@include mixins.button-styles;
 			@extend .text-body-l;
 			flex-grow: 1;
-			padding: variables.$space-sm variables.$space-md;
+			padding: variables.$space-sm;
 		}
 	}
 }
