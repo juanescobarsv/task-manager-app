@@ -51,13 +51,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 		setPointEstimate(currentFilters.pointEstimate ?? null);
 	}, [currentFilters]);
 
-	// Fetch users for the Owner dropdown
+	// Fetch users
 	const { data: usersData } = useUsersQuery();
 	const users = usersData?.users ?? [];
 
 	const handleApply = () => {
 		const filters: FilterTaskInput = {};
-		if (name) filters.name = name;
+		if (name) filters.name = name.toLowerCase();
 		if (dueDate) filters.dueDate = dueDate;
 		if (ownerId) filters.ownerId = ownerId;
 		if (status) filters.status = status;
@@ -65,7 +65,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 		if (pointEstimate) filters.pointEstimate = pointEstimate;
 
 		onApplyFilters(filters);
-		onClose(); // Close modal after applying filters
+		onClose();
 	};
 
 	const handleClear = () => {
@@ -75,7 +75,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 		setStatus(null);
 		setTags([]);
 		setPointEstimate(null);
-		onApplyFilters({}); // Apply empty filters to clear results
+		onApplyFilters({});
 	};
 
 	const handleTagChange = (tag: TaskTag, isChecked: boolean) => {

@@ -39,13 +39,15 @@ const formatDueDateForCard = (dueDate: Date | null | undefined): string => {
 
 interface DashboardProps {
 	onEditTask: (task: Task) => void;
-	filterInput: FilterTaskInput;
+	filterInput?: FilterTaskInput;
 }
 
-const Dashboard = ({ onEditTask, filterInput }: DashboardProps) => {
+const Dashboard = ({ onEditTask, filterInput = {} }: DashboardProps) => {
+	const { name: nameFilter, ...apiFilterInput } = filterInput;
+
 	const { loading, error, data } = useTasksQuery({
 		variables: {
-			input: filterInput,
+			input: apiFilterInput,
 		},
 	});
 
@@ -81,54 +83,50 @@ const Dashboard = ({ onEditTask, filterInput }: DashboardProps) => {
 		return <div className='task-board error-message'>Error loading tasks: {error.message}</div>;
 	}
 
+	const allTasks = data?.tasks ?? [];
+
+	// Client-side filtering for task name
+	const filteredTasks = nameFilter
+		? allTasks.filter((task) => task.name.toLowerCase().includes(nameFilter.toLowerCase()))
+		: allTasks;
+
 	const backlogCards: CardProps[] = [];
 	const todoCards: CardProps[] = [];
 	const inProgressCards: CardProps[] = [];
 	const doneCards: CardProps[] = [];
 	const cancelledCards: CardProps[] = [];
 
-	if (data?.tasks) {
-		data.tasks.forEach((task) => {
-			const transformedCard = transformTaskToCardProps(task);
-			switch (task.status) {
-				case "BACKLOG":
-					backlogCards.push(transformedCard);
-					break;
-				case "TODO":
-					todoCards.push(transformedCard);
-					break;
-				case "IN_PROGRESS":
-					inProgressCards.push(transformedCard);
-					break;
-				case "DONE":
-					doneCards.push(transformedCard);
-					break;
-				case "CANCELLED":
-					cancelledCards.push(transformedCard);
-					break;
-				default:
-					console.warn(`Unknown task status: ${String(task.status)}`);
-					break;
-			}
-		});
-	}
+	filteredTasks.forEach((task) => {
+		const transformedCard = transformTaskToCardProps(task);
+		switch (task.status) {
+			case "BACKLOG":
+				backlogCards.push(transformedCard);
+				break;
+			case "TODO":
+				todoCards.push(transformedCard);
+				break;
+			case "IN_PROGRESS":
+				inProgressCards.push(transformedCard);
+				break;
+			case "DONE":
+				doneCards.push(transformedCard);
+				break;
+			case "CANCELLED":
+				cancelledCards.push(transformedCard);
+				break;
+			default:
+				console.warn(`Unknown task status: ${String(task.status)}`);
+				break;
+		}
+	});
 
 	return (
 		<div className='task-board'>
-			{/* {allColumnsEmpty && Object.keys(filterInput).length > 0 ? (
-				<div className='task-board__empty-results'>
-					<EmptyCard />
-					<p>No tasks found matching your filters.</p>
-				</div>
-			) : ( */}
-			<>
-				<CardsColumn title='BACKLOG' cards={backlogCards} onEditTask={onEditTask} />
-				<CardsColumn title='TODO' cards={todoCards} onEditTask={onEditTask} />
-				<CardsColumn title='IN PROGRESS' cards={inProgressCards} onEditTask={onEditTask} />
-				<CardsColumn title='DONE' cards={doneCards} onEditTask={onEditTask} />
-				<CardsColumn title='CANCELLED' cards={cancelledCards} onEditTask={onEditTask} />
-			</>
-			{/* )} */}
+			<CardsColumn title='BACKLOG' cards={backlogCards} onEditTask={onEditTask} />
+			<CardsColumn title='TODO' cards={todoCards} onEditTask={onEditTask} />
+			<CardsColumn title='IN PROGRESS' cards={inProgressCards} onEditTask={onEditTask} />
+			<CardsColumn title='DONE' cards={doneCards} onEditTask={onEditTask} />
+			<CardsColumn title='CANCELLED' cards={cancelledCards} onEditTask={onEditTask} />
 		</div>
 	);
 };

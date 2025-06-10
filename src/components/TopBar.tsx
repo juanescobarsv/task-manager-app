@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import MenuIcon from "./UI-elements/sidebarMenuIcon";
 import Avatar from "./UI-elements/Avatar";
 
-const TopBar = () => {
+interface TopBarProps {
+	onSearchChange: (searchTerm: string) => void;
+}
+
+const TopBar = ({ onSearchChange }: TopBarProps) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isSearchActive, setIsSearchActive] = useState(false);
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchTerm(event.target.value);
-		setIsSearchActive(event.target.value.length > 0);
+		const newSearchTerm = event.target.value;
+		setSearchTerm(newSearchTerm);
+		setIsSearchActive(newSearchTerm.length > 0);
+		onSearchChange(newSearchTerm);
 	};
 
 	const handleSearchFocus = () => {
@@ -24,6 +30,7 @@ const TopBar = () => {
 	const handleClearSearch = () => {
 		setSearchTerm("");
 		setIsSearchActive(false);
+		onSearchChange("");
 	};
 
 	const handleNotificationClick = () => {

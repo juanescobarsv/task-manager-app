@@ -115,3 +115,28 @@
 		fill: variables.$color-neutral-1;
 	}
 }
+
+.filter-button {
+	@include mixins.flex-center;
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: variables.$border-radius;
+	background-color: transparent;
+	color: variables.$color-primary-4;
+	border: 1px solid variables.$color-primary-4;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	box-shadow: variables.$shadow-md;
+	margin-right: 10px;
+
+	&:hover {
+		filter: brightness(1.1);
+	}
+
+	svg {
+		width: 24px;
+		height: 24px;
+		fill: currentColor;
+	}
+}

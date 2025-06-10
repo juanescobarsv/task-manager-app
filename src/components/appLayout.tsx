@@ -12,6 +12,7 @@ const AppLayout = () => {
 	const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
 	const [taskBeingEdited, setTaskBeingEdited] = useState<Task | null>(null);
 
+	const [searchTerm, setSearchTerm] = useState<string>("");
 	const [currentFilters, setCurrentFilters] = useState<FilterTaskInput>({});
 	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
@@ -20,8 +21,22 @@ const AppLayout = () => {
 	};
 
 	const handleAddButtonClick = () => {
-		setTaskBeingEdited(null); //
+		setTaskBeingEdited(null);
 		setIsTaskFormModalOpen(true);
+	};
+
+	const handleSearchChange = (term: string) => {
+		setSearchTerm(term);
+		setCurrentFilters((prevFilters) => ({
+			...prevFilters,
+			name: term ? term.toLowerCase() : undefined,
+		}));
+	};
+
+	const handleApplyFilters = (filters: FilterTaskInput) => {
+		setCurrentFilters(filters);
+		setSearchTerm(filters.name ?? "");
+		console.warn("Applied Filters:", filters);
 	};
 
 	const handleEditTask = (task: Task) => {
@@ -32,11 +47,6 @@ const AppLayout = () => {
 	const handleTaskFormModalClose = () => {
 		setIsTaskFormModalOpen(false);
 		setTaskBeingEdited(null);
-	};
-
-	const handleApplyFilters = (filters: FilterTaskInput) => {
-		setCurrentFilters(filters);
-		console.warn("Applied Filters:", filters);
 	};
 
 	const handleOpenFilterModal = () => {
@@ -55,11 +65,11 @@ const AppLayout = () => {
 
 			<div className='main-content'>
 				<div className='main-content__header'>
-					<TopBar />
+					<TopBar onSearchChange={handleSearchChange} />
 				</div>
 				<div className='main-content__controls'>
 					<SwitchButton onSelect={handleSwitchSelect} />
-					<div>
+					<div className='switch-button-group'>
 						<button
 							className='filter-button'
 							onClick={handleOpenFilterModal}
