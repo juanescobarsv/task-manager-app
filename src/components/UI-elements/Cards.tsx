@@ -58,6 +58,42 @@ const Cards = ({
 		console.warn(`Attempting to delete task: ${title} (ID: ${id})`);
 	};
 
+	const getDateTagColors = (dueDate: Date | null | undefined): { backgroundColor: string } => {
+		if (!dueDate) {
+			// Fallback in case of no Date
+			return {
+				backgroundColor: "var(--color-neutral-3)",
+			};
+		}
+
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		const due = new Date(dueDate);
+		due.setHours(0, 0, 0, 0);
+
+		const diffTime = due.getTime() - today.getTime();
+		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+		if (diffDays < 0) {
+			// Date is older than current date (past due)
+			return {
+				backgroundColor: "var(--color-primary-3)", // Red
+			};
+		} else if (diffDays <= 1) {
+			// Less than 2 days left (today or tomorrow)
+			return {
+				backgroundColor: "var(--color-tertiary-3)", // Yellow
+			};
+		} else {
+			return {
+				backgroundColor: "var(--color-secondary-3)", // Green
+			};
+		}
+	};
+
+	const dateTagColors = getDateTagColors(taskData.dueDate);
+
 	return (
 		<div className={cardClasses.join(" ")}>
 			{/* Section 1: Title */}
@@ -81,7 +117,7 @@ const Cards = ({
 				<Tags
 					text={timeTagText}
 					iconName='alarm'
-					backgroundColor='var(--color-neutral-3)'
+					backgroundColor={dateTagColors.backgroundColor}
 					textColor='var(--color-neutral-1)'
 				/>
 			</div>

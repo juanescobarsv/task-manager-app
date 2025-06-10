@@ -38,10 +38,10 @@ const AppLayout = () => {
 			<div className='main-content'>
 				<div className='main-content__header'>
 					<TopBar />
-					<div className='main-content__controls'>
-						<SwitchButton onSelect={handleSwitchSelect} />
-						<AddButton onClick={handleAddButtonClick} />
-					</div>
+				</div>
+				<div className='main-content__controls'>
+					<SwitchButton onSelect={handleSwitchSelect} />
+					<AddButton onClick={handleAddButtonClick} />
 				</div>
 
 				<div className='main-content__task-board-wrapper'>
