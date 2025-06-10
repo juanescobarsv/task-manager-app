@@ -9,6 +9,7 @@ import DatePopover from "./UI-elements/newTaskDate";
 import { useMutation } from "@apollo/client";
 import { CREATE_TASK_MUTATION, UPDATE_TASK_MUTATION } from "../graphQL/mutations";
 import { GET_TASKS_LIST } from "../graphQL/queries";
+import { toast } from "react-toastify";
 
 import type {
 	TaskTag,
@@ -130,15 +131,13 @@ const TaskFormModal = ({ isOpen, onClose, taskToEdit }: TaskModalProps) => {
 	const [createTask, { loading: creatingTask, error: createTaskError }] =
 		useMutation<CreateTaskMutation>(CREATE_TASK_MUTATION, {
 			refetchQueries: [{ query: GET_TASKS_LIST, variables: { input: {} } }],
-			onCompleted: (data) => {
+			onCompleted: (_data) => {
 				handleClear();
 				onClose();
-				console.warn("Successfully created task:", data.createTask);
-				alert("Task created successfully!");
+				toast.success(`Task ${_data.createTask.name} created successfully!`);
 			},
 			onError: (error) => {
-				console.error("Failed to create task:", error);
-				alert(`Failed to create task: ${error.message}`);
+				toast.error(`Failed to create task: ${error.message}`);
 			},
 		});
 
@@ -149,11 +148,11 @@ const TaskFormModal = ({ isOpen, onClose, taskToEdit }: TaskModalProps) => {
 				handleClear();
 				onClose();
 				console.warn("Successfully updated task:", data.updateTask);
-				alert("Task updated successfully!");
+				toast.success(`Task ${data.updateTask.name} updated successfully!`);
 			},
 			onError: (error) => {
 				console.error("Failed to update task:", error);
-				alert(`Failed to update task: ${error.message}`);
+				toast.error(`Failed to update task: ${error.message}`);
 			},
 		});
 
@@ -165,40 +164,10 @@ const TaskFormModal = ({ isOpen, onClose, taskToEdit }: TaskModalProps) => {
 	const isLoading = creatingTask ?? updatingTask;
 	const currentError = createTaskError ?? updateTaskError;
 
-	// // Estimate Popover Handlers
-	// const handleOpenEstimatePopover = () => {
-	// 	setIsEstimatePopoverOpen(true);
-	// };
-
-	// const handleCloseEstimatePopover = (open: boolean) => {
-	// 	setIsEstimatePopoverOpen(open);
-	// };
-
-	// const handleSelectEstimate = (estimate: number | null) => {
-	// 	setSelectedEstimate(estimate);
-	// };
-
-	// // Assignee Popover Handlers
-	// const handleOpenAssigneePopover = () => setIsAssigneePopoverOpen(true);
-	// const handleCloseAssigneePopover = (open: boolean) => setIsAssigneePopoverOpen(open);
-	// const handleSelectAssignee = (assignee: User | null) => {
-	// 	setSelectedAssignee(assignee);
-	// };
-
-	// // Tag Popover Handlers
-	// const handleOpenTagPopover = () => setIsTagPopoverOpen(true);
-	// const handleCloseTagPopover = (open: boolean) => setIsTagPopoverOpen(open);
-	// const handleSelectTags = (tags: TaskTag[]) => setSelectedTags(tags);
-
-	// // Date Picker Handlers
-	// const handleOpenDatePicker = () => setIsDatePickerOpen(true);
-	// const handleCloseDatePicker = (open: boolean) => setIsDatePickerOpen(open);
-	// const handleSelectDate = (date: Date | null) => setSelectedDate(date);
-
 	// Functions for Submit and Clear
 	const handleSubmit = async () => {
 		if (!taskName.trim()) {
-			alert("Task name cannot be empty.");
+			toast.error("Task name cannot be empty.");
 			return;
 		}
 
@@ -215,7 +184,11 @@ const TaskFormModal = ({ isOpen, onClose, taskToEdit }: TaskModalProps) => {
 
 		try {
 			if (taskToEdit) {
-				// Update existing task
+				if (!taskToEdit.id) {
+					console.error("No task ID provided for update.");
+					toast.error("Cannot update task: No task ID found.");
+					return;
+				}
 				await updateTask({
 					variables: {
 						input: {
@@ -227,7 +200,6 @@ const TaskFormModal = ({ isOpen, onClose, taskToEdit }: TaskModalProps) => {
 					},
 				});
 			} else {
-				// Create new task
 				await createTask({
 					variables: {
 						input: {

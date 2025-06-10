@@ -58,7 +58,9 @@ const Cards = ({
 		console.warn(`Attempting to delete task: ${title} (ID: ${id})`);
 	};
 
-	const getDateTagColors = (dueDate: Date | null | undefined): { backgroundColor: string } => {
+	const getDateTagColors = (
+		dueDate: Date | null | undefined,
+	): { backgroundColor: string; textColor?: string } => {
 		if (!dueDate) {
 			// Fallback in case of no Date
 			return {
@@ -78,16 +80,25 @@ const Cards = ({
 		if (diffDays < 0) {
 			// Date is older than current date (past due)
 			return {
-				backgroundColor: "var(--color-primary-3)", // Red
+				backgroundColor: "var(--color-primary-3)",
+				textColor: "var(--color-neutral-1)",
+				// backgroundColor: "var(--color-primary-4-1)",
+				// textColor: "var(--color-primary-4)",
 			};
 		} else if (diffDays <= 1) {
 			// Less than 2 days left (today or tomorrow)
 			return {
-				backgroundColor: "var(--color-tertiary-3)", // Yellow
+				backgroundColor: "var(--color-tertiary-3)",
+				textColor: "var(--color-neutral-1)",
+				// backgroundColor: "var(--color-tertiary-4-1)",
+				// textColor: "var(--color-tertiary-4)",
 			};
 		} else {
 			return {
-				backgroundColor: "var(--color-secondary-3)", // Green
+				backgroundColor: "var(--color-secondary-3)",
+				textColor: "var(--color-neutral-1)",
+				// backgroundColor: "var(--color-secondary-4-1)",
+				// textColor: "var(--color-secondary-4)",
 			};
 		}
 	};
@@ -118,7 +129,7 @@ const Cards = ({
 					text={timeTagText}
 					iconName='alarm'
 					backgroundColor={dateTagColors.backgroundColor}
-					textColor='var(--color-neutral-1)'
+					textColor={dateTagColors.textColor}
 				/>
 			</div>
 

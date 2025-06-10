@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ErrorBoundary from "./components/appErrorBoundary";
 import { HomePage, NotFoundPage, ErrorPage } from "./components/appPages";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
 	return (
@@ -13,6 +14,18 @@ const App = () => {
 					<Route path='*' element={<NotFoundPage />} />
 					<Route path='/error' element={<ErrorPage />} />
 				</Routes>
+				<ToastContainer
+					position='bottom-right'
+					autoClose={3000}
+					hideProgressBar={false}
+					newestOnTop
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme='dark'
+				/>
 			</ErrorBoundary>
 		</Router>
 	);

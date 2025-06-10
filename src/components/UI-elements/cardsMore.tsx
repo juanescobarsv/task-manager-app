@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { DELETE_TASK_MUTATION } from "../../graphQL/mutations";
 import { GET_TASKS_LIST } from "../../graphQL/queries";
 import type { Task } from "../../graphQL/generated/graphql";
+import { toast } from "react-toastify";
 
 interface CardsMoreProps {
 	children: React.ReactNode;
@@ -23,10 +24,10 @@ const CardsMore = ({ children, onEditClick, onDeleteClick, taskId, taskData }: C
 			refetchQueries: [{ query: GET_TASKS_LIST, variables: { input: {} } }],
 			onCompleted: () => {
 				console.warn(`Task with ID ${taskId} deleted successfully.`);
+				toast.success(`Task with ${taskData.name} deleted successfully.`);
 			},
 			onError: (error) => {
-				console.error(`Error deleting task with ID ${taskId}:`, error.message);
-				alert(`Failed to delete task: ${error.message}`);
+				toast.error(`Error deleting task with ID ${taskId}: ${error.message}`);
 			},
 		},
 	);
@@ -48,8 +49,16 @@ const CardsMore = ({ children, onEditClick, onDeleteClick, taskId, taskData }: C
 			await deleteTask({ variables: { input: { id: taskId } } });
 			setIsOpen(false);
 			onDeleteClick?.();
-		} catch (error) {
-			console.error("An unexpected error occurred before deleting task:", error);
+		} catch (error: unknown) {
+			let errorMessage = "An unexpected error occurred.";
+			if (error instanceof Error) {
+				// Check if it's an instance of Error
+				errorMessage = `An unexpected error occurred before deleting task: ${error.message}`;
+			} else if (typeof error === "string") {
+				// It could also be a string
+				errorMessage = `An unexpected error occurred before deleting task: ${error}`;
+			}
+			toast.error(errorMessage);
 		}
 	};
 
