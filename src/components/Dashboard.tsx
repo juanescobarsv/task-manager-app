@@ -26,14 +26,6 @@ const formatDueDateForCard = (dueDate: Date | null | undefined): string => {
 		const month = taskDate.toLocaleString("en-US", { month: "long" }).toUpperCase();
 		const year = taskDate.getFullYear();
 		return `${day} ${month}, ${year}`;
-
-		// FUTUREPROOFING: In case wanting a Locale Datein the future:
-		// 		const options: Intl.DateTimeFormatOptions = {
-		// 		day: "numeric",
-		// 		month: "long",
-		// 		year: "numeric",
-		// 		};
-		// 		return taskDate.toLocaleDateString("en-US", options).toUpperCase();
 	}
 };
 
@@ -69,9 +61,9 @@ const Dashboard = ({ onEditTask, filterInput = {} }: DashboardProps) => {
 			onEditTask: onEditTask,
 
 			// These counts are not in the current API schema, using placeholders:
-			attachmentCount: 0, // Placeholder
-			subtaskCount: 5, // Placeholder
-			commentCount: 3, // Placeholder
+			attachmentCount: 0, 
+			subtaskCount: 5, 
+			commentCount: 3,
 		};
 	};
 

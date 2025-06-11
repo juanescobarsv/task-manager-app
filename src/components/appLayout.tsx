@@ -1,12 +1,12 @@
 import React, { useState, Suspense } from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
+import Icons from "./UI-elements/Icons";
 import { SwitchButton, AddButton } from "./UI-elements/Buttons";
 import TaskFormModal from "./TaskFormModal";
 import type { Task, FilterTaskInput } from "../graphQL/generated/graphql";
 const LazyDashboard = React.lazy(() => import("./Dashboard"));
 import FilterPanel from "./UI-elements/FilterPanel";
-import Icons from "./UI-elements/Icons";
 
 const AppLayout = () => {
 	const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
@@ -85,6 +85,12 @@ const AppLayout = () => {
 					<Suspense fallback={<div>Loading tasks...</div>}>
 						<LazyDashboard onEditTask={handleEditTask} filterInput={currentFilters} />
 					</Suspense>
+
+					{/* <DNDWrapper
+						onEditTask={handleEditTask}
+						filterInput={currentFilters}
+						searchTerm={searchTerm}
+					></DNDWrapper> */}
 				</div>
 			</div>
 

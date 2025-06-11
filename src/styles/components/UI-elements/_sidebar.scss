@@ -80,7 +80,8 @@
 		color 0.2s ease-in-out;
 	border-radius: variables.$border-radius;
 	margin-left: variables.$space-md;
-	margin-bottom: variables.$space-sm;
+	margin-bottom: variables.$space-xs;
+	height: 56px;
 
 	&__icon {
 		width: 20px;
