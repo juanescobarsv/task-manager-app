@@ -7,7 +7,6 @@ interface AvatarProps {
 	size?: AvatarSize;
 	text?: string;
 	className?: string;
-	// onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const Avatar = ({ avatarName, size = "m", text, className, ...rest }: AvatarProps) => {

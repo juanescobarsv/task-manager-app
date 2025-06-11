@@ -185,4 +185,21 @@
 		height: 100%;
 		fill: variables.$color-neutral-2;
 	}
+
+	// --- Media Queries ---
+
+	// Mobile (sm breakpoint: 640px and up)
+	@include mixins.sm {
+		padding: variables.$space-sm;
+		gap: variables.$space-xs;
+
+		.card__title {
+			font-size: 16px;
+		}
+
+		.card__points,
+		.action-item__number {
+			font-size: 14px;
+		}
+	}
 }

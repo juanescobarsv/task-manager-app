@@ -15,7 +15,7 @@ const App = () => {
 					<Route path='/error' element={<ErrorPage />} />
 				</Routes>
 				<ToastContainer
-					position='bottom-right'
+					position='top-right'
 					autoClose={3000}
 					hideProgressBar={false}
 					newestOnTop

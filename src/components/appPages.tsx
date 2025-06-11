@@ -3,7 +3,7 @@ import AppLayout from "./appLayout";
 
 // BASIC RENDERS FOR THE APP
 export const HomePage = () => (
-	<div>
+	<div className='app-container'>
 		<AppLayout />
 	</div>
 );

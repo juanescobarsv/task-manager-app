@@ -10,8 +10,8 @@ interface NavItem {
 
 const navItems: NavItem[] = [
 	{ id: "dashboard", label: "DASHBOARD", iconName: "function" },
-	{ id: "projects", label: "PROJECTS", iconName: "suitcase" },
 	{ id: "my-task", label: "MY TASK", iconName: "menu" },
+	{ id: "projects", label: "PROJECTS", iconName: "suitcase" },
 	{ id: "calendar", label: "CALENDAR", iconName: "calendar" },
 	{ id: "time-manage", label: "TIME MANAGE", iconName: "time" },
 	{ id: "reports", label: "REPORTS", iconName: "pie" },
@@ -45,15 +45,6 @@ const Sidebar = () => {
 					/>
 				))}
 			</nav>
-			{/* You can add a bottom section here for user profile, logout, etc. */}
-			{/* <div className="sidebar__bottom-section">
-                <SidebarItem
-                    label="User Profile"
-                    iconName="user"
-                    isSelected={false}
-                    onClick={() => console.log("User Profile clicked")}
-                />
-            </div> */}
 		</aside>
 	);
 };

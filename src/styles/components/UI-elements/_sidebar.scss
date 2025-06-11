@@ -14,7 +14,7 @@
 	&__logo {
 		text-align: center;
 		margin-top: 12px;
-		margin-bottom: 44px;
+		margin-bottom: variables.$space-lg;
 
 		img {
 			width: 40px;
@@ -29,11 +29,44 @@
 		gap: variables.$space-xs;
 	}
 
-	// Optional: Style for the bottom section if you add more items like user profile
-	&__bottom-section {
-		margin-top: auto; // Pushes this section to the bottom
-		padding-top: variables.$space-md;
-		border-top: 1px solid variables.$color-neutral-4; // Separator line
+	// --- Media Queries ---
+
+	// Mobile (sm breakpoint: 640px and up)
+	@include mixins.sm {
+		width: 100%;
+		height: auto;
+		border-radius: variables.$border-radius-lg;
+		padding: variables.$space-sm;
+		flex-direction: row;
+		justify-content: space-between;
+
+		.sidebar__logo {
+			padding: variables.$space-xs 0;
+			margin: 0;
+			img {
+				width: 36px;
+			}
+		}
+
+		.sidebar__nav {
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			margin-left: variables.$space-sm;
+			gap: variables.$space-sm;
+			flex-grow: 1;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+
+			// Hide scrollbar on mobile nav
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+
+		.sidebar__bottom-section {
+			display: none;
+		}
 	}
 }
 
@@ -41,7 +74,6 @@
 .sidebar-item {
 	@include mixins.flex-center;
 	justify-content: flex-start;
-	padding: variables.$space-sm variables.$space-md;
 	gap: variables.$space-sm;
 	cursor: pointer;
 	position: relative;

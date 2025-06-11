@@ -1,22 +1,22 @@
 // This is the main SASS file that uses all other partials.
 
-@use "variables";
-@use "mixins";
-@use "base";
 @use "appLayout";
-@use "dataViewer";
+@use "base";
+@use "dashboard";
+@use "mixins";
+@use "variables";
 
 @use "components/UI-elements/sidebar";
 @use "components/UI-elements/topBar";
 @use "components/UI-elements/cardsColumn";
 
-@use "components/UI-elements/buttons";
-@use "components/UI-elements/tags";
 @use "components/UI-elements/avatar";
+@use "components/UI-elements/buttons";
 @use "components/UI-elements/cards";
+@use "components/UI-elements/filterPanel";
 @use "components/UI-elements/newTask";
 @use "components/UI-elements/newTaskPopover";
-@use "components/UI-elements/filterPanel";
+@use "components/UI-elements/tags";
 @use "components/UI-elements/userProfilePopover";
 
 @import "react-toastify/dist/ReactToastify.css";
