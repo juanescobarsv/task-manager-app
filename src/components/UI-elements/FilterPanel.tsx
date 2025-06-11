@@ -24,17 +24,12 @@ const ALL_STATUS_OPTIONS: Status[] = ["BACKLOG", "TODO", "IN_PROGRESS", "DONE", 
 const ALL_TAG_OPTIONS: TaskTag[] = ["IOS", "ANDROID", "REACT", "NODE_JS", "RAILS"];
 const ALL_POINT_ESTIMATE_OPTIONS: PointEstimate[] = ["ZERO", "ONE", "TWO", "FOUR", "EIGHT"];
 
-const FilterPanel: React.FC<FilterPanelProps> = ({
-	isOpen,
-	onClose,
-	onApplyFilters,
-	currentFilters,
-}) => {
+const FilterPanel = ({ isOpen, onClose, onApplyFilters, currentFilters }: FilterPanelProps) => {
 	const [name, setName] = useState<string>(currentFilters.name ?? "");
 	const [dueDate, setDueDate] = useState<Date | null>(
 		currentFilters.dueDate ? new Date(currentFilters.dueDate) : null,
 	);
-	const [ownerId, setOwnerId] = useState<string | null>(currentFilters.ownerId ?? null);
+	const [assigneeId, setAssigneeId] = useState<string | null>(currentFilters.assigneeId ?? null);
 	const [status, setStatus] = useState<Status | null>(currentFilters.status ?? null);
 	const [tags, setTags] = useState<TaskTag[]>(currentFilters.tags ?? []);
 	const [pointEstimate, setPointEstimate] = useState<PointEstimate | null>(
@@ -45,7 +40,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 	useEffect(() => {
 		setName(currentFilters.name ?? "");
 		setDueDate(currentFilters.dueDate ? new Date(currentFilters.dueDate) : null);
-		setOwnerId(currentFilters.ownerId ?? null);
+		setAssigneeId(currentFilters.assigneeId ?? null);
 		setStatus(currentFilters.status ?? null);
 		setTags(currentFilters.tags ?? []);
 		setPointEstimate(currentFilters.pointEstimate ?? null);
@@ -59,7 +54,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 		const filters: FilterTaskInput = {};
 		if (name) filters.name = name.toLowerCase();
 		if (dueDate) filters.dueDate = dueDate;
-		if (ownerId) filters.ownerId = ownerId;
+		if (assigneeId) filters.assigneeId = assigneeId;
 		if (status) filters.status = status;
 		if (tags.length > 0) filters.tags = tags;
 		if (pointEstimate) filters.pointEstimate = pointEstimate;
@@ -71,7 +66,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 	const handleClear = () => {
 		setName("");
 		setDueDate(null);
-		setOwnerId(null);
+		setAssigneeId(null);
 		setStatus(null);
 		setTags([]);
 		setPointEstimate(null);
@@ -132,8 +127,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
 						<label htmlFor='owner-filter'>Owner:</label>
 						<select
 							id='owner-filter'
-							value={ownerId ?? ""}
-							onChange={(e) => setOwnerId(e.target.value ?? null)}
+							value={assigneeId ?? ""}
+							onChange={(e) => setAssigneeId(e.target.value ?? null)}
 						>
 							<option value=''>All Owners</option>
 							{users.map((user) => (

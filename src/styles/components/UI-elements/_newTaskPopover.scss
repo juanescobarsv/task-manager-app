@@ -41,7 +41,7 @@
 	.popover-list {
 		display: flex;
 		flex-direction: column;
-		gap: variables.$space-xs; // Ensure consistent gap for list items
+		gap: variables.$space-xs;
 	}
 
 	.popover-arrow {

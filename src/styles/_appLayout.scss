@@ -4,6 +4,7 @@
 .app-container {
 	max-width: 100%;
 	overflow-x: hidden;
+	margin: variables.$space-lg;
 
 	@include mixins.sm {
 		margin: variables.$space-sm;
@@ -18,7 +19,7 @@
 	.sidebar-container {
 		width: 250px;
 		flex-shrink: 0;
-		margin-top: variables.$space-lg;
+		margin-right: variables.$space-md;
 	}
 
 	.main-content {
@@ -63,6 +64,7 @@
 			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
 			padding: 0px;
+			margin-bottom: variables.$space-sm;
 		}
 
 		.main-content {

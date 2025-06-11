@@ -6,6 +6,7 @@
 	gap: variables.$space-md;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
+	padding: 0;
 
 	// Hide scrollbar for a cleaner look
 	&::-webkit-scrollbar {
@@ -23,26 +24,16 @@
 	scrollbar-width: thin;
 	scrollbar-color: rgba(variables.$color-neutral-2, 0.3) transparent;
 
-	// Tablet (md breakpoint: 768px and up)
-	@include mixins.md {
-		padding: variables.$space-sm; // Reduced padding
-		gap: variables.$space-sm; // Reduced gap between columns
-	}
-
 	// --- Media Queries ---
 
-	// Mobile (sm breakpoint: 640px and up)
 	// Tablet (md breakpoint: 768px and up)
 	@include mixins.md {
-		padding: variables.$space-sm; // Reduced padding
-		gap: variables.$space-sm; // Reduced gap between columns
+		gap: variables.$space-sm;
 	}
 
 	// Mobile (sm breakpoint: 640px and up)
 	@include mixins.sm {
-		padding: variables.$space-sm; // Further reduced padding
-		gap: variables.$space-sm; // Further reduced gap
-		// On mobile, the overflow-x will handle responsiveness,
-		// so no changes needed here, just ensuring padding is mobile-friendly.
+		padding: variables.$space-sm;
+		gap: variables.$space-sm;
 	}
 }

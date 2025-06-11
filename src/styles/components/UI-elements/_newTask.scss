@@ -78,6 +78,17 @@
 				height: 24px;
 				fill: currentColor;
 			}
+
+			// --- Media Queries ---
+
+			// Mobile (sm breakpoint: 640px and up)
+			@include mixins.sm {
+				font-size: 12px;
+
+				svg {
+					display: none;
+				}
+			}
 		}
 	}
 

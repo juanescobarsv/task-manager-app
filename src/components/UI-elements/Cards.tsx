@@ -78,7 +78,10 @@ const Cards = ({
 		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
 		if (diffDays < 0) {
-			// Date is older than current date (past due)
+			// Final colors NOT the same as suggested by Figma, but it looks better,
+			// leaving them commented in case of wanting 1:1 coloring.
+
+			// Past due = red
 			return {
 				backgroundColor: "var(--color-primary-3)",
 				textColor: "var(--color-neutral-1)",
@@ -86,7 +89,7 @@ const Cards = ({
 				// textColor: "var(--color-primary-4)",
 			};
 		} else if (diffDays <= 1) {
-			// Less than 2 days left (today or tomorrow)
+			// Due today or tomorrow = yellow
 			return {
 				backgroundColor: "var(--color-tertiary-3)",
 				textColor: "var(--color-neutral-1)",
@@ -95,6 +98,7 @@ const Cards = ({
 			};
 		} else {
 			return {
+				// +2 days left = green
 				backgroundColor: "var(--color-secondary-3)",
 				textColor: "var(--color-neutral-1)",
 				// backgroundColor: "var(--color-secondary-4-1)",

@@ -13,26 +13,24 @@
 		background-color: variables.$color-neutral-4;
 		border-radius: variables.$border-radius;
 		padding: variables.$space-xs variables.$space-sm;
-		gap: variables.$space-md;
+		gap: variables.$space-sm;
 
 		.search-icon-wrapper,
 		.clear-search-icon-wrapper {
 			@include mixins.flex-center;
-			width: 24px;
-			height: 24px;
 			color: variables.$color-neutral-2;
 
 			svg {
-				width: 100%;
-				height: 100%;
+				width: 24px;
+				height: 24px;
 				fill: currentColor;
 			}
 		}
 
 		.clear-search-icon-wrapper {
-			cursor: pointer; // Indicate clickable
+			cursor: pointer;
 			&:hover svg {
-				fill: variables.$color-primary-4; // Hover effect for close icon
+				fill: variables.$color-primary-4;
 			}
 		}
 

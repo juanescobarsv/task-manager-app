@@ -52,8 +52,6 @@
 			flex-direction: row;
 			flex-wrap: nowrap;
 			justify-content: flex-start;
-			margin-left: variables.$space-sm;
-			gap: variables.$space-sm;
 			flex-grow: 1;
 			overflow-x: auto;
 			-webkit-overflow-scrolling: touch;
@@ -81,6 +79,8 @@
 		background-color 0.2s ease-in-out,
 		color 0.2s ease-in-out;
 	border-radius: variables.$border-radius;
+	margin-left: variables.$space-md;
+	margin-bottom: variables.$space-sm;
 
 	&__icon {
 		width: 20px;

@@ -89,7 +89,7 @@
 
 		.card__info-items {
 			@include mixins.flex-center;
-			gap: variables.$space-sm; // 16px margin between each set of "number+icon"
+			gap: variables.$space-sm;
 
 			.info-item {
 				@include mixins.flex-center;

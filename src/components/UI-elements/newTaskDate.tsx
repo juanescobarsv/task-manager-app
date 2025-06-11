@@ -12,13 +12,7 @@ interface DateProps {
 	selectedDate: Date | null;
 }
 
-const DatePopover: React.FC<DateProps> = ({
-	children,
-	isOpen,
-	onOpenChange,
-	onSelectDate,
-	selectedDate,
-}) => {
+const DatePopover = ({ children, isOpen, onOpenChange, onSelectDate, selectedDate }: DateProps) => {
 	const [internalDate, setInternalDate] = useState<Date | null>(selectedDate);
 
 	useEffect(() => {

@@ -13,13 +13,7 @@ interface TagProps {
 	selectedTags: TaskTag[];
 }
 
-const TagPopover: React.FC<TagProps> = ({
-	children,
-	isOpen,
-	onOpenChange,
-	onSelectTags,
-	selectedTags,
-}) => {
+const TagPopover = ({ children, isOpen, onOpenChange, onSelectTags, selectedTags }: TagProps) => {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const filteredTags = useMemo(() => {

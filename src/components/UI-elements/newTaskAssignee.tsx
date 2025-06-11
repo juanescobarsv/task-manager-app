@@ -11,13 +11,13 @@ interface AssigneeProps {
 	selectedAssigneeId: string | null;
 }
 
-const AssigneePopover: React.FC<AssigneeProps> = ({
+const AssigneePopover = ({
 	children,
 	isOpen,
 	onOpenChange,
 	onSelectAssignee,
 	selectedAssigneeId,
-}) => {
+}: AssigneeProps) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { data, loading, error } = useUsersQuery();
 

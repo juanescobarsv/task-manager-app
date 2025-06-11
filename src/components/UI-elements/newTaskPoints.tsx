@@ -12,13 +12,13 @@ interface EstimateProps {
 
 const pointEstimates = [0, 1, 2, 4, 8];
 
-const PointsPopover: React.FC<EstimateProps> = ({
+const PointsPopover = ({
 	children,
 	isOpen,
 	onClose,
 	onSelectEstimate,
 	selectedEstimate,
-}) => {
+}: EstimateProps) => {
 	const handleSelect = (estimate: number | null) => {
 		onSelectEstimate(estimate);
 		onClose(false);
