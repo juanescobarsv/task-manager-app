@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import MenuIcon from "./UI-elements/sidebarMenuIcon";
 import Avatar from "./UI-elements/Avatar";
+import UserProfilePopover from "./UI-elements/UserProfile";
 
 interface TopBarProps {
 	onSearchChange: (searchTerm: string) => void;
 }
 
 const TopBar = ({ onSearchChange }: TopBarProps) => {
+	const [isUserProfilePopoverOpen, setIsUserProfilePopoverOpen] = useState(false);
+
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isSearchActive, setIsSearchActive] = useState(false);
 
@@ -37,8 +40,8 @@ const TopBar = ({ onSearchChange }: TopBarProps) => {
 		console.warn("Notification icon clicked!");
 	};
 
-	const handleAvatarClick = () => {
-		console.warn("Avatar clicked!");
+	const handleUserProfilePopoverOpenChange = (open: boolean) => {
+		setIsUserProfilePopoverOpen(open);
 	};
 
 	return (
@@ -75,12 +78,16 @@ const TopBar = ({ onSearchChange }: TopBarProps) => {
 					>
 						<MenuIcon iconName='notification' />
 					</div>
-					<Avatar
-						avatarName='currentuser'
-						size='m'
-						className='avatar'
-						onClick={handleAvatarClick}
-					/>
+					<UserProfilePopover
+						isOpen={isUserProfilePopoverOpen}
+						onOpenChange={handleUserProfilePopoverOpenChange}
+					>
+						<Avatar
+							avatarName='Current User'
+							size='m'
+							className={`avatar ${isUserProfilePopoverOpen ? "avatar--active" : ""}`}
+						/>
+					</UserProfilePopover>
 				</div>
 			</div>
 		</header>

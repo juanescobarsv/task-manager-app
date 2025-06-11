@@ -7,10 +7,10 @@ interface AvatarProps {
 	size?: AvatarSize;
 	text?: string;
 	className?: string;
-	onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+	// onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Avatar = ({ avatarName, size = "m", text, className }: AvatarProps) => {
+const Avatar = ({ avatarName, size = "m", text, className, ...rest }: AvatarProps) => {
 	const avatarClasses = ["avatar"];
 	avatarClasses.push(`avatar--size-${size}`);
 
@@ -44,7 +44,7 @@ const Avatar = ({ avatarName, size = "m", text, className }: AvatarProps) => {
 	};
 
 	return (
-		<div className='avatar-wrapper'>
+		<div className='avatar-wrapper' role='button' tabIndex={0} {...rest}>
 			<img
 				src={finalImageUrl}
 				alt={text ? `${text}'s avatar` : "User Avatar"}

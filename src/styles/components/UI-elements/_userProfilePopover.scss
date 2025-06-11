@@ -1,0 +1,43 @@
+@use "../../../styles/variables";
+@use "../../../styles/mixins";
+@use "../../../styles/base";
+@use "./newTaskPopover";
+
+.user-profile-popover {
+	@extend .task-option-popover;
+	min-width: 280px;
+	max-width: 350px;
+	padding: variables.$space-md;
+
+	.popover-header {
+		margin-bottom: variables.$space-sm;
+
+		.popover-title {
+			color: variables.$color-neutral-1;
+		}
+	}
+
+	.user-profile-details {
+		display: flex;
+		flex-direction: column;
+		gap: variables.$space-xs;
+
+		p {
+			@extend .text-body-m;
+			color: variables.$color-neutral-1;
+			margin: 0;
+
+			strong {
+				color: variables.$color-neutral-2;
+				font-weight: variables.$font-weight-normal;
+				margin-right: variables.$space-xs;
+			}
+
+			.error-message {
+				color: variables.$color-primary-4;
+				text-align: center;
+				margin-top: variables.$space-sm;
+			}
+		}
+	}
+}

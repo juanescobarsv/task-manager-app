@@ -86,6 +86,10 @@
 			&:hover {
 				border-color: variables.$color-primary-4;
 			}
+
+			&--active {
+				border-color: variables.$color-primary-4;
+			}
 		}
 	}
 }

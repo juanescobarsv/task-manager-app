@@ -12,7 +12,7 @@ const AppLayout = () => {
 	const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
 	const [taskBeingEdited, setTaskBeingEdited] = useState<Task | null>(null);
 
-	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [, setSearchTerm] = useState<string>("");
 	const [currentFilters, setCurrentFilters] = useState<FilterTaskInput>({});
 	const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
