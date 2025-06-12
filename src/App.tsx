@@ -32,3 +32,5 @@ const App = () => {
 };
 
 export default App;
+
+// Trigger Vercel redeploy: Casing fix
