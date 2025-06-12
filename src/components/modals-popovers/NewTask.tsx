@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import Icons from "./UI-elements/Icons";
-import PointsPopover from "./UI-elements/newTaskPoints";
-import AssigneePopover from "./UI-elements/newTaskAssignee";
-import TagPopover from "./UI-elements/newTaskTag";
-import DatePopover from "./UI-elements/newTaskDate";
+import Icons from "../ui-elements/Icon";
+import PointsPopover from "./NewTaskPoints";
+import AssigneePopover from "./NewTaskAssignee";
+import TagPopover from "./NewTaskTag";
+import DatePopover from "./NewTaskDate";
 import { useMutation } from "@apollo/client";
-import { CREATE_TASK_MUTATION, UPDATE_TASK_MUTATION } from "../graphQL/mutations";
-import { GET_TASKS_LIST } from "../graphQL/queries";
+import { CREATE_TASK_MUTATION, UPDATE_TASK_MUTATION } from "../../graphql/mutations";
+import { GET_TASKS_LIST } from "../../graphql/queries";
 import { toast } from "react-toastify";
 
 import type {
@@ -18,7 +18,7 @@ import type {
 	CreateTaskMutation,
 	UpdateTaskMutation,
 	Task,
-} from "../graphQL/generated/graphql";
+} from "../../graphql/generated/graphql";
 
 interface TaskModalProps {
 	isOpen: boolean;

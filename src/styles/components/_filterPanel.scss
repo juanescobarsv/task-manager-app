@@ -1,6 +1,6 @@
-@use "../../../styles/variables";
-@use "../../../styles/mixins";
-@use "../../../styles/base";
+@use "../../styles/variables";
+@use "../../styles/mixins";
+@use "../../styles/base";
 
 .filter-modal-overlay {
 	background-color: rgba(0, 0, 0, 0.6);

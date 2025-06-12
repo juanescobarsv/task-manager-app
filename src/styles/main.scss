@@ -6,17 +6,17 @@
 @use "mixins";
 @use "variables";
 
-@use "components/UI-elements/sidebar";
-@use "components/UI-elements/topBar";
-@use "components/UI-elements/cardsColumn";
+@use "components/sidebar";
+@use "components/topBar";
+@use "components/cardsColumn";
 
-@use "components/UI-elements/avatar";
-@use "components/UI-elements/buttons";
-@use "components/UI-elements/cards";
-@use "components/UI-elements/filterPanel";
-@use "components/UI-elements/newTask";
-@use "components/UI-elements/newTaskPopover";
-@use "components/UI-elements/tags";
-@use "components/UI-elements/userProfilePopover";
+@use "components/avatar";
+@use "components/buttons";
+@use "components/cards";
+@use "components/filterPanel";
+@use "components/newTask";
+@use "components/newTaskPopover";
+@use "components/tags";
+@use "components/userProfilePopover";
 
 @import "react-toastify/dist/ReactToastify.css";

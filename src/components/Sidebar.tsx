@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SidebarItem from "./UI-elements/sidebarItem";
+import SidebarItem from "./sidebar-topbar/SidebarItem";
 
 // Define a type for your navigation items
 interface NavItem {

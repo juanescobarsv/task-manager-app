@@ -1,6 +1,6 @@
 import * as Popover from "@radix-ui/react-popover";
 import React from "react";
-import Icons from "./Icons";
+import Icons from "../ui-elements/Icon";
 
 interface EstimateProps {
 	children: React.ReactNode;

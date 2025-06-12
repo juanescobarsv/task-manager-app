@@ -1,6 +1,6 @@
 import * as Popover from "@radix-ui/react-popover";
 import React from "react";
-import { useProfileQuery } from "../../graphQL/generated/graphql";
+import { useProfileQuery } from "../../graphql/generated/graphql";
 
 interface UserProfilePopoverProps {
 	children: React.ReactNode;

@@ -1,7 +1,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import React, { useState, useMemo } from "react";
-import Avatar from "../UI-elements/Avatar";
-import { useUsersQuery, type User } from "../../graphQL/generated/graphql";
+import Avatar from "../ui-elements/Avatar";
+import { useUsersQuery, type User } from "../../graphql/generated/graphql";
 
 interface AssigneeProps {
 	children: React.ReactNode;

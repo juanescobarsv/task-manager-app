@@ -1,6 +1,6 @@
 import Cards, { EmptyCard } from "./Cards";
 import type { CardProps } from "./Cards";
-import type { Task } from "../../graphQL/generated/graphql";
+import type { Task } from "../../graphql/generated/graphql";
 
 interface CardsColumnProps {
 	title: string;

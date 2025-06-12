@@ -1,8 +1,10 @@
-import MenuIcon from "./sidebarMenuIcon";
-import Tags from "./Tags";
-import Avatar from "./Avatar";
-import CardsMore from "./cardsMore";
-import type { Task } from "../../graphQL/generated/graphql";
+import MenuIcon from "../sidebar-topbar/SidebarMenuIcon";
+import Tags from "../ui-elements/Tag";
+import Avatar from "../ui-elements/Avatar";
+import CardsMore from "./CardsMore";
+import type { Task } from "../../graphql/generated/graphql";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export interface CardProps {
 	id: string;
@@ -35,6 +37,19 @@ const Cards = ({
 	taskData,
 	onEditTask,
 }: CardProps) => {
+	const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+		id: id,
+	});
+
+	const style = {
+		transform: CSS.Transform.toString(transform),
+		transition,
+		opacity: isDragging ? 0.5 : 1, // Make card semi-transparent when dragging
+		zIndex: isDragging ? 100 : "auto", // Bring dragged card to front
+		// Adjust for potential default padding/margin issues if items jump
+		// For vertical lists, this usually isn't an issue.
+	};
+
 	const cardClasses = ["card"];
 	if (className) {
 		cardClasses.push(className);
@@ -110,7 +125,13 @@ const Cards = ({
 	const dateTagColors = getDateTagColors(taskData.dueDate);
 
 	return (
-		<div className={cardClasses.join(" ")}>
+		<div
+			ref={setNodeRef}
+			style={style}
+			{...attributes}
+			{...listeners}
+			className={cardClasses.join(" ")}
+		>
 			{/* Section 1: Title */}
 			<div className='card__section-1'>
 				<h3 className='card__title'>{title}</h3>

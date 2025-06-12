@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Icons from "./Icons";
+import Icons from "../ui-elements/Icon";
 
 interface DateProps {
 	children: React.ReactNode;

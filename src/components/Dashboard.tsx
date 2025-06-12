@@ -1,8 +1,8 @@
-import CardsColumn from "./UI-elements/CardsColumn";
-import type { CardProps } from "./UI-elements/Cards";
-import { useTasksQuery } from "../graphQL/generated/graphql";
-import type { Task, TasksQuery, FilterTaskInput } from "../graphQL/generated/graphql";
-import { convertPointEstimateToNumber, getTagColors } from "../components/TaskFormModal";
+import CardsColumn from "./dashboard/CardsColumn";
+import type { CardProps } from "./dashboard/Cards";
+import { useTasksQuery } from "../graphql/generated/graphql";
+import type { Task, TasksQuery, FilterTaskInput } from "../graphql/generated/graphql";
+import { convertPointEstimateToNumber, getTagColors } from "./modals-popovers/NewTask";
 
 // Helper function to format dueDate for the card's timeTagText
 const formatDueDateForCard = (dueDate: Date | null | undefined): string => {
@@ -61,8 +61,8 @@ const Dashboard = ({ onEditTask, filterInput = {} }: DashboardProps) => {
 			onEditTask: onEditTask,
 
 			// These counts are not in the current API schema, using placeholders:
-			attachmentCount: 0, 
-			subtaskCount: 5, 
+			attachmentCount: 0,
+			subtaskCount: 5,
 			commentCount: 3,
 		};
 	};

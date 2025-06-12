@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ErrorBoundary from "./components/appErrorBoundary";
-import { HomePage, NotFoundPage, ErrorPage } from "./components/appPages";
+import ErrorBoundary from "./components/AppErrorBoundary";
+import { HomePage, NotFoundPage, ErrorPage } from "./components/AppPages";
 import { ToastContainer } from "react-toastify";
 
 const App = () => {

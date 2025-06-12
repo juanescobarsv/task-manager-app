@@ -1,10 +1,10 @@
 import * as Popover from "@radix-ui/react-popover";
 import React, { useState } from "react";
-import Icons from "./Icons";
+import Icons from "../ui-elements/Icon";
 import { useMutation } from "@apollo/client";
-import { DELETE_TASK_MUTATION } from "../../graphQL/mutations";
-import { GET_TASKS_LIST } from "../../graphQL/queries";
-import type { Task } from "../../graphQL/generated/graphql";
+import { DELETE_TASK_MUTATION } from "../../graphql/mutations";
+import { GET_TASKS_LIST } from "../../graphql/queries";
+import type { Task } from "../../graphql/generated/graphql";
 import { toast } from "react-toastify";
 
 interface CardsMoreProps {

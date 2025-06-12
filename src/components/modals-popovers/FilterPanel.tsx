@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Icons from "./Icons";
-import { useUsersQuery } from "../../graphQL/generated/graphql";
+import Icons from "../ui-elements/Icon";
+import { useUsersQuery } from "../../graphql/generated/graphql";
 import type {
 	PointEstimate,
 	Status,
 	TaskTag,
 	FilterTaskInput,
-} from "../../graphQL/generated/graphql";
+} from "../../graphql/generated/graphql";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 

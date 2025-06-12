@@ -1,4 +1,4 @@
-import MenuIcon from "./sidebarMenuIcon";
+import MenuIcon from "./SidebarMenuIcon";
 
 interface SidebarItemProps {
 	iconName: string;

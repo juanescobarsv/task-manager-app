@@ -1,7 +1,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import React, { useState, useMemo } from "react";
-import Icons from "./Icons";
-import type { TaskTag } from "../../graphQL/generated/graphql";
+import Icons from "../ui-elements/Icon";
+import type { TaskTag } from "../../graphql/generated/graphql";
 
 const ALL_TASK_TAG_OPTIONS: TaskTag[] = ["IOS", "ANDROID", "REACT", "NODE_JS", "RAILS"];
 
