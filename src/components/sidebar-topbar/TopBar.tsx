@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MenuIcon from "./sidebar-topbar/SidebarMenuIcon";
-import Avatar from "./ui-elements/Avatar";
-import UserProfilePopover from "./sidebar-topbar/UserProfile";
+import MenuIcon from "./SidebarMenuIcon";
+import Avatar from "../ui-elements/Avatar";
+import UserProfilePopover from "./UserProfile";
 
 interface TopBarProps {
 	onSearchChange: (searchTerm: string) => void;

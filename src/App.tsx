@@ -9,8 +9,8 @@ const App = () => {
 			<ErrorBoundary>
 				<Routes>
 					<Route path='/' element={<HomePage />} />
-					{/* <Route path='/dashboard' element={<DashboardView />} />
-					<Route path='/tasks' element={<TasksView />} /> */}
+					<Route path='/dashboard' element={<HomePage />} />
+					{/* <Route path='/tasks' element={<TasksView />} /> */}
 					<Route path='*' element={<NotFoundPage />} />
 					<Route path='/error' element={<ErrorPage />} />
 				</Routes>
@@ -32,5 +32,3 @@ const App = () => {
 };
 
 export default App;
-
-// Trigger Vercel redeploy: Casing fix

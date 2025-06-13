@@ -136,4 +136,13 @@
 			border-radius: variables.$border-radius;
 		}
 	}
+
+	// --- Media Queries ---
+
+	// Mobile (sm breakpoint: 640px and up)
+	@include mixins.sm {
+		svg {
+			display: none;
+		}
+	}
 }

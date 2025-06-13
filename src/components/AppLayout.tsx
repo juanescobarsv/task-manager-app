@@ -1,11 +1,11 @@
 import React, { useState, Suspense } from "react";
-import Sidebar from "./Sidebar";
-import TopBar from "./TopBar";
+import Sidebar from "./sidebar-topbar/Sidebar";
+import TopBar from "./sidebar-topbar/TopBar";
 import Icons from "./ui-elements/Icon";
 import { SwitchButton, AddButton } from "./ui-elements/Button";
 import TaskFormModal from "./modals-popovers/NewTask";
 import type { Task, FilterTaskInput } from "../graphql/generated/graphql";
-const LazyDashboard = React.lazy(() => import("./Dashboard"));
+const LazyDashboard = React.lazy(() => import("./dashboard/Dashboard"));
 import FilterPanel from "./modals-popovers/FilterPanel";
 
 const AppLayout = () => {
@@ -85,12 +85,6 @@ const AppLayout = () => {
 					<Suspense fallback={<div>Loading tasks...</div>}>
 						<LazyDashboard onEditTask={handleEditTask} filterInput={currentFilters} />
 					</Suspense>
-
-					{/* <DNDWrapper
-						onEditTask={handleEditTask}
-						filterInput={currentFilters}
-						searchTerm={searchTerm}
-					></DNDWrapper> */}
 				</div>
 			</div>
 
